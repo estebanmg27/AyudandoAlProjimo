@@ -1,0 +1,36 @@
+﻿@model AyudandoAlProjimo.Data.Usuarios
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registro de usuario</title>
+</head>
+<body>
+    <form action="/Usuario/Registro" method="post">
+
+        <h1>Registro de usuario</h1>
+        <fieldset>
+            Email:
+            @Html.EditorFor(o => o.Email)
+            @Html.ValidationMessageFor(o => o.Email)
+            <br />
+
+            Contraseña:
+            @Html.EditorFor(o => o.Password)
+            @Html.ValidationMessageFor(o => o.Password)
+            <br />
+
+            @*Repita la contraseña:
+                @Html.EditorFor(o => o.Password2)
+                @Html.ValidationMessageFor(o => o.Password2)*@
+            <br />
+
+            Fecha de nacimiento:
+            @Html.EditorFor(o => o.FechaNacimiento)<br />
+            @Html.ValidationMessageFor(o => o.FechaNacimiento)
+            <br />
+
+        </fieldset>
+        <button type="submit">Registrarme</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,15 @@
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\obj\Debug\AyudandoAlProjimo.Servicios.csprojAssemblyReference.cache
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\obj\Debug\AyudandoAlProjimo.Servicios.csproj.CoreCompileInputs.cache
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\AyudandoAlProjimo.Servicios.dll.config
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\AyudandoAlProjimo.Servicios.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\AyudandoAlProjimo.Servicios.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\AyudandoAlProjimo.Data.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\EntityFramework.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\AyudandoAlProjimo.Data.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\AyudandoAlProjimo.Data.dll.config
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\EntityFramework.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\obj\Debug\AyudandoAlProjimo.Servicios.csproj.CopyComplete
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\obj\Debug\AyudandoAlProjimo.Servicios.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo.Servicios\obj\Debug\AyudandoAlProjimo.Servicios.pdb
