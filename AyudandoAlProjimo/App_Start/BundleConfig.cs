@@ -8,9 +8,11 @@ namespace AyudandoAlProjimo
         // Para obtener más información sobre las uniones, visite https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/bundles/css")
+            bundles.Add(new StyleBundle("~/Content/css")
                 .Include(
-                        "~/Content/vendor/bootstrap/css/bootstrap.min.css"));
+                        "~/Content/bootstrap.min.css",
+                        "~/Content/bootstrap.css"
+                        ));
 
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
@@ -21,8 +23,8 @@ namespace AyudandoAlProjimo
 
             bundles.Add(new ScriptBundle("~/Content/js")
                 .Include(
-                    "~/Content/vendor/jquery/jquery.min.js",
-                    "~/Content//bootstrap/js/bootstrap.bundle.min.js"));
+                    "~/Scripts/jquery-3.3.1.min.js",
+                    "~/Scripts/bootstrap.bundle.min.js"));
         }
     }
 }
