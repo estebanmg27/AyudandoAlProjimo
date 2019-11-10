@@ -216,6 +216,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\BaseLayout.cshtml" />
     <Content Include="Views\Shared\InicioLayout.cshtml" />
+    <Content Include="Views\Shared\AnonimoLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

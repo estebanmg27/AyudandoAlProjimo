@@ -1,4 +1,40 @@
 ﻿
 @{
-    ViewBag.Title = "BaseLayout";
+    Layout = "";
 }
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/Usuario/Inicio">Ayudando al projimo</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    Mi perfil
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    Propuestas
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    Acerca de
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline" action="">
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+    </nav>
+    @RenderBody()
+</body>
+</html>
