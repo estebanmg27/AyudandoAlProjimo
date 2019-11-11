@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+    ViewBag.Title = "MiPerfil";
+}
+
+@model AyudandoAlProjimo.Data.Usuarios
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mi perfil</title>
+</head>
+<body>
+    <div class="form-container text-center">
+        <form action="/Usuario/MiPerfil" method="post">
+            <h4>Usuario</h4>
+            @Html.HiddenFor(o => o.IdUsuario)
+
+            <h1 class="h3 mb-3 font-weight-normal">Editar mi perfil</h1>
+            <div class="form-control-lg">
+                Nombre:
+                <br />
+                @Html.EditorFor(o => o.Nombre)
+                @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
+                <br />
+                Apellido:
+                <br />
+                @Html.EditorFor(o => o.Apellido)
+                @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
+                <br />
+                Nombre de usuario:
+                <br />
+                @Html.LabelFor(o => o.UserName)
+                @Html.DisplayFor(o => o.UserName)
+                <br />
+                Fecha de nacimiento:
+                <br />
+                @Html.EditorFor(o => o.FechaNacimiento)
+                @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
+                <br />
+                Email:
+                @Html.EditorFor(o => o.Email)
+                @Html.ValidationMessageFor(o => o.Email)
+                <br />
+                Foto:
+                @Html.EditorFor(o => o.Foto)
+                @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+

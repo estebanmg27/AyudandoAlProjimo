@@ -218,6 +218,7 @@
     <Content Include="Views\Shared\BaseLayout.cshtml" />
     <Content Include="Views\Shared\InicioLayout.cshtml" />
     <Content Include="Views\Shared\AnonimoLayout.cshtml" />
+    <Content Include="Views\Usuario\MiPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

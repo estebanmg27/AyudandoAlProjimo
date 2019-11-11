@@ -70,5 +70,36 @@ namespace AyudandoAlProjimo.Controllers
         {
             return View();
         }
+
+        public ActionResult MiPerfil(int id)
+        {
+            Usuarios miPerfil = new MiPerfil();
+            miPerfil = usuarios.BuscarUsuarioPorId(id);
+
+            if (miPerfil != null)
+            {
+                if (miPerfil.UserName == null)
+                {
+                    miPerfil.UserName = "Para obtener un nombre de usuario debe ingresar su nombre y apellido";
+                }
+                return View(miPerfil);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult MiPerfi(MiPerfil miPerfil)
+        {
+            if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("Apellido") && ModelState.IsValidField("FechaNacimiento") && ModelState.IsValidField("IdUsuario") && ModelState.IsValidField("Foto"))
+            {
+                usuarios.ModificarPerfil(miPerfil);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(miPerfil);
+            }
+
+        }
     }
 }
