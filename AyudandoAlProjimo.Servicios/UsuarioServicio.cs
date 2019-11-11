@@ -67,7 +67,7 @@ namespace AyudandoAlProjimo.Servicios
             }
         }
 
-        public void ModificarPerfil(MiPerfil user)
+        public void ModificarPerfil(Usuarios user)
         {
             var usuario = ctx.Usuarios.Find(user.IdUsuario);
             usuario.Nombre = user.Nombre;

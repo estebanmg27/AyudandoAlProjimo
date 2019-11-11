@@ -40,7 +40,22 @@ namespace AyudandoAlProjimo.Data
         [MaxLength(30, ErrorMessage = "30 caracteres como máximo")]
         public string Token { get; set; }
 
+        [Required(ErrorMessage = "El campo nombre es obligatorio")]
+        [MaxLength(50, ErrorMessage = "El nombre debe tener como máximo 50 caracteres.")]
+        public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "El campo apellido es obligatorio")]
+        [MaxLength(50, ErrorMessage = "El apellido debe tener como máximo 50 caracteres.")]
+        public string Apellido { get; set; }
+
+        [Required(ErrorMessage = "El campo Foto es obligatorio")]
+        public string Foto { get; set; }
+
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; set; }
+
     }
+
 
     public class EdadMinima : ValidationAttribute
     {
@@ -70,19 +85,5 @@ namespace AyudandoAlProjimo.Data
             }
             return null;
         }
-    }
-
-    public class MiPerfil : Usuarios
-    {
-        [Required(ErrorMessage = "El campo nombre es obligatorio")]
-        [MaxLength(50, ErrorMessage = "El nombre debe tener como máximo 50 caracteres.")]
-        public new string Nombre { get; set; }
-        [Required(ErrorMessage = "El campo apellido es obligatorio")]
-        [MaxLength(50, ErrorMessage = "El apellido debe tener como máximo 50 caracteres.")]
-        public new string Apellido { get; set; }
-        [Required(ErrorMessage = "El campo Foto es obligatorio")]
-        public new string Foto { get; set; }
-        [Display(Name = "Nombre de usuario")]
-        public new string UserName { get; set; }
     }
 }

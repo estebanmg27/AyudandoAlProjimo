@@ -14,8 +14,8 @@
 <body>
     <div class="form-container text-center">
         <form action="/Usuario/MiPerfil" method="post">
-            <h4>Usuario</h4>
-            @Html.HiddenFor(o => o.IdUsuario)
+
+            <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
 
             <h1 class="h3 mb-3 font-weight-normal">Editar mi perfil</h1>
             <div class="form-control-lg">
@@ -40,12 +40,16 @@
                 @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
                 <br />
                 Email:
+                <br />
                 @Html.EditorFor(o => o.Email)
                 @Html.ValidationMessageFor(o => o.Email)
                 <br />
                 Foto:
+                <br />
                 @Html.EditorFor(o => o.Foto)
                 @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
+                <br />
+
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
             </div>
         </form>
