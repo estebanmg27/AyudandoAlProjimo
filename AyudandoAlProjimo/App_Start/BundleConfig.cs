@@ -11,7 +11,12 @@ namespace AyudandoAlProjimo
             bundles.Add(new StyleBundle("~/Content/css")
                 .Include(
                         "~/Content/bootstrap.min.css",
-                        "~/Content/bootstrap.css"
+                        "~/Content/bootstrap.css"                    
+                        ));
+
+            bundles.Add(new StyleBundle("~/Estilos/css")
+                .Include(
+                        "~/Estilos/formularios.css"
                         ));
 
 

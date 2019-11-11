@@ -1,4 +1,8 @@
-﻿@model AyudandoAlProjimo.Data.Usuarios
+﻿@{
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+}
+
+@model AyudandoAlProjimo.Data.Usuarios
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,27 +10,31 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="/Usuario/AutorizarLogin" method="post">
+    <div class="form-container text-center">
+        <form action="/Usuario/AutorizarLogin" method="post">
 
-        <h1>Login</h1>
-        <fieldset>
-            Email:
-            @Html.EditorFor(o => o.Email)
-            @Html.ValidationMessageFor(o => o.Email)
-
-            Contraseña:
-            @Html.EditorFor(o => o.Password)
-            @Html.ValidationMessageFor(o => o.Password)
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me">Recordarme
-                </label>
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <div class="form-control-lg">
+                Email:
+                <br />
+                @Html.EditorFor(o => o.Email)
+                @Html.ValidationMessageFor(o => o.Email)
+                <br />
+                Contraseña:
+                <br />
+                @Html.EditorFor(o => o.Password)
+                @Html.ValidationMessageFor(o => o.Password)
+                <br />
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me">Recordarme
+                    </label>
+                </div>
+                <br />
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
             </div>
-        </fieldset>
-
-        <button type="submit">Ingresar</button>
-    </form>
+        </form>
+    </div>
 </body>
 </html>
 
