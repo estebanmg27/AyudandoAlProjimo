@@ -69,19 +69,19 @@ namespace AyudandoAlProjimo.Servicios
 
         public void ModificarPerfil(Usuarios user)
         {
-            var usuario = ctx.Usuarios.Find(user.IdUsuario);
-            usuario.Nombre = user.Nombre;
-            usuario.Apellido = user.Apellido;
-            usuario.FechaNacimiento = user.FechaNacimiento;
-            usuario.Foto = user.Foto;
 
-            string nombreDeUsuario = $"{user.Nombre}.{user.Apellido}";
-            if (ctx.Usuarios.FirstOrDefault(u => u.UserName == nombreDeUsuario && u.IdUsuario != usuario.IdUsuario) == null)
+            var usuario = BuscarUsuarioPorId(user.IdUsuario);
+
+            if (string.IsNullOrEmpty(user.UserName))
             {
-                usuario.UserName = nombreDeUsuario;
-            }
-            else
-            {
+                var nombreDeUsuario = $"{user.Nombre}.{user.Apellido}";
+                var usuarioExistente = ctx.Usuarios.Where(x => x.UserName == nombreDeUsuario).FirstOrDefault() != null;
+
+                if (usuarioExistente)
+                {
+                    Usuarios duplicado = ctx.Usuarios.Where(x => x.UserName == nombreDeUsuario).FirstOrDefault();
+                }
+
                 int numeroUsuario = 1;
                 while (ctx.Usuarios.FirstOrDefault(u => u.UserName == nombreDeUsuario + numeroUsuario) != null)
                 {
@@ -91,12 +91,17 @@ namespace AyudandoAlProjimo.Servicios
                 usuario.UserName = nombreDeUsuario + numeroUsuario;
             }
 
+            usuario.Nombre = user.Nombre;
+            usuario.Apellido = user.Apellido;
+            usuario.FechaNacimiento = user.FechaNacimiento;
+            usuario.Foto = user.Foto;
             ctx.SaveChanges();
         }
 
         public Usuarios BuscarUsuarioPorId(int id)
         {
-            return ctx.Usuarios.First(u => u.IdUsuario == id);
+            return ctx.Usuarios.Find(id);
         }
+
     }
 }

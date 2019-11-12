@@ -17,9 +17,7 @@
                 <a class="nav-link" href="/Usuario/Inicio">Ayudando al projimo</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/Usuarios/MiPerfil">
-                    Mi perfil
-                </a>
+                @Html.ActionLink("Mi perfil", "MiPerfil", "Usuario", new object { }, new { @class = "nav-link" })               
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="">

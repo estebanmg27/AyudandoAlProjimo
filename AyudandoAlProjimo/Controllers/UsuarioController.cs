@@ -46,6 +46,7 @@ namespace AyudandoAlProjimo.Controllers
             return Redirect("/Usuario/Login");
         }
 
+        [HttpPost]
         public ActionResult AutorizarLogin(Usuarios u)
         {
             var detalleUsuario = usuarios.Autorizar(u);
@@ -55,7 +56,8 @@ namespace AyudandoAlProjimo.Controllers
             }
             else
             {
-                Session["IdUsuario"] = detalleUsuario.IdUsuario;
+                //Session["IdUsuario"] = detalleUsuario.IdUsuario;
+                SesionServicio.UsuarioSesion = detalleUsuario;
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -74,11 +76,11 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult MiPerfil(int id)
         {
             Usuarios u = usuarios.BuscarUsuarioPorId(id);
-            return View(u);     
+            return View(u);
         }
 
         [HttpPost]
-        public ActionResult MiPerfi(Usuarios miPerfil)
+        public ActionResult MiPerfil(Usuarios miPerfil)
         {
             if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("Apellido") && ModelState.IsValidField("FechaNacimiento") && ModelState.IsValidField("IdUsuario") && ModelState.IsValidField("Foto"))
             {

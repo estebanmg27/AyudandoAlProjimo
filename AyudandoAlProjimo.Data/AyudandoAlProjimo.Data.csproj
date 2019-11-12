@@ -65,6 +65,14 @@
     <Compile Include="DonacionesMonetarias.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensiones\Propuestas.cs" />
+    <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajo.cs" />
+    <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajoMetadata.cs" />
+    <Compile Include="Extensiones\PropuestasDonacionesInsumos.cs" />
+    <Compile Include="Extensiones\PropuestasDonacionesInsumosMetadata.cs" />
+    <Compile Include="Extensiones\PropuestasDonacionesMonetarias.cs" />
+    <Compile Include="Extensiones\PropuestasDonacionesMonetariasMetadata.cs" />
+    <Compile Include="Extensiones\PropuestasMetadata.cs" />
     <Compile Include="Extensiones\Usuarios.cs" />
     <Compile Include="Extensiones\UsuariosMetadata.cs" />
     <Compile Include="Model.Context.cs">
