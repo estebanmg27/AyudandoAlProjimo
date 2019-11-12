@@ -220,11 +220,11 @@
     <Content Include="Views\Shared\InicioLayout.cshtml" />
     <Content Include="Views\Shared\AnonimoLayout.cshtml" />
     <Content Include="Views\Usuario\MiPerfil.cshtml" />
+    <Content Include="Views\Propuestas\CrearPropuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Propuestas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

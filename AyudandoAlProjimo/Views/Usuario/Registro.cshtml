@@ -9,34 +9,34 @@
     <title>Registro de usuario</title>
 </head>
 <body>
-    <div class="form-container text-center">
-        <form action="/Usuario/Registro" method="post" class="form-group">
+    <h5 class="mt-5">Formulario de registro</h5>
+    <form action="/Usuario/Registro" method="post">
 
-            <h1 class="h3 mb-3 font-weight-normal">Registro de usuario</h1>
-            <div class="form-control-lg">
-                Correo electronico:
-                <br />
-                @Html.EditorFor(o => o.Email)
-                @Html.ValidationMessageFor(o => o.Email)
-                <br />
-                Contraseña:
-                <br />
-                @Html.EditorFor(o => o.Password)
-                @Html.ValidationMessageFor(o => o.Password)
-                <br />
-                @*Repita la contraseña:
-                    @Html.EditorFor(o => o.Password2)
-                    @Html.ValidationMessageFor(o => o.Password2)*@
-                <br />
-                Fecha de nacimiento:
-                <br />
-                @Html.EditorFor(o => o.FechaNacimiento)<br />
-                @Html.ValidationMessageFor(o => o.FechaNacimiento)
-                <br />
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarme</button>
-            </div>
-        </form>
 
-    </div>
+        <div class="form-group">
+            @Html.Label("Email", "Correo electrónico:")
+            @Html.EditorFor(o => o.Email)
+            @Html.ValidationMessageFor(o => o.Email)
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Password", "Contraseña:")
+            @Html.EditorFor(o => o.Password)
+            @Html.ValidationMessageFor(o => o.Password)
+        </div>
+       
+        @*Repita la contraseña:
+        @Html.EditorFor(o => o.Password2)
+        @Html.ValidationMessageFor(o => o.Password2)*@
+        <br />
+        <div class="form-group">
+            @Html.Label("FechaNacimiento", "Fecha de nacimiento")
+            @Html.EditorFor(o => o.FechaNacimiento)
+            @Html.ValidationMessageFor(o => o.FechaNacimiento)
+        </div>
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarme</button>
+    </form>
+
 </body>
 </html>
