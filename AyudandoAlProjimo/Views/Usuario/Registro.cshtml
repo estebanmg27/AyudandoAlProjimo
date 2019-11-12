@@ -9,8 +9,9 @@
     <title>Registro de usuario</title>
 </head>
 <body>
+    <div class="form-container">
     <h5 class="mt-5">Formulario de registro</h5>
-    <form action="/Usuario/Registro" method="post">
+    <form action="/Usuario/Registro" class="border border-light p-5 align-items-center col col-md-6 offset-md-3" method="post">
 
 
         <div class="form-group">
@@ -24,10 +25,10 @@
             @Html.EditorFor(o => o.Password)
             @Html.ValidationMessageFor(o => o.Password)
         </div>
-       
+
         @*Repita la contraseña:
-        @Html.EditorFor(o => o.Password2)
-        @Html.ValidationMessageFor(o => o.Password2)*@
+            @Html.EditorFor(o => o.Password2)
+            @Html.ValidationMessageFor(o => o.Password2)*@
         <br />
         <div class="form-group">
             @Html.Label("FechaNacimiento", "Fecha de nacimiento")
@@ -37,6 +38,6 @@
         <br />
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarme</button>
     </form>
-
+    </div>
 </body>
 </html>
