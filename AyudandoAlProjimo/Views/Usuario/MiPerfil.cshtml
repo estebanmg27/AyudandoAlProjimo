@@ -12,48 +12,50 @@
     <title>Mi perfil</title>
 </head>
 <body>
-    <div class="form-container text-center">
-        <form action="/Usuario/MiPerfil" method="post">
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <form action="/Usuario/MiPerfil" method="post">
 
-            <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
+                <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
 
-            <h1 class="h3 mb-3 font-weight-normal">Editar mi perfil</h1>
-            <div class="form-control-lg">
+                <h1 class="h3 mb-3 font-weight-normal">Editar mi perfil</h1>
+                <div class="form-control-lg">
 
-                @Html.LabelFor(o => o.Nombre)
-                <br />
-                @Html.EditorFor(o => o.Nombre)
-                @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
-                <br />
+                    @Html.LabelFor(o => o.Nombre)
+                    <br />
+                    @Html.EditorFor(o => o.Nombre)
+                    @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
+                    <br />
 
-                @Html.LabelFor(o => o.Apellido)
-                <br />
-                @Html.EditorFor(o => o.Apellido)
-                @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
-                <br />
+                    @Html.LabelFor(o => o.Apellido)
+                    <br />
+                    @Html.EditorFor(o => o.Apellido)
+                    @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
+                    <br />
 
-                @Html.LabelFor(o => o.FechaNacimiento)
-                <br />
-                @Html.EditorFor(o => o.FechaNacimiento)
-                @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
-                <br />
+                    @Html.LabelFor(o => o.FechaNacimiento)
+                    <br />
+                    @Html.EditorFor(o => o.FechaNacimiento)
+                    @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
+                    <br />
 
-                @Html.LabelFor(o => o.Email)
-                <br />
-                @Html.EditorFor(o => o.Email)
-                @Html.ValidationMessageFor(o => o.Email)
-                <br />
-               
-                @Html.LabelFor(o => o.Foto)
-                <br />
-                <input type="file" name="imagen" />
-                @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger"})
-                <br />
+                    @Html.LabelFor(o => o.Email)
+                    <br />
+                    @Html.EditorFor(o => o.Email)
+                    @Html.ValidationMessageFor(o => o.Email)
+                    <br />
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
-            </div>
-        </form>
-    </div>
+                    @Html.LabelFor(o => o.Foto)
+                    <br />
+                    <input type="file" name="imagen" />
+                    @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
+                    <br />
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+        </div>
 </body>
 </html>
 

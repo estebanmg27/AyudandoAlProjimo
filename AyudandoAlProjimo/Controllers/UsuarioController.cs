@@ -28,7 +28,7 @@ namespace AyudandoAlProjimo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registro(UsuariosRegistro u)
+        public ActionResult Registro(Usuarios u)
         {
             if (!ModelState.IsValid)
             {

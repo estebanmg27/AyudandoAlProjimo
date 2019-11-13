@@ -19,7 +19,7 @@ namespace AyudandoAlProjimo.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearPropuesta(FormCollection form)
+        public ActionResult CrearNuevaPropuesta(FormCollection form)
         {
             int donacion = Int32.Parse(form["TipoDonacion"]);
             Propuestas propuesta;
@@ -46,6 +46,12 @@ namespace AyudandoAlProjimo.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult CrearPropuesta(FormCollection form)
+        {
+            return CrearNuevaPropuesta(form);
+        }
+
         public Propuestas RecuperarInformacion(FormCollection form, Propuestas p)
         {
             p.Nombre = form["Nombre"];
@@ -67,6 +73,53 @@ namespace AyudandoAlProjimo.Controllers
             p.PropuestasReferencias.Add(ref2);
 
             return p;
+        }
+
+        [HttpPost]
+        public ActionResult CrearPropuestaMoneraria(FormCollection form)
+        {
+            PropuestasDonacionesMonetarias prop = (PropuestasDonacionesMonetarias)RecuperarInformacion(form, new PropuestasDonacionesMonetarias());
+            prop.Dinero = Decimal.Parse(form["Dinero"]);
+            prop.CBU = form["CBU"];
+            propuestas.NuevaPropuestaDonacionMonetaria(prop);
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult CrearPropuestaHorasTrabajo(FormCollection form)
+        {
+            PropuestasDonacionesHorasTrabajo prop = (PropuestasDonacionesHorasTrabajo)RecuperarInformacion(form, new PropuestasDonacionesHorasTrabajo());
+            prop.CantidadHoras = Int32.Parse(form["CantidadHoras"]);
+            prop.Profesion = form["Profesion"];
+            propuestas.NuevaPropuestaDonacionHorasTrabajo(prop);
+            return Redirect("/Home/Index");
+        }
+
+        public ActionResult CrearPropuestaDonacionInsumos(FormCollection form)
+        {
+            PropuestasDonacionesInsumos prop = (PropuestasDonacionesInsumos)RecuperarInformacion(form, new PropuestasDonacionesInsumos());
+
+            List<PropuestasDonacionesInsumos> insumos = ListaDeInsumos(form);
+
+            propuestas.NuevaPropuestaDonacionDeInsumos(prop, insumos);
+            return Redirect("/Home/Index");
+        }
+
+        public List<PropuestasDonacionesInsumos> ListaDeInsumos(FormCollection form)
+        {
+            List<PropuestasDonacionesInsumos> insumos = new List<PropuestasDonacionesInsumos>();
+
+            int CantidadInsumos = Int32.Parse(form["CantidadInsumos"]);
+
+            for (int i = 0; i < CantidadInsumos; i++)
+            {
+                PropuestasDonacionesInsumos insumo = new PropuestasDonacionesInsumos();
+                insumo.Nombre = form["Nombre"];
+                insumo.Cantidad = Int32.Parse(form["Cantidad"]);
+                insumos.Add(insumo);
+            }
+
+            return insumos;
         }
     }
 }

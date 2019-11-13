@@ -40,11 +40,16 @@ namespace AyudandoAlProjimo.Servicios
             ctx.SaveChanges();
         }
 
-        public void NuevaPropuestaDonacionDeInsumos(PropuestasDonacionesInsumos p)
+        public void NuevaPropuestaDonacionDeInsumos(PropuestasDonacionesInsumos p, List<PropuestasDonacionesInsumos> insumos)
         {
             int PropuestaId = GenerarPropuestaGeneral(p);
-            p.IdPropuesta = PropuestaId;
-            ctx.PropuestasDonacionesInsumos.Add(p);
+
+            foreach (PropuestasDonacionesInsumos i in insumos)
+            {
+                p.IdPropuesta = PropuestaId;
+                ctx.PropuestasDonacionesInsumos.Add(i);
+            }
+            
             ctx.SaveChanges();
         }
 
