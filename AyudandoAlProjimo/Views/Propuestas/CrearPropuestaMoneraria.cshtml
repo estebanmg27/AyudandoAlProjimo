@@ -1,0 +1,37 @@
+﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesMonetarias
+
+@{
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+    ViewBag.Title = "CrearPropuestaMoneraria"; 
+}
+
+    <form action="/Propuestas/CrearPropuestaMonetaria" method="post">
+
+        <h2>Crear propuesta  de donación monetaria</h2>
+
+        <input type="hidden" name="Nombre" value="@Model.Nombre" />
+        <input type="hidden" name="Descripcion" value="@Model.Descripcion" />
+        <input type="hidden" name="FechaFin" value="@Model.FechaFin" />
+        <input type="hidden" name="TelefonoContacto" value="@Model.TelefonoContacto" />
+        <input type="hidden" name="TipoDonacion" value="@Model.TipoDonacion" />
+        <input type="hidden" name="Foto" value="@Model.Foto" />
+        <input type="hidden" name="Nombre1" value="@ViewBag.Nombre1" />
+        <input type="hidden" name="Telefono1" value="@ViewBag.Telefono1" />
+        <input type="hidden" name="Nombre2" value="@ViewBag.Nombre2" />
+        <input type="hidden" name="Telefono2" value="@ViewBag.Telefono2" />
+
+        <div class="form-group">
+            @Html.Label("Dinero", "Dinero a donar:")
+            @Html.EditorFor(o => o.Dinero, new { @class = "number" })
+            @Html.ValidationMessageFor(o => o.Dinero, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("CBU", "CBU:")
+            @Html.EditorFor(o => o.CBU, new { @class = "text-danger" })
+            @Html.ValidationMessageFor(o => o.CBU, null, new { @class = "text-danger" })
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Crear" />
+    </form>
+

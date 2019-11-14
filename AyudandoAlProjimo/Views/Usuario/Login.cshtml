@@ -15,14 +15,14 @@
             <form action="/Usuario/AutorizarLogin" method="post">
                 <h5 class="mt-5">Login usuario</h5>
 
+                @Html.Label("Email", "Correo electrónico:")
                 <div class="form-group">
-                    @Html.Label("Email", "Correo electrónico:")
                     @Html.EditorFor(o => o.Email)
                     @Html.ValidationMessageFor(o => o.Email)
                 </div>
 
+                @Html.Label("Password", "Contraseña:")
                 <div class="form-group">
-                    @Html.Label("Password", "Contraseña:")
                     @Html.EditorFor(o => o.Password)
                     @Html.ValidationMessageFor(o => o.Password)
                 </div>
