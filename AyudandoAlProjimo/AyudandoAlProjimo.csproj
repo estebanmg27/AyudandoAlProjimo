@@ -222,6 +222,8 @@
     <Content Include="Views\Usuario\MiPerfil.cshtml" />
     <Content Include="Views\Propuestas\CrearPropuesta.cshtml" />
     <Content Include="Views\Propuestas\CrearPropuestaMoneraria.cshtml" />
+    <Content Include="Views\Propuestas\CrearPropuestaDonacionInsumos.cshtml" />
+    <Content Include="Views\Propuestas\CrearPropuestaHorasTrabajo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

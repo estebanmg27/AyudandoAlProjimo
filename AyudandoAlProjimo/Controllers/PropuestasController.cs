@@ -18,6 +18,7 @@ namespace AyudandoAlProjimo.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult CrearNuevaPropuesta(FormCollection form)
         {
@@ -29,15 +30,15 @@ namespace AyudandoAlProjimo.Controllers
             {
                 case 1:
                     propuesta = new PropuestasDonacionesMonetarias();
-                    vista = "CrearMonetaria";
+                    vista = "CrearPropuestaMonetaria";
                     break;
                 case 2:
                     propuesta = new PropuestasDonacionesInsumos();
-                    vista = "CrearInsumos";
+                    vista = "CrearPropuestaDonacionInsumos";
                     break;
                 default:
                     propuesta = new PropuestasDonacionesHorasTrabajo();
-                    vista = "GenerarHorasTrabajo";
+                    vista = "CrearPropuestaHorasTrabajo";
                     break;
             }
 
