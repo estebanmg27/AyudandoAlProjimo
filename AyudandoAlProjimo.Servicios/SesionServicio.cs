@@ -14,11 +14,11 @@ namespace AyudandoAlProjimo.Servicios
         {
             get
             {
-                return HttpContext.Current.Session["UserSession"] as Usuarios;
+                return HttpContext.Current.Session["session"] as Usuarios;
             }
             set
             {
-                HttpContext.Current.Session["UserSession"] = value;
+                HttpContext.Current.Session["session"] = value;
             }
         }
     }

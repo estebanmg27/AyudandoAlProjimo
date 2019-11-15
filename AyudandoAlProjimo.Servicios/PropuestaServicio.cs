@@ -14,16 +14,19 @@ namespace AyudandoAlProjimo.Servicios
         public int GenerarPropuestaGeneral(Propuestas p)
         {
             int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
-            Propuestas propuesta = new Propuestas();
+            Propuestas propuesta = new Propuestas
 
-            propuesta.Nombre = p.Nombre;
-            propuesta.Descripcion = p.Descripcion;
-            propuesta.TelefonoContacto = p.TelefonoContacto;
-            propuesta.TipoDonacion = p.TipoDonacion;
-            propuesta.FechaCreacion = DateTime.Today;
-            propuesta.FechaFin = p.FechaFin;
-            propuesta.Foto = p.Foto;
-            propuesta.PropuestasReferencias = p.PropuestasReferencias;
+            {
+                Usuarios = ctx.Usuarios.Find(IdUsuario),
+                Nombre = p.Nombre,
+                Descripcion = p.Descripcion,
+                TelefonoContacto = p.TelefonoContacto,
+                TipoDonacion = p.TipoDonacion,
+                FechaCreacion = DateTime.Today,
+                FechaFin = p.FechaFin,
+                Foto = p.Foto,
+                PropuestasReferencias = p.PropuestasReferencias,
+            };
 
             ctx.Propuestas.Add(propuesta);
             ctx.SaveChanges();

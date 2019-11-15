@@ -1,7 +1,8 @@
-﻿@model AyudandoAlProjimo.Data.Usuarios
-
+﻿
 @{
     Layout = "";
+    AyudandoAlProjimo.Data.Usuarios usuario = new AyudandoAlProjimo.Data.Usuarios();
+    usuario = (AyudandoAlProjimo.Data.Usuarios)Session["session"];
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,16 +18,26 @@
                 <a class="nav-link" href="/Usuario/Inicio">Ayudando al projimo</a>
             </li>
             <li class="nav-item active">
-                @Html.ActionLink("Mi perfil", "MiPerfil", "Usuario", new object { }, new { @class = "nav-link" })               
+                @Html.ActionLink("Mi perfil", "MiPerfil", "Usuario", new object { }, new { @class = "nav-link" })
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="">
-                    Propuestas
+                    Mis propuestas
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("CrearPropuesta", "Propuestas")">
+                    Crear propuesta
                 </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="">
                     Acerca de
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Logout", "Usuario")">
+                    Cerrar sesión
                 </a>
             </li>
         </ul>

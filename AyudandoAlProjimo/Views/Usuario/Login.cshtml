@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/BaseLayout.cshtml";
+    Layout = "~/Views/Shared/InicioLayout.cshtml";
 }
 
 @model AyudandoAlProjimo.Data.Usuarios
@@ -23,7 +23,7 @@
 
                 @Html.Label("Password", "Contraseña:")
                 <div class="form-group">
-                    @Html.EditorFor(o => o.Password)
+                    <input type="password" name="Password">
                     @Html.ValidationMessageFor(o => o.Password)
                 </div>
 
