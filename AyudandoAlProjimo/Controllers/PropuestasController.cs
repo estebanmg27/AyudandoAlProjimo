@@ -122,5 +122,61 @@ namespace AyudandoAlProjimo.Controllers
 
             return insumos;
         }
+
+        public ActionResult VerDetallePropuesta(int id)
+        {
+            Propuestas p = propuestas.ObtenerPropuestaPorId(id);
+            return View(p);
+        }
+
+        public ActionResult RealizarDonacion(int id)
+        {
+            Propuestas p = propuestas.ObtenerPropuestaPorId(id);
+            if (p.TipoDonacion == 1)
+            {
+                return View("RealizarDonacionMonetaria", p);
+            }
+            else if (p.TipoDonacion == 2)
+            {
+                return View("RealizarDonacionDeInsumos", p);
+            }
+            else
+            {
+                return View("RealizarDonacionHorasDeTrabajo", p);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RealizarDonacionMonetaria(DonacionesMonetarias dm)
+        {
+            propuestas.AgregarDonacionMonetaria(dm);
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult RealizarDonacionDeInsumos(FormCollection form)
+        {
+            DonacionesInsumos di;
+            List<DonacionesInsumos> insumos = new List<DonacionesInsumos>();
+
+            for (int i = 0; i < Int32.Parse(form["Cantidad"]); i++)
+            {
+                di = new DonacionesInsumos();
+                di.IdUsuario = Int32.Parse(form["IdUsuario"]);
+                di.Cantidad = Int32.Parse(form["Cantidad[" +i+ "]"]);
+                di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" +i+ "]"]);
+                insumos.Add(di);
+            }
+
+            propuestas.AgregarDonacionDeInsumos(insumos);
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult RealizarDonacionDeHorasDeTrabajo(DonacionesHorasTrabajo dht)
+        {
+            propuestas.AgregarDonacionHorasDeTrabajo(dht);
+            return Redirect("/Home/Index");
+        }
     }
 }

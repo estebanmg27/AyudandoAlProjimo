@@ -224,6 +224,11 @@
     <Content Include="Views\Propuestas\CrearPropuestaMoneraria.cshtml" />
     <Content Include="Views\Propuestas\CrearPropuestaDonacionInsumos.cshtml" />
     <Content Include="Views\Propuestas\CrearPropuestaHorasTrabajo.cshtml" />
+    <Content Include="Views\Propuestas\VerDetallePropuesta.cshtml" />
+    <Content Include="Views\Propuestas\VerDetallePropuestaMonetaria.cshtml" />
+    <Content Include="Views\Propuestas\RealizarDonacionMonetaria.cshtml" />
+    <Content Include="Views\Propuestas\RealizarDonacionDeInsumos.cshtml" />
+    <Content Include="Views\Propuestas\RealizarDonacionDeHorasDeTrabajo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

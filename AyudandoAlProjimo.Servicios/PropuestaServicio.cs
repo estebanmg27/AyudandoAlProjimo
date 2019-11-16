@@ -63,5 +63,35 @@ namespace AyudandoAlProjimo.Servicios
             ctx.PropuestasDonacionesHorasTrabajo.Add(p);
             ctx.SaveChanges();
         }
+
+        public Propuestas ObtenerPropuestaPorId(int id)
+        {
+            return ctx.Propuestas.Find(id);
+        }
+
+        public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
+        {
+            dm.FechaCreacion = DateTime.Today;
+            ctx.DonacionesMonetarias.Add(dm);
+            ctx.SaveChanges();
+        }
+
+        public void AgregarDonacionDeInsumos(List<DonacionesInsumos> di)
+        {
+            foreach (var d in di)
+            {
+                if (d.Cantidad > 0)
+                {
+                    ctx.DonacionesInsumos.Add(d);
+                }
+            }
+            ctx.SaveChanges();
+        }
+
+        public void AgregarDonacionHorasDeTrabajo(DonacionesHorasTrabajo dht)
+        {
+            ctx.DonacionesHorasTrabajo.Add(dht);
+            ctx.SaveChanges();
+        }
     }
 }
