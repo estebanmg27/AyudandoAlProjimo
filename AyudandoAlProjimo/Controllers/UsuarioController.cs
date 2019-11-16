@@ -73,24 +73,23 @@ namespace AyudandoAlProjimo.Controllers
             return View();
         }
 
-        public ActionResult MiPerfil(int id)
+        public ActionResult MiPerfil()
         {
-            Usuarios u = usuarios.BuscarUsuarioPorId(id);
+
+            Usuarios u = SesionServicio.UsuarioSesion;
             return View(u);
         }
 
         [HttpPost]
-        public ActionResult MiPerfil(Usuarios miPerfil)
+        public ActionResult MiPerfil(Usuarios user)
         {
-            if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("Apellido") && ModelState.IsValidField("FechaNacimiento") && ModelState.IsValidField("IdUsuario") && ModelState.IsValidField("Foto"))
+            if (!ModelState.IsValid)
             {
-                usuarios.ModificarPerfil(miPerfil);
-                return RedirectToAction("Index", "Home");
+                return View(user);
             }
-            else
-            {
-                return View(miPerfil);
-            }
+
+             usuarios.ModificarPerfil(user);
+             return RedirectToAction("Index", "Home");    
         }
     }
 }
