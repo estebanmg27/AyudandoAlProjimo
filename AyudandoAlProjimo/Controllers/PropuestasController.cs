@@ -116,7 +116,7 @@ namespace AyudandoAlProjimo.Controllers
             {
                 PropuestasDonacionesInsumos insumo = new PropuestasDonacionesInsumos();
                 insumo.Nombre = form["Nombre"];
-                insumo.Cantidad = Int32.Parse(form["Cantidad"]);
+                insumo.Cantidad = int.Parse(form["Cantidad[" + i + "]"]);
                 insumos.Add(insumo);
             }
 

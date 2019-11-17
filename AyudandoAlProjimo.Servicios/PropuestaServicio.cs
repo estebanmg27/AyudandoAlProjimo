@@ -49,7 +49,7 @@ namespace AyudandoAlProjimo.Servicios
 
             foreach (PropuestasDonacionesInsumos i in insumos)
             {
-                p.IdPropuesta = PropuestaId;
+                i.IdPropuesta = PropuestaId;
                 ctx.PropuestasDonacionesInsumos.Add(i);
             }
             
