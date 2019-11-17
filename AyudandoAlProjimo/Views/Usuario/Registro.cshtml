@@ -1,36 +1,44 @@
-﻿@model AyudandoAlProjimo.Data.Usuarios
+﻿@{
+    Layout = "~/Views/Shared/InicioLayout.cshtml";
+}
+
+@model AyudandoAlProjimo.Data.Usuarios
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registro de usuario</title>
 </head>
 <body>
-    <form action="/Usuario/Registro" method="post">
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <form action="/Usuario/Registro" method="post">
+                <h5 class="mt-5"> Formulario de registro</h5>
 
-        <h1>Registro de usuario</h1>
-        <fieldset>
-            Email:
-            @Html.EditorFor(o => o.Email)
-            @Html.ValidationMessageFor(o => o.Email)
-            <br />
+                @Html.Label("Email", "Correo electrónico:")
+                <div class="form-group">
+                    @Html.EditorFor(o => o.Email)
+                    @Html.ValidationMessageFor(o => o.Email)
+                </div>
 
-            Contraseña:
-            @Html.EditorFor(o => o.Password)
-            @Html.ValidationMessageFor(o => o.Password)
-            <br />
+                @Html.Label("Password", "Contraseña:")
+                <div class="form-group">
+                    <input type="password" name="Password" />
+                    @Html.ValidationMessageFor(o => o.Password)
+                </div>
 
-            @*Repita la contraseña:
-                @Html.EditorFor(o => o.Password2)
-                @Html.ValidationMessageFor(o => o.Password2)*@
-            <br />
+                @*Repita la contraseña:
+        @Html.EditorFor(o => o.Password2)
+        @Html.ValidationMessageFor(o => o.Password2)*@
 
-            Fecha de nacimiento:
-            @Html.EditorFor(o => o.FechaNacimiento)<br />
-            @Html.ValidationMessageFor(o => o.FechaNacimiento)
-            <br />
+                @Html.Label("FechaNacimiento", "Fecha de nacimiento")
+                <div class="form-group">
+                    @Html.EditorFor(o => o.FechaNacimiento)
+                    @Html.ValidationMessageFor(o => o.FechaNacimiento)
+                </div>
 
-        </fieldset>
-        <button type="submit">Registrarme</button>
-    </form>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarme</button>
+            </form>
+        </div>
+        </div>
 </body>
 </html>

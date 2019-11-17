@@ -1,0 +1,41 @@
+﻿@model AyudandoAlProjimo.Data.Propuestas
+
+@{
+    ViewBag.Title = "VerDetallePropuesta";
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+}
+
+<div class="container">
+    <h3>@Model.Nombre</h3>
+
+    <div>Donacion de @Model.TipoDonacion</div>
+    <div>Creado el @Model.FechaCreacion</div>
+    <div>Con fecha de finalización @Model.FechaFin</div>
+
+    <div>
+        Descripcion: @Model.Descripcion
+        @if (Model.TipoDonacion == 1)
+        {
+            @Html.Partial("VerDetallePropuestaMonetaria", Model.PropuestasDonacionesMonetarias.First())
+        }
+        else if (Model.TipoDonacion == 2)
+        {
+            @Html.Partial("VerDetallePropuestaInsumos", Model.PropuestasDonacionesInsumos.ToList())
+        }
+        else
+        {
+            @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
+        }
+
+        <a href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a>
+        <a href="#">Me gusta</a>
+        <a href="#">No me gusta</a>
+
+        Referencias:
+        @foreach(var referencias in Model.PropuestasReferencias)
+        {
+            <div>Nombre: @referencias.Nombre</div>
+            <div>Teléfono: @referencias.Telefono</div>
+        }
+    </div>
+</div>

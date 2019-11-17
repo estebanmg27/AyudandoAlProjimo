@@ -66,5 +66,42 @@ namespace AyudandoAlProjimo.Servicios
                 string error = e.Message;
             }
         }
+
+        public void ModificarPerfil(Usuarios user)
+        {
+
+            var usuario = BuscarUsuarioPorId(user.IdUsuario);
+
+            if (string.IsNullOrEmpty(user.UserName))
+            {
+                var nombreDeUsuario = $"{user.Nombre}.{user.Apellido}";
+                var usuarioExistente = ctx.Usuarios.Where(x => x.UserName == nombreDeUsuario).FirstOrDefault() != null;
+
+                if (usuarioExistente)
+                {
+                    Usuarios duplicado = ctx.Usuarios.Where(x => x.UserName == nombreDeUsuario).FirstOrDefault();
+                }
+
+                int numeroUsuario = 1;
+                while (ctx.Usuarios.FirstOrDefault(u => u.UserName == nombreDeUsuario + numeroUsuario) != null)
+                {
+                    numeroUsuario++;
+                }
+
+                usuario.UserName = nombreDeUsuario + numeroUsuario;
+            }
+
+            usuario.Nombre = user.Nombre;
+            usuario.Apellido = user.Apellido;
+            usuario.FechaNacimiento = user.FechaNacimiento;
+            usuario.Foto = user.Foto;
+            ctx.SaveChanges();
+        }
+
+        public Usuarios BuscarUsuarioPorId(int id)
+        {
+            return ctx.Usuarios.Find(id);
+        }
+
     }
 }

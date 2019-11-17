@@ -21,6 +21,7 @@ namespace AyudandoAlProjimo.Data
         [Required(ErrorMessage = "La contraseña es obligatoria")]
         [RegularExpression(@"^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$",
         ErrorMessage = "La contraseña debe tener como mínimo una mayúscula, un número y 8 caracteres")]
+        //[Compare(nameof(password2), ErrorMessage ="Las contraseñas deben ser iguales")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -29,7 +30,7 @@ namespace AyudandoAlProjimo.Data
         //[RegularExpression(@"^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$",
         //ErrorMessage = "La contraseña debe tener como mínimo una mayúscula, un número y 8 caracteres")]
         //[DataType(DataType.Password)]
-        //public string Password2 { get; set; }
+        //public string password2 { get; set; }
 
         [Required(ErrorMessage = "La Fecha de Nacimiento es obligatoria")]
         [DataType(DataType.Date)]
@@ -38,6 +39,20 @@ namespace AyudandoAlProjimo.Data
 
         [MaxLength(30, ErrorMessage = "30 caracteres como máximo")]
         public string Token { get; set; }
+
+        //[Required(ErrorMessage = "El campo nombre es obligatorio")]
+        //[MaxLength(50, ErrorMessage = "El nombre debe tener como máximo 50 caracteres.")]
+        //public string Nombre { get; set; }
+
+        //[Required(ErrorMessage = "El campo apellido es obligatorio")]
+        //[MaxLength(50, ErrorMessage = "El apellido debe tener como máximo 50 caracteres.")]
+        //public string Apellido { get; set; }
+
+        //[Required(ErrorMessage = "El campo Foto es obligatorio")]
+        //public string Foto { get; set; }
+
+        //[Display(Name = "Nombre de usuario")]
+        //public string UserName { get; set; }
 
     }
 

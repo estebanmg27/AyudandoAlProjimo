@@ -46,6 +46,7 @@ namespace AyudandoAlProjimo.Controllers
             return Redirect("/Usuario/Login");
         }
 
+        [HttpPost]
         public ActionResult AutorizarLogin(Usuarios u)
         {
             var detalleUsuario = usuarios.Autorizar(u);
@@ -55,7 +56,8 @@ namespace AyudandoAlProjimo.Controllers
             }
             else
             {
-                Session["IdUsuario"] = detalleUsuario.IdUsuario;
+                //Session["IdUsuario"] = detalleUsuario.IdUsuario;
+                SesionServicio.UsuarioSesion = detalleUsuario;
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -69,6 +71,25 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult UsuarioCreado()
         {
             return View();
+        }
+
+        public ActionResult MiPerfil()
+        {
+
+            Usuarios u = SesionServicio.UsuarioSesion;
+            return View(u);
+        }
+
+        [HttpPost]
+        public ActionResult MiPerfil(Usuarios user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+             usuarios.ModificarPerfil(user);
+             return RedirectToAction("Index", "Home");    
         }
     }
 }

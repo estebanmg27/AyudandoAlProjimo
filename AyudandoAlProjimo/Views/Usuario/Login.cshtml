@@ -1,4 +1,8 @@
-﻿@model AyudandoAlProjimo.Data.Usuarios
+﻿@{
+    Layout = "~/Views/Shared/InicioLayout.cshtml";
+}
+
+@model AyudandoAlProjimo.Data.Usuarios
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,27 +10,34 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="/Usuario/AutorizarLogin" method="post">
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <form action="/Usuario/AutorizarLogin" method="post">
+                <h5 class="mt-5">Login usuario</h5>
 
-        <h1>Login</h1>
-        <fieldset>
-            Email:
-            @Html.EditorFor(o => o.Email)
-            @Html.ValidationMessageFor(o => o.Email)
+                @Html.Label("Email", "Correo electrónico:")
+                <div class="form-group">
+                    @Html.EditorFor(o => o.Email)
+                    @Html.ValidationMessageFor(o => o.Email)
+                </div>
 
-            Contraseña:
-            @Html.EditorFor(o => o.Password)
-            @Html.ValidationMessageFor(o => o.Password)
+                @Html.Label("Password", "Contraseña:")
+                <div class="form-group">
+                    <input type="password" name="Password">
+                    @Html.ValidationMessageFor(o => o.Password)
+                </div>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me">Recordarme
-                </label>
-            </div>
-        </fieldset>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me">Recordarme
+                    </label>
+                </div>
+                <br />
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
 
-        <button type="submit">Ingresar</button>
-    </form>
+            </form>
+        </div>
+        </div>
 </body>
 </html>
 
