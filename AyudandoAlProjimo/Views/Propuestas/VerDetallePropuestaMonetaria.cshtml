@@ -22,7 +22,12 @@
     }
 }
 
-<span class="font-weight-bold">$@ViewBag.DineroJuntado</span> de $@Model.Dinero ($@ViewBag.RestaPorJuntar restantes)
-<div class="progress mt-2">
-    <div class="progress-bar bg-success" role="progressbar" style="width: @ViewBag.PorcentajeAceptacion%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+<br />
+<div>
+La cantidad de dinero jutado es de: @ViewBag.DineroJuntado
+<br />
+
+De un total de $@Model.Dinero que se necesitan ($@ViewBag.RestaPorJuntar restantes)
+<br />
+El porcentaje de aceptación es @ViewBag.PorcentajeAceptacion%
 </div>
