@@ -1,3 +1,35 @@
 ﻿@model List<AyudandoAlProjimo.Data.PropuestasDonacionesInsumos>
 
+<br />
 Insumos que se necesitan: 
+<br />
+
+    <ul>
+        @foreach (var i in Model)
+        {
+            int InsumosDonados = i.DonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).Sum(x => x.Cantidad);
+            int InsumosRestantes;
+            string mensaje;
+
+            if ((i.Cantidad - InsumosDonados) < 0)
+            {
+                InsumosRestantes = 0;
+            }
+            else
+            {
+                InsumosRestantes = i.Cantidad - InsumosDonados;
+            }
+
+            if (InsumosRestantes == 0)
+            {
+                mensaje = "No quedan insumos por donar";
+            }
+            else
+            {
+                mensaje = "Faltan aun la cantidad de" + InsumosRestantes + "para completar la donación";
+            }
+
+        <li>@i.Cantidad par @i.Nombre @mensaje</li>
+        }
+    </ul>
+

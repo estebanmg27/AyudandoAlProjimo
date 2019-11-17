@@ -142,7 +142,7 @@ namespace AyudandoAlProjimo.Controllers
             }
             else
             {
-                return View("RealizarDonacionHorasDeTrabajo", p);
+                return View("RealizarDonacionDeHorasDeTrabajo", p);
             }
         }
 

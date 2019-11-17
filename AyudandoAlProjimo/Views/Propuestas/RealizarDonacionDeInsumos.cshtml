@@ -1,4 +1,4 @@
-﻿@model AyudandoAlProjimo.Data.Propuestas
+﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesInsumos
 
 @{
     ViewBag.Title = "RealizarDonacionDeInsumos";
@@ -18,13 +18,12 @@
 
         <div class="form-group">
             @Html.Label("Cantidad de insumos que va a donar:")
+            <br />
+            @Html.TextBox("Cantidad", 0, new { @type = "number", @class = "form-control"})
         </div>
 
-        <div class="form-group">
-            @Html.Label("Tipo de insumos:")
-        </div>
 
-        @foreach (var prop in Model.PropuestasDonacionesInsumos)
+        @*@foreach (var prop in Model.PropuestasDonacionesInsumos)
         {
             int indice = Model.PropuestasDonacionesInsumos.ToList().IndexOf(prop);
 
@@ -37,7 +36,7 @@
             <div class="form-group">
                 @Html.TextBox("Nombre", @prop.Nombre,  new { @class = "form-control"})
             </div>
-        }
+        }*@
         <br />
         <input class="btn btn-primary" type="submit" value="Realizar donacion" />
     </form>
