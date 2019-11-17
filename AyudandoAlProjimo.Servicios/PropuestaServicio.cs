@@ -71,7 +71,7 @@ namespace AyudandoAlProjimo.Servicios
 
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
         {
-            dm.FechaCreacion = DateTime.Today;
+            dm.FechaCreacion = DateTime.Now;
             ctx.DonacionesMonetarias.Add(dm);
             ctx.SaveChanges();
         }
@@ -93,5 +93,11 @@ namespace AyudandoAlProjimo.Servicios
             ctx.DonacionesHorasTrabajo.Add(dht);
             ctx.SaveChanges();
         }
+
+        public List<Propuestas> ObtenerPropuestas()
+        {
+            return ctx.Propuestas.ToList();
+        }
+
     }
 }

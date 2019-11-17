@@ -30,7 +30,7 @@ namespace AyudandoAlProjimo.Controllers
             {
                 case 1:
                     propuesta = new PropuestasDonacionesMonetarias();
-                    vista = "CrearPropuestaMonetaria";
+                    vista = "CrearPropuestaMoneraria";
                     break;
                 case 2:
                     propuesta = new PropuestasDonacionesInsumos();
@@ -177,6 +177,11 @@ namespace AyudandoAlProjimo.Controllers
         {
             propuestas.AgregarDonacionHorasDeTrabajo(dht);
             return Redirect("/Home/Index");
+        }
+
+        public ActionResult VerListaDePropuestas()
+        {
+            return View(propuestas.ObtenerPropuestas());
         }
     }
 }
