@@ -45,11 +45,11 @@
                     @Html.ValidationMessageFor(o => o.Email)
                     <br />
 
-                    @Html.LabelFor(o => o.Foto)
-                    <br />
-                    <input type="file" name="imagen" />
-                    @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
-                    <br />
+                    <div class="form-group">
+                        <label>Foto: </label>
+                        <br />
+                        <input type="file" name="Foto" id="Foto" value="" />
+                    </div>
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
                 </div>

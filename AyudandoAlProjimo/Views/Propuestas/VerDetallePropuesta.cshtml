@@ -5,13 +5,14 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
 }
 
-<div class="container">
-    <h3>@Model.Nombre</h3>
+    <div class="container">
+        <h3>@Model.Nombre</h3>
 
-    <div>Donacion @Model.TipoDeDonacion()</div>
-    <div>Creado el @Model.FechaCreacion</div>
-    <div>Con fecha de finalización @Model.FechaFin</div>
-    
+        <img src="~/Imagenes/@Model.Foto" alt="" class="img-thumbnail">
+        <div>Donacion @Model.TipoDeDonacion()</div>
+        <div>Creado el @Model.FechaCreacion</div>
+        <div>Con fecha de finalización @Model.FechaFin</div>
+
         Descripcion: @Model.Descripcion
         @if (Model.TipoDonacion == 1)
         {
@@ -34,10 +35,10 @@
 
         <br />
         Referencias:
-        @foreach(var referencias in Model.PropuestasReferencias)
+        @foreach (var referencias in Model.PropuestasReferencias)
         {
             <div>Nombre: @referencias.Nombre</div>
             <div>Teléfono: @referencias.Telefono</div>
         }
-    
-</div>
+
+    </div>
