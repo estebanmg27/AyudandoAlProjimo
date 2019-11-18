@@ -102,6 +102,5 @@ namespace AyudandoAlProjimo.Servicios
         {
             return ctx.Usuarios.Find(id);
         }
-
     }
 }

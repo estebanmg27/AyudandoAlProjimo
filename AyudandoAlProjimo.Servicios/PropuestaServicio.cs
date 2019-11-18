@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace AyudandoAlProjimo.Servicios
 {
@@ -99,8 +100,14 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.Propuestas.ToList();
         }
 
-        public void AgregarDenuncia(Denuncias d)
+        public void AgregarDenuncia(FormCollection form)
         {
+            Denuncias d = new Denuncias();
+            int Propuesta = Convert.ToInt32(form["IdPropuesta"]);
+            d.IdPropuesta = Propuesta;
+            d.Comentarios = form["Comentarios"];
+            d.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
+            d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
             d.Estado = 0;
             d.FechaCreacion = DateTime.Today;
             ctx.Denuncias.Add(d);
@@ -110,6 +117,17 @@ namespace AyudandoAlProjimo.Servicios
         public List<MotivoDenuncia> ObtenerMotivos()
         {
             return ctx.MotivoDenuncia.ToList();
+        }
+
+        public void Valorar(FormCollection form)
+        {
+            PropuestasValoraciones v = new PropuestasValoraciones();
+            v.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
+            v.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
+
+            ctx.PropuestasValoraciones.Add(v);
+            ctx.SaveChanges();
+
         }
 
     }

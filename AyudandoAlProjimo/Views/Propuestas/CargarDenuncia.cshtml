@@ -1,6 +1,7 @@
 ﻿@model AyudandoAlProjimo.Data.Denuncias
 @{
     ViewBag.Title = "CargarDenuncia";
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 
 }
 
@@ -10,17 +11,17 @@
     <form action="/Propuestas/CargarDenuncia" method="post">
         <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
         <input type="hidden" name="IdPropuesta" value="@Model.IdPropuesta" />
+  
 
-        <div class="form-group">
-            <input type="hidden" name="IdMotivo" value="@Model.IdMotivo" />
-            @Html.Label("IdMotivo", "Motivo de la denuncia:")
-            <select class="form-control" id="IdMotivo" name="IdMotivo">
-                <option value="1">Fraude</option>
-                <option value="2">Indebida</option>
-                <option value="3">Violación de derechos</option>
-                <option value="4">Contiene información política</option>
-            </select>
-        </div>
+        @Html.Label("¿Cuál es el motivo?")
+        <select name="IdMotivo" class="form-control">
+          
+                @foreach (AyudandoAlProjimo.Data.MotivoDenuncia md in (List<AyudandoAlProjimo.Data.MotivoDenuncia>)ViewBag.Motivos)
+                {
+                    <option value="@md.IdMotivoDenuncia">@md.Descripcion</option>
+                }
+        </select>
+     
 
         <div class="form-group">
             @Html.Label("Comentarios", "Agregar comentarios:")

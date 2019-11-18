@@ -186,16 +186,24 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult CargarDenuncia(int id)
         {
-            int IdPropuesta = id;
-            List<MotivoDenuncia> motivos = propuestas.ObtenerMotivos();
+            ViewBag.IdPropuesta = id;
+            ViewBag.Motivos = propuestas.ObtenerMotivos();
             return View();
         }
 
         [HttpPost]
-        public ActionResult CargarDenuncia(Denuncias d)
+        public ActionResult CargarDenuncia(FormCollection form)
         {
-            propuestas.AgregarDenuncia(d);
+            propuestas.AgregarDenuncia(form);
             return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult Calificar(FormCollection form)
+        {
+            int idPropuesta =Convert.ToInt32(form["IdPropuesta"]);
+            propuestas.Valorar(form);
+            return Redirect("/Propuestas/VerDetallePropuesta/" + idPropuesta);
         }
     }
 }
