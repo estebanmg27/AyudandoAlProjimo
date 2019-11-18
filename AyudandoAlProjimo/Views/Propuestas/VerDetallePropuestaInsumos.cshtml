@@ -4,7 +4,7 @@
 Insumos que se necesitan: 
 <br />
 
-    <ul>
+    
         @foreach (var i in Model)
         {
             int InsumosDonados = i.DonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).Sum(x => x.Cantidad);
@@ -26,10 +26,11 @@ Insumos que se necesitan:
             }
             else
             {
-                mensaje = "Faltan aun la cantidad de" + InsumosRestantes + "para completar la donación";
+                mensaje = "Faltan aun la cantidad de " + InsumosRestantes + " insumos para completar la donación";
             }
 
-        <li>@i.Cantidad par @i.Nombre @mensaje</li>
+        <div>@i.Cantidad insumos para la propuesta @i.Nombre</div>
+        <div>@mensaje</div>
         }
-    </ul>
+   
 

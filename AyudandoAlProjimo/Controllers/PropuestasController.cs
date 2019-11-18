@@ -43,6 +43,11 @@ namespace AyudandoAlProjimo.Controllers
             }
 
             propuesta = RecuperarInformacion(form, propuesta);
+            ViewBag.Nombre1 = form["Nombre1"];
+            ViewBag.Telefono1 = form["Telefono1"];
+            ViewBag.Nombre2 = form["Nombre2"];
+            ViewBag.Telefono2 = form["Telefono2"];
+
             return View(vista, propuesta);
 
         }
@@ -98,7 +103,7 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult CrearPropuestaDonacionInsumos(FormCollection form)
         {
-            PropuestasDonacionesInsumos prop = (PropuestasDonacionesInsumos)RecuperarInformacion(form, new PropuestasDonacionesInsumos());
+            Propuestas prop = RecuperarInformacion(form, new Propuestas());
 
             List<PropuestasDonacionesInsumos> insumos = ListaDeInsumos(form);
 
@@ -177,11 +182,6 @@ namespace AyudandoAlProjimo.Controllers
         {
             propuestas.AgregarDonacionHorasDeTrabajo(dht);
             return Redirect("/Home/Index");
-        }
-
-        public ActionResult VerListaDePropuestas()
-        {
-            return View(propuestas.ObtenerPropuestas());
         }
     }
 }

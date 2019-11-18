@@ -1,7 +1,24 @@
-﻿
+﻿@model List<AyudandoAlProjimo.Data.Propuestas>
+
 @{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
+    ViewBag.Title = "VerListaDePropuestas";
 }
+
+<table class="table">
+
+    <tr>
+        <td>Nombre de la propuesta:</td>
+    </tr>
+
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Nombre</td>
+            <td><a href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a></td>
+        </tr>
+    }
+</table>
 
 
 

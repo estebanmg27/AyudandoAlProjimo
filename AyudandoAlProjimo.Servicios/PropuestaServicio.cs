@@ -43,7 +43,7 @@ namespace AyudandoAlProjimo.Servicios
             ctx.SaveChanges();
         }
 
-        public void NuevaPropuestaDonacionDeInsumos(PropuestasDonacionesInsumos p, List<PropuestasDonacionesInsumos> insumos)
+        public void NuevaPropuestaDonacionDeInsumos(Propuestas p, List<PropuestasDonacionesInsumos> insumos)
         {
             int PropuestaId = GenerarPropuestaGeneral(p);
 
@@ -71,7 +71,7 @@ namespace AyudandoAlProjimo.Servicios
 
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
         {
-            dm.FechaCreacion = DateTime.Now;
+            dm.FechaCreacion = DateTime.Today;
             ctx.DonacionesMonetarias.Add(dm);
             ctx.SaveChanges();
         }
