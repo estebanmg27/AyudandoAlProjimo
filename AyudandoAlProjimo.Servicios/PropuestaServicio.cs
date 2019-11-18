@@ -99,5 +99,18 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.Propuestas.ToList();
         }
 
+        public void AgregarDenuncia(Denuncias d)
+        {
+            d.Estado = 0;
+            d.FechaCreacion = DateTime.Today;
+            ctx.Denuncias.Add(d);
+            ctx.SaveChanges();
+        }
+
+        public List<MotivoDenuncia> ObtenerMotivos()
+        {
+            return ctx.MotivoDenuncia.ToList();
+        }
+
     }
 }

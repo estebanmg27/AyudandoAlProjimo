@@ -6,9 +6,10 @@
 }
 
     <div class="container">
+      
         <h3>@Model.Nombre</h3>
-
-        <img src="~/Imagenes/@Model.Foto" alt="" class="img-thumbnail">
+        <dib>Propuesta creada por @Model.Usuarios.UserName</dib>
+        <div><img src="~/Imagenes/@Model.Foto" alt="" class="img-thumbnail"></div>
         <div>Donacion @Model.TipoDeDonacion()</div>
         <div>Creado el @Model.FechaCreacion</div>
         <div>Con fecha de finalización @Model.FechaFin</div>
@@ -27,9 +28,10 @@
             @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
         }
 
-        <br />
-        <a href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a>
-        <br />
+        <div><a href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+        
+        <div><a href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
+       
         <a href="#">Me gusta</a>
         <a href="#">No me gusta</a>
 
@@ -40,5 +42,4 @@
             <div>Nombre: @referencias.Nombre</div>
             <div>Teléfono: @referencias.Telefono</div>
         }
-
     </div>

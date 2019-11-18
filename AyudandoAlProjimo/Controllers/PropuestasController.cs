@@ -183,5 +183,19 @@ namespace AyudandoAlProjimo.Controllers
             propuestas.AgregarDonacionHorasDeTrabajo(dht);
             return Redirect("/Home/Index");
         }
+
+        public ActionResult CargarDenuncia(int id)
+        {
+            int IdPropuesta = id;
+            List<MotivoDenuncia> motivos = propuestas.ObtenerMotivos();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CargarDenuncia(Denuncias d)
+        {
+            propuestas.AgregarDenuncia(d);
+            return Redirect("/Home/Index");
+        }
     }
 }

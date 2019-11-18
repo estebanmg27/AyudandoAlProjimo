@@ -12,18 +12,18 @@ namespace AyudandoAlProjimo.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Denuncias
+    public partial class MotivoDenuncia
     {
-        public int IdDenuncia { get; set; }
-        public int IdPropuesta { get; set; }
-        public int IdMotivo { get; set; }
-        public string Comentarios { get; set; }
-        public int IdUsuario { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public int Estado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MotivoDenuncia()
+        {
+            this.Denuncias = new HashSet<Denuncias>();
+        }
     
-        public virtual MotivoDenuncia MotivoDenuncia { get; set; }
-        public virtual Propuestas Propuestas { get; set; }
-        public virtual Usuarios Usuarios { get; set; }
+        public int IdMotivoDenuncia { get; set; }
+        public string Descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Denuncias> Denuncias { get; set; }
     }
 }
