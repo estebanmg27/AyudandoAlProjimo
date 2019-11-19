@@ -184,6 +184,7 @@ namespace AyudandoAlProjimo.Controllers
             return Redirect("/Home/Index");
         }
 
+        [HttpGet]
         public ActionResult CargarDenuncia(int id)
         {
             ViewBag.IdPropuesta = id;

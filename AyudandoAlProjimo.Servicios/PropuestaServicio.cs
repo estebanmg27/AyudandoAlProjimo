@@ -125,6 +125,15 @@ namespace AyudandoAlProjimo.Servicios
             v.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
             v.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
 
+            if (Convert.ToInt32(form["Valoracion"]) == 1)
+            {
+                v.Valoracion = true;
+            }
+            else
+            {
+                v.Valoracion = false;
+            }
+
             ctx.PropuestasValoraciones.Add(v);
             ctx.SaveChanges();
 
