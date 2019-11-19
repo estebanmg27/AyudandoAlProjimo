@@ -102,5 +102,14 @@ namespace AyudandoAlProjimo.Servicios
         {
             return ctx.Usuarios.Find(id);
         }
+
+        public List<Usuarios> MailExistente(Usuarios u)
+        {
+            var user = (from usuarios in ctx.Usuarios
+                        where usuarios.Email == u.Email
+                        select usuarios).ToList();
+
+            return user;
+        }
     }
 }
