@@ -168,8 +168,8 @@ namespace AyudandoAlProjimo.Controllers
             {
                 di = new DonacionesInsumos();
                 di.IdUsuario = Int32.Parse(form["IdUsuario"]);
-                di.Cantidad = Int32.Parse(form["Cantidad[" +i+ "]"]);
-                di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" +i+ "]"]);
+                di.Cantidad = Int32.Parse(form["Cantidad[" + i + "]"]);
+                di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" + i + "]"]);
                 insumos.Add(di);
             }
 
@@ -201,9 +201,30 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult Calificar(FormCollection form)
         {
-            int idPropuesta =Convert.ToInt32(form["IdPropuesta"]);
+            int idPropuesta = Convert.ToInt32(form["IdPropuesta"]);
             propuestas.Valorar(form);
             return Redirect("/Propuestas/VerDetallePropuesta/" + idPropuesta);
+        }
+
+        [HttpPost]
+        public ActionResult RealizarBusqueda(FormCollection form)
+        {
+            if (form["texto"] == null || form["texto"] == "")
+            {
+                return RedirectToAction("Propuestas");
+            }
+            else
+            {
+                string busqueda = form["texto"];
+                List<Propuestas> ListaDePropuestas = propuestas.Buscar(busqueda);
+                return View("Propuestas", ListaDePropuestas);
+            }
+        }
+
+        public ActionResult Propuestas()
+        {
+            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestas();
+            return View(PropuestasLista);
         }
     }
 }

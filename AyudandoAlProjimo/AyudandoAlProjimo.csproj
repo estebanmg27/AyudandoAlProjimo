@@ -232,6 +232,7 @@
     <Content Include="Views\Propuestas\VerDetallePropuestaInsumos.cshtml" />
     <Content Include="Views\Propuestas\VerDetallePropuestaHorasTrabajo.cshtml" />
     <Content Include="Views\Propuestas\CargarDenuncia.cshtml" />
+    <Content Include="Views\Propuestas\Propuestas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

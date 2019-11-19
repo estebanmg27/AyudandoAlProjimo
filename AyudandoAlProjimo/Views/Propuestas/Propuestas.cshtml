@@ -1,0 +1,23 @@
+﻿@model List<AyudandoAlProjimo.Data.Propuestas>
+
+@{
+    ViewBag.Title = "Propuestas";
+}
+
+    <div class="container">
+       
+
+        @foreach (var p in Model)
+        {
+            if (Session["session"] != null)
+            {
+                <img src="~/Imagenes/@p.Foto" />
+                <div>La propuesta fue creada por: @p.Usuarios.Nombre @p.Usuarios.Apellido </div>
+                <div>Nombre de usuario: @p.Usuarios.UserName</div>
+                <div>Fecha de creación: @p.FechaCreacion</div>
+                <a href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a>
+            }
+        }
+          
+    </div>
+

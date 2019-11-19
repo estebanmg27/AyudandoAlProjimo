@@ -130,5 +130,21 @@ namespace AyudandoAlProjimo.Servicios
 
         }
 
+        public List<Propuestas> Buscar(string busqueda)
+        {
+            List<Propuestas> lista = (from propuestas in ctx.Propuestas
+                    join usuarios in ctx.Usuarios
+                    on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
+                    where propuestas.Nombre.Contains(busqueda) ||
+                    usuarios.UserName.Contains(busqueda) ||
+                    usuarios.Nombre.Contains(busqueda) ||
+                    usuarios.Apellido.Contains(busqueda)
+                    orderby propuestas.FechaFin ascending
+                    orderby propuestas.Valoracion descending
+                    select propuestas).ToList();
+
+            return lista;
+        }
+
     }
 }
