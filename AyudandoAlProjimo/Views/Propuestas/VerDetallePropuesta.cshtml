@@ -17,22 +17,24 @@
 
         Descripcion: @Model.Descripcion
         @if (Model.TipoDonacion == 1)
-        {
+{
             @Html.Partial("VerDetallePropuestaMonetaria", Model.PropuestasDonacionesMonetarias.First())
-        }
-        else if (Model.TipoDonacion == 2)
-        {
+}
+else if (Model.TipoDonacion == 2)
+{
             @Html.Partial("VerDetallePropuestaInsumos", Model.PropuestasDonacionesInsumos.ToList())
-        }
-        else
-        {
+}
+else
+{
             @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
-        }
+}
 
         <div><a href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
 
         <div><a href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
 
+        @if (Model.IdUsuarioCreador != user.IdUsuario)
+        {
         <form action="/Propuestas/Calificar" method="post">
             <div class="form-group">
                 <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
@@ -50,7 +52,7 @@
                 <button type="submit" class="btn btn-danger">No me gusta</button>
             </div>
         </form>
-
+        }
         <br />
         Referencias:
         @foreach (var referencias in Model.PropuestasReferencias)

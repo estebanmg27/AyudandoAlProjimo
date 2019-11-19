@@ -1,4 +1,8 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@model List<AyudandoAlProjimo.Data.Propuestas>
+
+@{ }
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     @Styles.Render("~/Content/css")
 </head>
@@ -10,186 +14,26 @@
             <p class="lead">A continuación se listan las cinco principales propuestas activas más valoradas por los usuarios del sitio</p>
         </header>
 
-        <!-- Page Features -->
-        <div class="row text-center">
+        <table class="table">
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 1</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
+            <tr>
+                <td>Nombre de la propuesta</td>
+                <td>Nombre Usuario Creador</td>
+                <td>Apellido Usuario Creador</td>
+            </tr>
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 2</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 3</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 4</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 5</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Nombre</td>
+                    <td>@p.Usuarios.Nombre</td>
+                    <td>@p.Usuarios.Apellido</td>
+                </tr>
+            }
+        </table>
     </div>
-    <!-- /.container -->
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-    @Scripts.Render("~/bundles/js")
-</body>
-</html><html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    @Styles.Render("~/Content/css")
-</head>
-<body>
-    <div class="container">
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4">
-            <h1 class="display-3">¡Bienvenido!</h1>
-            <p class="lead">A continuación se listan las cinco principales propuestas activas más valoradas por los usuarios del sitio</p>
-        </header>
-
-        <!-- Page Features -->
-        <div class="row text-center">
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 1</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 2</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 3</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 4</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Propuesta 5</h4>
-                        <p class="card-text">Descripción de la propuesta</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-    @Scripts.Render("~/bundles/js")
+    
+            @Scripts.Render("~/bundles/js")
 </body>
 </html>
+

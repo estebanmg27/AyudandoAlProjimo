@@ -145,5 +145,16 @@ namespace AyudandoAlProjimo.Servicios
 
             return lista;
         }
+
+        public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
+        {
+           List<Propuestas> PropuestasMasValoradas = (from propuestas in ctx.Propuestas
+                    join usuarios in ctx.Usuarios
+                    on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
+                    where propuestas.Estado == 1
+                    select propuestas).Take(5).ToList();
+
+            return PropuestasMasValoradas;     
+        }
     }
 }
