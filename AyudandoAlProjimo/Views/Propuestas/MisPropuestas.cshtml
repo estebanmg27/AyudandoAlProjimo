@@ -1,15 +1,12 @@
 ﻿@model List<AyudandoAlProjimo.Data.Propuestas>
 
 @{
+    ViewBag.Title = "MisPropuestas";
     Layout = "~/Views/Shared/BaseLayout.cshtml";
-    ViewBag.Title = "VerListaDePropuestas";
+
 }
 
-<form class="form-inline" action="/Propuestas/RealizarBusqueda" method="post">
-    <input class="form-control mr-sm-2" type="text" name="texto" placeholder="Buscar">
-    <button class="btn btn-success" type="submit">Buscar</button>
-</form>
-
+<h3>Mis propuestas</h3>
 <div class="container">
     <table class="table">
 
@@ -26,6 +23,5 @@
         }
     </table>
 </div>
-
 
 

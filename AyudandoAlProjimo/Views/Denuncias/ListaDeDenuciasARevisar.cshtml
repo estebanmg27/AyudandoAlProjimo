@@ -1,0 +1,38 @@
+﻿@model List<AyudandoAlProjimo.Data.Denuncias>
+@{
+    ViewBag.Title = "ListaDeDenuciasARevisar";
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+}
+
+<div class="container">
+    <h3>Denuncias pendientes de revisión</h3>
+
+    <table class="table">
+        <tr>
+            <td>Fecha de creación</td>
+            <td>Motivo</td>
+            <td>Link al detalle de la propuesta</td>
+            <td>Comentarios</td>
+            <td>Aceptar/No aceptar</td>
+        </tr>
+
+        @{
+            foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.FechaCreacion</td>
+                    <td>@d.IdMotivo</td>
+
+                    <td>
+                        <a href="/Propuestas/VerDetallePropuesta/@d.IdPropuesta">Detalle</a>
+                    </td>
+                    <td>@d.Comentarios</td>
+                    <td>
+                        <a class="btn btn-success" href="/Denuncias/Aceptar/@d.IdPropuesta">Aceptar</a>
+                        <a class="btn btn-danger" href="/Denuncias/NoAceptar/@d.IdPropuesta"> No Aceptar</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

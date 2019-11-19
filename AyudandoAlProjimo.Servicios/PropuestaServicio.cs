@@ -157,13 +157,34 @@ namespace AyudandoAlProjimo.Servicios
 
         public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
         {
-           List<Propuestas> PropuestasMasValoradas = (from propuestas in ctx.Propuestas
-                    join usuarios in ctx.Usuarios
-                    on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
-                    where propuestas.Estado == 1
-                    select propuestas).Take(5).ToList();
+           List<Propuestas> PropuestasMasValoradas =    (from propuestas in ctx.Propuestas
+                                                        join usuarios in ctx.Usuarios
+                                                        on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
+                                                        where propuestas.Estado == 1
+                                                        select propuestas).Take(5).ToList();
 
             return PropuestasMasValoradas;     
+        }
+
+        public List<Propuestas> ObtenerMisPropuestas()
+        {
+            int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
+            List<Propuestas> misPropuestas = (from propuestas in ctx.Propuestas
+                                              join user in ctx.Usuarios
+                                              on propuestas.IdUsuarioCreador equals user.IdUsuario
+                                              where propuestas.IdUsuarioCreador == IdUsuario
+                                              select propuestas).ToList();
+
+            return misPropuestas;
+        }
+
+        public List<Propuestas> ObtenerPropuestasActivas()
+        {
+            List<Propuestas> propuestasActivas = (from p in ctx.Propuestas
+                                                  where p.Estado == 0
+                                                  select p).ToList();
+
+            return propuestasActivas;
         }
     }
 }

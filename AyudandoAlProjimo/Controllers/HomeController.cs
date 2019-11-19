@@ -16,7 +16,7 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult Index()
         {
-            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestas();
+            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestasActivas();
             return View(PropuestasLista);
         }
     }

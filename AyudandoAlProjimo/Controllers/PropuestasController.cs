@@ -227,5 +227,11 @@ namespace AyudandoAlProjimo.Controllers
             List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestas();
             return View(PropuestasLista);
         }
+
+        public ActionResult MisPropuestas()
+        {
+            List<Propuestas> propuestasPropias = propuestas.ObtenerMisPropuestas();
+            return View(propuestasPropias);
+        }
     }
 }

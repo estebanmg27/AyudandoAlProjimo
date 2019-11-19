@@ -21,7 +21,7 @@
                 @Html.ActionLink("Mi perfil", "MiPerfil", "Usuario", new object { }, new { @class = "nav-link" })
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="@Url.Action("MisPropuestas", "Propuestas")">
                     Mis propuestas
                 </a>
             </li>
@@ -35,16 +35,25 @@
                     Acerca de
                 </a>
             </li>
+
+            @{
+                if ((usuario.TipoUsuario == 1))
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Denuncias/ListaDeDenuciasARevisar">
+                            Gestionar denuncias
+                        </a>
+                    </li>
+                }
+            }
+
             <li class="nav-item active">
                 <a class="nav-link" href="@Url.Action("Logout", "Usuario")">
                     Cerrar sesión
                 </a>
             </li>
         </ul>
-        @*<form class="form-inline" action="" >
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar">
-            <button class="btn btn-success" type="submit">Buscar</button>
-        </form>*@
+
     </nav>
     @RenderBody()
 </body>
