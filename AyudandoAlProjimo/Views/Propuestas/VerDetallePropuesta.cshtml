@@ -6,58 +6,82 @@
     AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 }
 
-    <div class="container">
-
-        <h3>@Model.Nombre</h3>
-        <dib>Propuesta creada por @Model.Usuarios.UserName</dib>
-        <div><img src="~/Imagenes/@Model.Foto" alt="" class="img-thumbnail"></div>
-        <div>Donacion @Model.TipoDeDonacion()</div>
-        <div>Creado el @Model.FechaCreacion</div>
-        <div>Con fecha de finalización @Model.FechaFin</div>
-
-        Descripcion: @Model.Descripcion
-        @if (Model.TipoDonacion == 1)
-{
-            @Html.Partial("VerDetallePropuestaMonetaria", Model.PropuestasDonacionesMonetarias.First())
-}
-else if (Model.TipoDonacion == 2)
-{
-            @Html.Partial("VerDetallePropuestaInsumos", Model.PropuestasDonacionesInsumos.ToList())
-}
-else
-{
-            @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
-}
-
-        <div><a href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
-
-        <div><a href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
-
-        @if (Model.IdUsuarioCreador != user.IdUsuario)
-        {
-        <form action="/Propuestas/Calificar" method="post">
-            <div class="form-group">
-                <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
-                <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
-                <input type="text" name="Valoracion" value="1" hidden />
-                <button type="submit" class="btn btn-success">Me gusta</button>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        <h3>@Model.Nombre</h3>  
+        <h4>Propuesta creada por el usuario @Model.Usuarios.UserName</h4>  
+            <img src="~/Imagenes/@Model.Foto" alt="" class="img-thumbnail">
+            <div class="row">
+                  Tipo de donacion @Model.TipoDeDonacion()
             </div>
-        </form>
-
-        <form action="/Propuestas/Calificar" method="post">
-            <div class="form-group">
-                <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
-                <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
-                <input type="text" name="Valoracion" value="0" hidden />
-                <button type="submit" class="btn btn-danger">No me gusta</button>
+            <div class="row">
+                Creado el @Model.FechaCreacion
             </div>
-        </form>
-        }
-        <br />
-        Referencias:
-        @foreach (var referencias in Model.PropuestasReferencias)
-        {
-            <div>Nombre: @referencias.Nombre</div>
-            <div>Teléfono: @referencias.Telefono</div>
-        }
+            <div class="row">
+                Con fecha de finalización @Model.FechaFin
+            </div>
+             <div class="row">
+                 Descripcion: @Model.Descripcion
+             </div>
     </div>
+
+                <div class="col">
+                    @if (Model.TipoDonacion == 1)
+                    {
+                        @Html.Partial("VerDetallePropuestaMonetaria", Model.PropuestasDonacionesMonetarias.First())
+                    }
+                    else if (Model.TipoDonacion == 2)
+                    {
+                        @Html.Partial("VerDetallePropuestaInsumos", Model.PropuestasDonacionesInsumos.ToList())
+                    }
+                    else
+                    {
+                        @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
+                    }
+
+                    <div><a href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+
+                    <div><a href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
+
+                   <div class="row">
+                    @if (Model.IdUsuarioCreador != user.IdUsuario)
+                    {
+                      
+                           <form action="/Propuestas/Calificar" method="post">
+                               <div class="form-group">
+                                   <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
+                                   <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
+                                   <input type="text" name="Valoracion" value="1" hidden />
+                                   <button type="submit" class="btn btn-success">Me gusta</button>
+                               </div>
+                           </form>
+
+
+                           <form action="/Propuestas/Calificar" method="post">
+                               <div class="form-group">
+                                   <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
+                                   <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
+                                   <input type="text" name="Valoracion" value="0" hidden />
+                                   <button type="submit" class="btn btn-danger">No me gusta</button>
+                               </div>
+                           </form>
+                       
+                    }
+
+                 
+                        Referencias:
+                       @foreach (var referencias in Model.PropuestasReferencias)
+                       {
+                           <div>Nombre: @referencias.Nombre</div>
+                           <div>Teléfono: @referencias.Telefono</div>
+                       }
+   
+                   
+                </div>
+                       
+                </div>
+            </div>
+</div>
+
+
