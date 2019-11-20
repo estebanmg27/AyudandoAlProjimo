@@ -1,0 +1,10 @@
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\AyudandoAlProjimo.Data.dll.config
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\AyudandoAlProjimo.Data.dll
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\AyudandoAlProjimo.Data.pdb
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\EntityFramework.dll
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\EntityFramework.xml
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\obj\Debug\AyudandoAlProjimo.Data.csproj.CopyComplete
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\obj\Debug\AyudandoAlProjimo.Data.dll
+C:\C#\PW3\AyudandoAlProjimo-branch-de-esteban\AyudandoAlProjimo.Data\obj\Debug\AyudandoAlProjimo.Data.pdb

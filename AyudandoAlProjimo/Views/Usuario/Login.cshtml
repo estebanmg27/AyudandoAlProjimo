@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/InicioLayout.cshtml";
+}
+
+@model AyudandoAlProjimo.Data.Usuarios
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card" style="margin-top: 50px">
+                    <div class="card-body">
+                        <form action="/Usuario/AutorizarLogin" method="post">
+                            <h5 class="card-title">Login</h5>
+                            
+                                @Html.Label("Email", "Correo electrónico:")
+                          
+                        <div class="form-group">
+                            <input type="email" style="width:100%;" @Html.EditorFor(o => o.Email)
+                         
+                            @Html.ValidationMessageFor(o => o.Email)
+                        </div>
+
+                            @Html.Label("Password", "Contraseña:")
+                            <div class="form-group">
+                                <input type="password" name="Password" style="width:100%;">
+                                @Html.ValidationMessageFor(o => o.Password)
+                            </div>
+
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" value="remember-me">Recordarme
+                                </label>
+                            </div>
+                            <br />
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</body>
+</html>
+

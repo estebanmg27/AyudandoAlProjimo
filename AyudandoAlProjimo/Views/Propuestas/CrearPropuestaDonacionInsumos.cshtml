@@ -1,0 +1,38 @@
+﻿@model AyudandoAlProjimo.Data.Propuestas
+
+@{
+    ViewBag.Title = "CrearPropuestaDonacionInsumos";
+}
+
+<form action="/Propuestas/CrearPropuestaDonacionInsumos" method="post">
+
+    <h2>Crear propuesta de donación de insumos</h2>
+
+    <input type="hidden" name="Nombre" value="@Model.Nombre" />
+    <input type="hidden" name="Descripcion" value="@Model.Descripcion" />
+    <input type="hidden" name="FechaFin" value="@Model.FechaFin" />
+    <input type="hidden" name="TelefonoContacto" value="@Model.TelefonoContacto" />
+    <input type="hidden" name="TipoDonacion" value="@Model.TipoDonacion" />
+    <input type="hidden" name="Foto" value="@Model.Foto" />
+    <input type="hidden" name="Nombre1" value="@ViewBag.Nombre1" />
+    <input type="hidden" name="Telefono1" value="@ViewBag.Telefono1" />
+    <input type="hidden" name="Nombre2" value="@ViewBag.Nombre2" />
+    <input type="hidden" name="Telefono2" value="@ViewBag.Telefono2" />
+
+    <div class="form-group">
+        @Html.Label("Nombre[0]", "Insumo:")
+        @Html.TextBox("Nombre[0]", null)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Cantidad[0]", "Cantidad:")
+        @Html.TextBox("Cantidad[0]", null)
+    </div>
+
+    <input type="hidden" name="CantidadInsumos" value="1" />
+
+    <input class="btn btn-primary" type="submit" value="Crear" />
+</form>
+
+
+

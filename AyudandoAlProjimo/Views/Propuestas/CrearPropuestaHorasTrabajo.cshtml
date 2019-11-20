@@ -1,0 +1,47 @@
+﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesHorasTrabajo
+
+@{
+    ViewBag.Title = "CrearPropuestaHorasTrabajo";
+}
+
+    <form action="/Propuestas/CrearPropuestaHorasTrabajo" method="post">
+
+        <h2>Crear propuesta de donación de horas de trabajo</h2>
+
+        <input type="hidden" name="Nombre" value="@Model.Nombre" />
+        <input type="hidden" name="Descripcion" value="@Model.Descripcion" />
+        <input type="hidden" name="FechaFin" value="@Model.FechaFin" />
+        <input type="hidden" name="TelefonoContacto" value="@Model.TelefonoContacto" />
+        <input type="hidden" name="TipoDonacion" value="@Model.TipoDonacion" />
+        <input type="hidden" name="Foto" value="@Model.Foto" />
+        <input type="hidden" name="Nombre1" value="@ViewBag.Nombre1" />
+        <input type="hidden" name="Telefono1" value="@ViewBag.Telefono1" />
+        <input type="hidden" name="Nombre2" value="@ViewBag.Nombre2" />
+        <input type="hidden" name="Telefono2" value="@ViewBag.Telefono2" />
+
+        <div class="form-group">
+            @Html.Label("CantidadHoras", "Horas a trabajar:")
+            @Html.EditorFor(o => o.CantidadHoras, null, new { @class = "number" })
+            @Html.ValidationMessageFor(o => o.CantidadHoras, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Profesion", "Profesion de quien dona:")
+            <select class="form-control" id="Profesion" name="Profesion">
+                <option value="Albañil">Albañil</option>
+                <option value="Plomero">Plomero</option>
+                <option value="Electricista">Electricista</option>
+                <option value="Abogado">Abogado</option>
+                <option value="Contador">Contador</option>
+                <option value="Trabajador social">Trabajador social</option>
+                <option value="Psicologa">Psicóloga</option>
+                <option value="Psicopegadoga">Psicopedagoga</option>
+                <option value="Cocinero">Cocinero</option>
+                <option value="Limpieza">Limpieza</option>
+                <option value="Otros">Otros</option>
+            </select>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Crear" />
+    </form>
+

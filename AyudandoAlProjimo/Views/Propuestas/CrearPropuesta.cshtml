@@ -1,0 +1,81 @@
+﻿@model AyudandoAlProjimo.Data.Propuestas
+@{
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+    ViewBag.Title = "CrearPropuesta";
+}
+
+
+<div class="container h-100">
+    <div class="row h-100 justify-content-center">
+        <form action="/Propuestas/CrearPropuesta" method="post">
+
+            <h2>Crear Propuesta</h2>
+
+            <div class="form-group">
+                @Html.Label("Nombre", "Nombre:")
+                <br />
+                @Html.EditorFor(p => p.Nombre, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.Nombre, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Descripcion", "Descripción:")
+                <br />
+                @Html.EditorFor(p => p.Descripcion, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.Descripcion, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("FechaFin", "Fecha de fin:")
+                <br />
+                @Html.EditorFor(p => p.FechaFin, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.FechaFin, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("TelefonoContacto", "Teléfono de contacto:")
+                <br />
+                @Html.EditorFor(p => p.TelefonoContacto, null, new { @class = "number" })
+                @Html.ValidationMessageFor(p => p.TelefonoContacto, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("TipoDonacion", "Tipo de donación:")
+                <select class="form-control" id="TipoDonacion" name="TipoDonacion">
+                    <option value="1">Donación monetaria</option>
+                    <option value="2">Donación de insumos</option>
+                    <option value="3">Donación de horas de trabajo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Foto: </label>
+                <input type="file" name="Foto" id="Foto" value="" />
+            </div>
+            <br />
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("nombre1", "Nombre referencia 1:")
+                    @Html.TextBox("nombre1", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("telefono1", "Teléfono referencia 1:")
+                    @Html.TextBox("telefono1", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("nombre2", "Nombre referencia 2:")
+                    @Html.TextBox("nombre2", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("telefono2", "Teléfono referencia 2:")
+                    @Html.TextBox("telefono2", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Guardar" />
+        </form>
+        </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model List<AyudandoAlProjimo.Data.Propuestas>
+
+@{ }
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="container">
+        <!-- Jumbotron Header -->
+        <header class="jumbotron my-4">
+            <h1 class="display-3">¡Bienvenido!</h1>
+            <p class="lead">A continuación se listan las cinco principales propuestas activas más valoradas por los usuarios del sitio</p>
+        </header>
+
+        <table class="table">
+
+            <tr>
+                <td>Nombre de la propuesta</td>
+                <td>Nombre Usuario Creador</td>
+                <td>Apellido Usuario Creador</td>
+            </tr>
+
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Nombre</td>
+                    <td>@p.Usuarios.Nombre</td>
+                    <td>@p.Usuarios.Apellido</td>
+                </tr>
+            }
+        </table>
+    </div>
+    
+    @Scripts.Render("~/bundles/js")
+</body>
+</html>
+

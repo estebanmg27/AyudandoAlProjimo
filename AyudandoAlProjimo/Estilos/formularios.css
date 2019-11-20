@@ -1,0 +1,18 @@
+﻿.form-container {
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 300px;
+    background-color: whitesmoke;
+}
+
+.form-container-propuestas {
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10em;
+    background: bottom;
+}
+

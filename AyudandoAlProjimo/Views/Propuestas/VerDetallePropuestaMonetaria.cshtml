@@ -1,0 +1,33 @@
+﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesMonetarias
+
+@{
+    ViewBag.DineroJuntado = Model.DonacionesMonetarias.Where(o => o.IdPropuestaDonacionMonetaria == Model.IdPropuestaDonacionMonetaria).Sum(o => o.Dinero);
+
+    if ((Model.Dinero - ViewBag.DineroJuntado) < 0)
+    {
+        ViewBag.RestaPorJuntar = 0;
+    }
+    else
+    {
+        ViewBag.RestaPorJuntar = Model.Dinero - ViewBag.DineroJuntado;
+    }
+
+    if (ViewBag.RestaPorJuntar == 0)
+    {
+        ViewBag.PorcentajeAceptacion = 100;
+    }
+    else
+    {
+        ViewBag.PorcentajeAceptacion = (ViewBag.DineroJuntado * 100) / Model.Dinero;
+    }
+}
+
+<br />
+<div>
+La cantidad de dinero jutado es de: @ViewBag.DineroJuntado
+<br />
+
+De un total de $@Model.Dinero que se necesitan ($@ViewBag.RestaPorJuntar restantes)
+<br />
+El porcentaje de aceptación es @ViewBag.PorcentajeAceptacion%
+</div>
