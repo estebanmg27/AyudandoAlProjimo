@@ -13,6 +13,7 @@ namespace AyudandoAlProjimo.Controllers
 
         UsuarioServicio usuarios = new UsuarioServicio();
         PropuestaServicio propuestas = new PropuestaServicio();
+        SesionServicio sesion = new SesionServicio();
         public ActionResult Inicio()
         {
             var MasValoradas = propuestas.ObtenerCincoPropuestasMasValoradas();
@@ -56,9 +57,19 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult AutorizarLogin(Usuarios u)
         {
             var detalleUsuario = usuarios.Autorizar(u);
+            if (!ModelState.IsValid)
+            {
+                return View(u);
+            }
             if (detalleUsuario == null)
             {
                 return Redirect("/Usuario/Login");
+            }
+            var usuario = usuarios.ObtenerUsuario(u);
+            if (usuario.Activo == false)
+            {
+                ViewBag.MotivoError = "Activa tu cuenta en la casilla de mail";
+                return View("../Shared/Error");
             }
             else
             {
@@ -67,6 +78,7 @@ namespace AyudandoAlProjimo.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
 
         public ActionResult Logout()
         {

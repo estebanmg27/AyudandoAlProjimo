@@ -111,5 +111,11 @@ namespace AyudandoAlProjimo.Servicios
 
             return user;
         }
+
+        public Usuarios ObtenerUsuario(Usuarios u)
+        {
+            var usuario = ctx.Usuarios.Single(o => o.Email == u.Email);
+            return usuario;
+        }
     }
 }

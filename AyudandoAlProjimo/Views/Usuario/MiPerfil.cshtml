@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "MiPerfil";
 }
@@ -12,53 +11,57 @@
     <title>Mi perfil</title>
 </head>
 <body>
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center">
-            <form action="/Usuario/MiPerfil" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/Usuario/MiPerfil" method="post">
 
-                <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
+                            <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
 
-                <h1 class="h3 mb-3 font-weight-normal">Editar mi perfil</h1>
-                <div class="form-control-lg">
+                            <h1 class="card-title">Editar mi perfil</h1>
+                            @*<div class="form-control">*@
 
-                    @Html.LabelFor(o => o.Nombre)
-                    <br />
-                    @Html.EditorFor(o => o.Nombre)
-                    @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
-                    <br />
+                            @Html.LabelFor(o => o.Nombre)
+                            <br />
+                            @Html.EditorFor(o => o.Nombre)
+                            @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
+                            <br />
 
-                    @Html.LabelFor(o => o.Apellido)
-                    <br />
-                    @Html.EditorFor(o => o.Apellido)
-                    @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
-                    <br />
+                            @Html.LabelFor(o => o.Apellido)
+                            <br />
+                            @Html.EditorFor(o => o.Apellido)
+                            @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
+                            <br />
 
-                    @Html.LabelFor(o => o.FechaNacimiento)
-                    <br />
-                    @Html.EditorFor(o => o.FechaNacimiento)
-                    @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
-                    <br />
+                            @Html.LabelFor(o => o.FechaNacimiento)
+                            <br />
+                            @Html.EditorFor(o => o.FechaNacimiento)
+                            @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
+                            <br />
 
-                    @Html.LabelFor(o => o.Email)
-                    <br />
-                    @Html.EditorFor(o => o.Email)
-                    @Html.ValidationMessageFor(o => o.Email)
-                    <br />
+                            @Html.LabelFor(o => o.Email)
+                            <br />
+                            @Html.EditorFor(o => o.Email)
+                            @Html.ValidationMessageFor(o => o.Email)
+                            <br />
 
-                    <div class="form-group">
-                        <label>Foto: </label>
-                        <br />
-                        <input type="file" name="Foto" id="Foto" value="" />
+                            <div class="form-group">
+                                <label>Foto: </label>
+                                <br />
+                                <input type="file" name="Foto" id="Foto" value="" />
+                            </div>
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
+                            @*</div>*@
+                        </form>
                     </div>
-
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
                 </div>
-            </form>
+            </div>
+            <div class="col"></div>
         </div>
-        </div>
+    </div>
 </body>
 </html>
-
-
-
-

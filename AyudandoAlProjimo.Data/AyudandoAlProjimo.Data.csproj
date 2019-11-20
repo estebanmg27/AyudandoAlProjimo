@@ -86,6 +86,10 @@
     <Compile Include="DonacionesMonetarias.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensiones\ApiDonaciones.cs" />
+    <Compile Include="Extensiones\DonacionesHorasTrabajo.cs" />
+    <Compile Include="Extensiones\DonacionesInsumos.cs" />
+    <Compile Include="Extensiones\DonacionesMonetarias.cs" />
     <Compile Include="Extensiones\Propuestas.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajo.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajoMetadata.cs" />
