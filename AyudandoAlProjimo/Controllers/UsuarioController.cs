@@ -86,6 +86,20 @@ namespace AyudandoAlProjimo.Controllers
             return View(u);
         }
 
+        public ActionResult VerMiPerfil()
+        {
+            Usuarios u = SesionServicio.UsuarioSesion;
+
+            if (SesionServicio.UsuarioSesion != null)
+            {
+                return View(u);
+            }
+            else
+            {
+                return View("Inicio");
+            }
+        }
+
         [HttpPost]
         public ActionResult MiPerfil(Usuarios user)
         {

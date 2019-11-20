@@ -21,6 +21,11 @@
                 @Html.ActionLink("Mi perfil", "MiPerfil", "Usuario", new object { }, new { @class = "nav-link" })
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("VerMiPerfil", "Usuario")">
+                    Ver mi perfil
+                </a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="@Url.Action("MisPropuestas", "Propuestas")">
                     Mis propuestas
                 </a>

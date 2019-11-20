@@ -236,6 +236,7 @@
     <Content Include="Views\Propuestas\Propuestas.cshtml" />
     <Content Include="Views\Denuncias\ListaDeDenuciasARevisar.cshtml" />
     <Content Include="Views\Propuestas\MisPropuestas.cshtml" />
+    <Content Include="Views\Usuario\VerMiPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
