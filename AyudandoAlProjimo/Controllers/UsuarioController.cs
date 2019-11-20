@@ -33,13 +33,15 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult Registro(Usuarios u)
         {
-            if (usuarios.MailExistente(u).Count == 1)
-            {
-                ModelState.AddModelError("Email", "Ya hay un usuario registrado con ese email");
-            }
             if (!ModelState.IsValid)
             {
                 return View(u);
+            }
+            else if (usuarios.MailExistente(u).Count == 1)
+            {
+                ViewBag.MotivoError= "Ya hay un usuario registrado con ese email";
+                return View("../Shared/Error");
+
             }
             else
             {

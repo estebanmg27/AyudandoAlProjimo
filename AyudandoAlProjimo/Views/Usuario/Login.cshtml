@@ -28,7 +28,7 @@
 
                             @Html.Label("Password", "Contraseña:")
                         <div class="form-group">
-                            @Html.EditorFor(o => o.Password, new { type = "password" })
+                            @Html.TextBoxFor(o => o.Password, new { type = "password" })
                             <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
                         </div>
 

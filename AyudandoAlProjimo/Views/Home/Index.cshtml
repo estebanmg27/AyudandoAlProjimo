@@ -4,28 +4,29 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "VerListaDePropuestas";
 }
+    <div class="container">
 
-<form class="form-inline" action="/Propuestas/RealizarBusqueda" method="post">
-    <input class="form-control mr-sm-2" type="text" name="texto" placeholder="Buscar">
-    <button class="btn btn-success" type="submit">Buscar</button>
-</form>
+        <form class="form-inline" action="/Propuestas/RealizarBusqueda" method="post">
+            <input class="form-control mr-sm-2" type="text" name="texto" placeholder="Buscar">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
 
-<div class="container">
-    <table class="table">
+        
+        <table class="table">
 
-        <tr>
-            <td>Nombre de la propuesta:</td>
-        </tr>
-
-        @foreach (var p in Model)
-        {
             <tr>
-                <td>@p.Nombre</td>
-                <td><a href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a></td>
+                <td>Nombre de la propuesta:</td>
             </tr>
-        }
-    </table>
-</div>
+
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Nombre</td>
+                    <td><a href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a></td>
+                </tr>
+            }
+        </table>
+    </div>
 
 
 

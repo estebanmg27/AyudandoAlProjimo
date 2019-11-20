@@ -9,7 +9,6 @@ namespace AyudandoAlProjimo.Data.Extensiones
 {
     [MetadataType(typeof(UsuariosMetadata))]
     public partial class Usuarios
-    {
-
+    { 
     }
 }

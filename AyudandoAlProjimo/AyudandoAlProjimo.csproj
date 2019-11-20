@@ -237,6 +237,7 @@
     <Content Include="Views\Denuncias\ListaDeDenuciasARevisar.cshtml" />
     <Content Include="Views\Propuestas\MisPropuestas.cshtml" />
     <Content Include="Views\Usuario\VerMiPerfil.cshtml" />
+    <Content Include="Views\Shared\pv_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

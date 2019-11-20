@@ -21,16 +21,12 @@ namespace AyudandoAlProjimo.Data
         [Required(ErrorMessage = "La contraseña es obligatoria")]
         [RegularExpression(@"^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$",
         ErrorMessage = "La contraseña debe tener como mínimo una mayúscula, un número y 8 caracteres")]
-        //[Compare(nameof(password2), ErrorMessage ="Las contraseñas deben ser iguales")]
+        [Compare(("Password2"), ErrorMessage = "Las contraseñas deben ser iguales")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        //[MaxLength(20, ErrorMessage = "20 caracteres como Maximo")]
-        //[Required(ErrorMessage = "La contraseña es obligatoria")]
-        //[RegularExpression(@"^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$",
-        //ErrorMessage = "La contraseña debe tener como mínimo una mayúscula, un número y 8 caracteres")]
-        //[DataType(DataType.Password)]
-        //public string password2 { get; set; }
+        [Required(ErrorMessage = "La confirmación de la contraseña es obligatoria")]
+        public string Password2 { get; set; }
 
         [Required(ErrorMessage = "La Fecha de Nacimiento es obligatoria")]
         [DataType(DataType.Date)]

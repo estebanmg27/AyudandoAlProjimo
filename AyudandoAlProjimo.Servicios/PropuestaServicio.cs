@@ -186,5 +186,47 @@ namespace AyudandoAlProjimo.Servicios
 
             return propuestasActivas;
         }
+
+        public int CalcularTotalDonadoPropuestaInsunmos(int id)
+        {
+            int Total = 0;
+            var lista = (from p in ctx.Propuestas
+                                join p_insumos in ctx.PropuestasDonacionesInsumos
+                                on p.IdPropuesta equals p_insumos.IdPropuesta
+                                join d_insumos in ctx.DonacionesInsumos
+                                on p_insumos.IdPropuestaDonacionInsumo equals d_insumos.IdPropuestaDonacionInsumo
+                                where p_insumos.IdPropuestaDonacionInsumo == id
+                                select d_insumos.Cantidad).ToList();
+
+
+            foreach (int i in lista)
+            {
+                Total = Total + i;
+            }
+            return Total;
+
+        }
+
+        public int CalcularTotalDonadoPropuestaHoras(int id)
+        {
+            int Total = 0;
+            var lista= (from p in ctx.Propuestas
+                        join p_horas in ctx.PropuestasDonacionesHorasTrabajo
+                        on p.IdPropuesta equals p_horas.IdPropuesta
+                        join d_horas in ctx.DonacionesHorasTrabajo
+                        on p_horas.IdPropuestaDonacionHorasTrabajo equals d_horas.IdPropuestaDonacionHorasTrabajo
+                        where p.IdPropuesta == id
+                        select d_horas.Cantidad).ToList();
+
+            if (lista.Count > 0)
+            {
+                foreach (int i in lista)
+                {
+                    Total = Total + i;
+                }
+                return Total;
+            }
+            else return 0;
+        }
     }
 }

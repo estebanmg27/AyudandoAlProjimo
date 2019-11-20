@@ -20,7 +20,7 @@
 
                             @Html.Label("Email", "Correo electrónico:")
                         <div class="form-group">
-                            @Html.TextBoxFor(o => o.Email, new { type = "email"})
+                            @Html.TextBoxFor(o => o.Email, new { type = "email" })
                             <p class="text-danger">@Html.ValidationMessageFor(o => o.Email)</p>
                         </div>
 
@@ -30,9 +30,11 @@
                             <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
                         </div>
 
-                            @*Repita la contraseña:
-                                @Html.EditorFor(o => o.Password2)
-                                @Html.ValidationMessageFor(o => o.Password2)*@
+                            @*@Html.Label("Password", "Repetir Contraseña:")
+                        <div class="form-group">
+                            @Html.TextBoxFor(o => o.Password2, new { type = "password" })
+                            <p class="text-danger">@Html.ValidationMessageFor(o => o.Password2)</p>
+                        </div>*@
 
                             @Html.Label("FechaNacimiento", "Fecha de nacimiento")
                         <div class="form-group">                         

@@ -55,7 +55,18 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult CrearPropuesta(FormCollection form)
         {
-            return CrearNuevaPropuesta(form);
+
+            if (propuestas.ObtenerMisPropuestas().Count < 3)
+            {
+                return CrearNuevaPropuesta(form);
+            }
+            else
+            {
+                ViewBag.MotivoError = "No puede crear más de tres propuestas";
+                return View("../Shared/Error");
+            }
+
+            
         }
 
         public Propuestas RecuperarInformacion(FormCollection form, Propuestas p)
