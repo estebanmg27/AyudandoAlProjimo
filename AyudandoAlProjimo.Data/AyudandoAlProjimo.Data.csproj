@@ -98,8 +98,7 @@
     <Compile Include="Extensiones\PropuestasDonacionesMonetarias.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesMonetariasMetadata.cs" />
     <Compile Include="Extensiones\PropuestasMetadata.cs" />
-    <Compile Include="Extensiones\Usuarios.cs" />
-    <Compile Include="Extensiones\UsuariosMetadata.cs" />
+    <Compile Include="Extensiones\ViewModelRegistro.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

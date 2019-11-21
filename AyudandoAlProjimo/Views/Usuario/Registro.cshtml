@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/InicioLayout.cshtml";
 }
 
-@model AyudandoAlProjimo.Data.Usuarios
+@model AyudandoAlProjimo.Data.Extensiones.ViewModelRegistro
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,11 +30,11 @@
                             <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
                         </div>
 
-                            @*@Html.Label("Password", "Repetir Contraseña:")
+                            @Html.Label("Password", "Repetir Contraseña:")
                         <div class="form-group">
                             @Html.TextBoxFor(o => o.Password2, new { type = "password" })
                             <p class="text-danger">@Html.ValidationMessageFor(o => o.Password2)</p>
-                        </div>*@
+                        </div>
 
                             @Html.Label("FechaNacimiento", "Fecha de nacimiento")
                         <div class="form-group">                         

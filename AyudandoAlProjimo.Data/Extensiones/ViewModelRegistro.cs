@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AyudandoAlProjimo.Data;
 
-namespace AyudandoAlProjimo.Data
+namespace AyudandoAlProjimo.Data.Extensiones
 {
-    public class UsuariosMetadata
+    public class ViewModelRegistro
     {
         [Required(ErrorMessage = "El Email es obligatorio")]
         [MaxLength(50, ErrorMessage = "50 caracteres como Maximo")]
@@ -35,6 +35,10 @@ namespace AyudandoAlProjimo.Data
 
         [MaxLength(30, ErrorMessage = "30 caracteres como máximo")]
         public string Token { get; set; }
+
+        //public bool Activo { get; set; }
+        //public System.DateTime FechaCracion { get; set; }
+        //public int TipoUsuario { get; set; }
     }
 
     public class EdadMinima : ValidationAttribute
@@ -67,3 +71,4 @@ namespace AyudandoAlProjimo.Data
         }
     }
 }
+
