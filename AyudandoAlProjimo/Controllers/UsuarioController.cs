@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using AyudandoAlProjimo.Servicios;
 using AyudandoAlProjimo.Data;
 using System.Web;
-using AyudandoAlProjimo.Data.Extensiones;
 
 namespace AyudandoAlProjimo.Controllers
 {
@@ -32,7 +31,7 @@ namespace AyudandoAlProjimo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registro(ViewModelRegistro u)
+        public ActionResult Registro(Usuarios u)
         {
             if (!ModelState.IsValid)
             {
