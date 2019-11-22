@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using AyudandoAlProjimo.Data;
+using AyudandoAlProjimo.Data.Extensiones;
 
 namespace AyudandoAlProjimo.Servicios
 {
@@ -14,16 +15,17 @@ namespace AyudandoAlProjimo.Servicios
     {
         Entities ctx = new Entities();
 
-        public void AgregarUsuario(Usuarios u)
+        public void AgregarUsuario(ViewModelRegistro u)
         {
-            u.Activo = false;
-            u.Token = Guid.NewGuid().ToString("N").Substring(2);
-            u.FechaCracion = DateTime.Today;
-            u.TipoUsuario = 2;
-            ctx.Usuarios.Add(u);
+            Usuarios user = new Usuarios();
+            user.Activo = false;
+            user.Token = Guid.NewGuid().ToString("N").Substring(2);
+            user.FechaCracion = DateTime.Today;
+            user.TipoUsuario = 2;
+            ctx.Usuarios.Add(user);
             ctx.SaveChanges();
 
-            EnviarCorreo(u);
+            EnviarCorreo(user);
         }
 
         public void ActivarCuenta(String token)
@@ -103,7 +105,7 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.Usuarios.Find(id);
         }
 
-        public List<Usuarios> MailExistente(Usuarios u)
+        public List<Usuarios> MailExistente(ViewModelRegistro u)
         {
             var user = (from usuarios in ctx.Usuarios
                         where usuarios.Email == u.Email
