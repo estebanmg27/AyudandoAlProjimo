@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "CrearPropuestaDonacionInsumos";
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+
 }
 
     <form action="/Propuestas/CrearPropuestaDonacionInsumos" method="post">
@@ -32,7 +34,8 @@
 
         <input type="hidden" name="CantidadInsumos" id="input-cantidad-insumos" value="1" />
 
-        @*<button type="button" class="btn btn-primary mb-4" onclick="agregarInsumo()">Agregar insumo</button>*@
+        <button type="button" class="btn btn-primary mb-4" onclick="agregarInsumo()">Agregar insumo</button>
+        <button type="button" id="boton-quitar-insumo" class="btn btn-danger mb-4" onclick="quitarInsumo()" disabled>Quitar insumo</button>
 
         <input class="btn btn-primary" type="submit" value="Crear" />
     </form>

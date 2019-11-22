@@ -26,10 +26,13 @@ namespace AyudandoAlProjimo
                         "~/Scripts/modernizr-*"));
 
 
-            bundles.Add(new ScriptBundle("~/Content/js")
+            bundles.Add(new ScriptBundle("~/Scripts/js")
                 .Include(
                     "~/Scripts/jquery-3.3.1.min.js",
-                    "~/Scripts/bootstrap.bundle.min.js"));
+                    "~/Scripts/bootstrap.bundle.min.js",
+                    "~/Scripts/propuesta-insumos.js"
+                    ));
+
         }
     }
 }

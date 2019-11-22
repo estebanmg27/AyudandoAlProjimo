@@ -18,9 +18,13 @@ namespace AyudandoAlProjimo.Servicios
         public void AgregarUsuario(ViewModelRegistro u)
         {
             Usuarios user = new Usuarios();
+            user.Email = u.Email;
+            user.Password = u.Password;
+            user.FechaNacimiento = u.FechaNacimiento;
             user.Activo = false;
             user.Token = Guid.NewGuid().ToString("N").Substring(2);
             user.FechaCracion = DateTime.Today;
+            user.Foto = "user.png";
             user.TipoUsuario = 2;
             ctx.Usuarios.Add(user);
             ctx.SaveChanges();

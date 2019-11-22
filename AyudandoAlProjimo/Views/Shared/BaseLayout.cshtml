@@ -61,9 +61,11 @@
     </nav>
     @RenderBody()
 
-    
-<footer>
-    @Html.Partial("pv_Footer")
-</footer>   
+    @Scripts.Render("~/Content/js")
+    @RenderSection("scripts", required: false)
+
+    @*<footer>
+        @Html.Partial("pv_Footer")
+    </footer>*@
 </body>
 </html>

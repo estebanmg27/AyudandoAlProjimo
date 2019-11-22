@@ -36,9 +36,9 @@ namespace AyudandoAlProjimo.Data.Extensiones
         [MaxLength(30, ErrorMessage = "30 caracteres como máximo")]
         public string Token { get; set; }
 
-        //public bool Activo { get; set; }
-        //public System.DateTime FechaCracion { get; set; }
-        //public int TipoUsuario { get; set; }
+        public bool Activo { get; set; }
+        public System.DateTime FechaCracion { get; set; }
+        public int TipoUsuario { get; set; }
     }
 
     public class EdadMinima : ValidationAttribute
