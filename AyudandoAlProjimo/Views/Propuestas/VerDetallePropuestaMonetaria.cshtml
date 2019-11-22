@@ -12,14 +12,14 @@
         ViewBag.RestaPorJuntar = Model.Dinero - ViewBag.DineroJuntado;
     }
 
-    if (ViewBag.RestaPorJuntar == 0)
-    {
-        ViewBag.PorcentajeAceptacion = 100;
-    }
-    else
-    {
-        ViewBag.PorcentajeAceptacion = (ViewBag.DineroJuntado * 100) / Model.Dinero;
-    }
+    //if (ViewBag.RestaPorJuntar == 0)
+    //{
+    //    ViewBag.PorcentajeAceptacion = 100;
+    //}
+    //else
+    //{
+    //    ViewBag.PorcentajeAceptacion = (ViewBag.DineroJuntado * 100) / Model.Dinero;
+    //}
 }
 
 <br />
@@ -29,5 +29,3 @@ La cantidad de dinero jutado es de: @ViewBag.DineroJuntado
 
 De un total de $@Model.Dinero que se necesitan ($@ViewBag.RestaPorJuntar restantes)
 <br />
-El porcentaje de aceptación es @ViewBag.PorcentajeAceptacion%
-</div>

@@ -56,15 +56,15 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult CrearPropuesta(FormCollection form)
         {
 
-            if (propuestas.ObtenerMisPropuestas().Count < 3)
-            {
+            //if (propuestas.ObtenerMisPropuestas().Count < 3)
+            //{
                 return CrearNuevaPropuesta(form);
-            }
-            else
-            {
-                ViewBag.MotivoError = "No puede crear más de tres propuestas";
-                return View("../Shared/Error");
-            }
+            //}
+            //else
+            //{
+            //    ViewBag.MotivoError = "No puede crear más de tres propuestas";
+            //    return View("../Shared/Error");
+            //}
 
             
         }
@@ -141,6 +141,7 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult VerDetallePropuesta(int id)
         {
+
             Propuestas p = propuestas.ObtenerPropuestaPorId(id);
             return View(p);
         }
@@ -213,6 +214,7 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult Calificar(FormCollection form)
         {
+           
             int idPropuesta = Convert.ToInt32(form["IdPropuesta"]);
             propuestas.Valorar(form);
             return Redirect("/Propuestas/VerDetallePropuesta/" + idPropuesta);

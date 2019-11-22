@@ -12,24 +12,16 @@
         ViewBag.HorasRestantes = Model.CantidadHoras - ViewBag.CantidadDeHorasCubiertas;
     }
 
-    if (ViewBag.HorasRestantes == 0)
-    {
-        ViewBag.PorcentajeAceptacion = 100;
-    }
-    else
-    {
-        ViewBag.PorcentajeAceptacion = (ViewBag.TotalDeHorasCubiertas * 100) / Model.CantidadHoras;
-    }
+
 }
 
-Profesion: @Model.Profesion
+    Profesion: @Model.Profesion
 <br />
 
-La propuesta cuenta con un total de @Model.CantidadHoras horas de las cuales @ViewBag.TotaldeHorasCubiertas fueron cubiertas.
-<br />
-@ViewBag.HorasRestantes quedan por curbir.
-<br />
-El porcentaje de aceptación es @ViewBag.PorcentajeAceptacion%
+<p>Cantidad de horas a cubrir: @Model.CantidadHoras</p>
+<p>Cantidad de horas cubiertas: @ViewBag.TotaldeHorasCubiertas</p>
+<p>Cantidad de horas por cubrir: @ViewBag.HorasRestantes</p>
+<p>El porcentaje de aceptación:  @ViewBag.PorcentajeAceptacion %</p>
 
 
 

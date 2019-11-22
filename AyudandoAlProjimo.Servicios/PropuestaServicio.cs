@@ -53,7 +53,7 @@ namespace AyudandoAlProjimo.Servicios
                 i.IdPropuesta = PropuestaId;
                 ctx.PropuestasDonacionesInsumos.Add(i);
             }
-            
+
             ctx.SaveChanges();
         }
 
@@ -124,6 +124,10 @@ namespace AyudandoAlProjimo.Servicios
             PropuestasValoraciones v = new PropuestasValoraciones();
             v.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
             v.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
+            //int calificado = NoCalificarMasDeUnaVez(v.IdPropuesta, v.IdUsuario);
+
+            //if (calificado == 0)
+            //{
 
             if (Convert.ToInt32(form["Valoracion"]) == 1)
             {
@@ -136,34 +140,74 @@ namespace AyudandoAlProjimo.Servicios
 
             ctx.PropuestasValoraciones.Add(v);
             ctx.SaveChanges();
+            //PorcentajeDeAceptacion(v.IdPropuesta);
 
         }
+
+        //public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
+        //{
+        //    var calificacion = (from val in ctx.PropuestasValoraciones
+        //                        where val.IdPropuesta == IdPropuesta &&
+        //                        val.IdUsuario == IdUsuario
+        //                        select val).FirstOrDefault();
+
+        //    if (calificacion != null)
+        //    {
+        //        return 1;
+        //    }
+        //    else
+        //    {
+        //        return 0;
+        //    }
+        //}
+
+        //public void PorcentajeDeAceptacion(int id)
+        //{
+        //    int total = 0;
+        //    int cantidadLikes = 0;
+
+        //    Propuestas p = ctx.Propuestas.Find(id);
+
+        //    var valoraciones = (from v in ctx.PropuestasValoraciones
+        //                        where v.IdPropuesta == id
+        //                        select v).ToList();
+
+        //    foreach (var val in valoraciones)
+        //    {
+        //        cantidadLikes++;
+        //        total = total + Convert.ToInt32(val.Valoracion);
+        //    }
+
+        //    decimal Valoracion = (total * 100) / cantidadLikes;
+        //    p.Valoracion = Valoracion;
+        //    ctx.SaveChanges();
+        //}
 
         public List<Propuestas> Buscar(string busqueda)
         {
             List<Propuestas> lista = (from propuestas in ctx.Propuestas
-                    join usuarios in ctx.Usuarios
-                    on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
-                    where propuestas.Nombre.Contains(busqueda) ||
-                    usuarios.UserName.Contains(busqueda) ||
-                    usuarios.Nombre.Contains(busqueda) ||
-                    usuarios.Apellido.Contains(busqueda)
-                    orderby propuestas.FechaFin ascending
-                    orderby propuestas.Valoracion descending
-                    select propuestas).ToList();
+                                      join usuarios in ctx.Usuarios
+                                      on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
+                                      where propuestas.Nombre.Contains(busqueda) ||
+                                      usuarios.UserName.Contains(busqueda) ||
+                                      usuarios.Nombre.Contains(busqueda) ||
+                                      usuarios.Apellido.Contains(busqueda)
+                                      orderby propuestas.FechaFin ascending
+                                      orderby propuestas.Valoracion descending
+                                      select propuestas).ToList();
 
             return lista;
         }
 
         public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
         {
-           List<Propuestas> PropuestasMasValoradas =    (from propuestas in ctx.Propuestas
-                                                        join usuarios in ctx.Usuarios
-                                                        on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
-                                                        where propuestas.Estado == 1
-                                                        select propuestas).Take(5).ToList();
+            List<Propuestas> PropuestasMasValoradas = (from propuestas in ctx.Propuestas
+                                                       join usuarios in ctx.Usuarios
+                                                       on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
+                                                       where propuestas.Estado == 1
+                                                       select propuestas).Take(5).ToList();
 
-            return PropuestasMasValoradas;     
+            return PropuestasMasValoradas;
         }
 
         public List<Propuestas> ObtenerMisPropuestas()
@@ -191,12 +235,12 @@ namespace AyudandoAlProjimo.Servicios
         {
             int Total = 0;
             var lista = (from p in ctx.Propuestas
-                                join p_insumos in ctx.PropuestasDonacionesInsumos
-                                on p.IdPropuesta equals p_insumos.IdPropuesta
-                                join d_insumos in ctx.DonacionesInsumos
-                                on p_insumos.IdPropuestaDonacionInsumo equals d_insumos.IdPropuestaDonacionInsumo
-                                where p_insumos.IdPropuestaDonacionInsumo == id
-                                select d_insumos.Cantidad).ToList();
+                         join p_insumos in ctx.PropuestasDonacionesInsumos
+                         on p.IdPropuesta equals p_insumos.IdPropuesta
+                         join d_insumos in ctx.DonacionesInsumos
+                         on p_insumos.IdPropuestaDonacionInsumo equals d_insumos.IdPropuestaDonacionInsumo
+                         where p_insumos.IdPropuestaDonacionInsumo == id
+                         select d_insumos.Cantidad).ToList();
 
 
             foreach (int i in lista)
@@ -210,13 +254,13 @@ namespace AyudandoAlProjimo.Servicios
         public int CalcularTotalDonadoPropuestaHoras(int id)
         {
             int Total = 0;
-            var lista= (from p in ctx.Propuestas
-                        join p_horas in ctx.PropuestasDonacionesHorasTrabajo
-                        on p.IdPropuesta equals p_horas.IdPropuesta
-                        join d_horas in ctx.DonacionesHorasTrabajo
-                        on p_horas.IdPropuestaDonacionHorasTrabajo equals d_horas.IdPropuestaDonacionHorasTrabajo
-                        where p.IdPropuesta == id
-                        select d_horas.Cantidad).ToList();
+            var lista = (from p in ctx.Propuestas
+                         join p_horas in ctx.PropuestasDonacionesHorasTrabajo
+                         on p.IdPropuesta equals p_horas.IdPropuesta
+                         join d_horas in ctx.DonacionesHorasTrabajo
+                         on p_horas.IdPropuestaDonacionHorasTrabajo equals d_horas.IdPropuestaDonacionHorasTrabajo
+                         where p.IdPropuesta == id
+                         select d_horas.Cantidad).ToList();
 
             if (lista.Count > 0)
             {
@@ -229,4 +273,5 @@ namespace AyudandoAlProjimo.Servicios
             else return 0;
         }
     }
+
 }
