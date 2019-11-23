@@ -1,6 +1,7 @@
 ﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesMonetarias
 
 @{
+
     ViewBag.DineroJuntado = Model.DonacionesMonetarias.Where(o => o.IdPropuestaDonacionMonetaria == Model.IdPropuestaDonacionMonetaria).Sum(o => o.Dinero);
 
     if ((Model.Dinero - ViewBag.DineroJuntado) < 0)
@@ -29,3 +30,5 @@
 
     De un total de $@Model.Dinero que se necesitan ($@ViewBag.RestaPorJuntar restantes)
     <br />
+
+    Porcentaje de aceptación: @Model.Propuestas.Valoracion %

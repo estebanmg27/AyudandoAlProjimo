@@ -143,46 +143,61 @@ namespace AyudandoAlProjimo.Servicios
             //PorcentajeDeAceptacion(v.IdPropuesta);
         }
 
- 
+        public decimal CalcularValoracionTotal(int Id)
+        {
+            var PropuestaActual = ObtenerPropuestaPorId(Id);
+            //Cuenta la cantidad total int  
+            var cantMeGusta = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && x.Valoracion == true).Count();
+            var cantTotal = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
 
-    //public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
-    //{
-    //    var calificacion = (from val in ctx.PropuestasValoraciones
-    //                        where val.IdPropuesta == IdPropuesta &&
-    //                        val.IdUsuario == IdUsuario
-    //                        select val).FirstOrDefault();
+            decimal Valoracion = (decimal)cantMeGusta / cantTotal * 100; //Formula de Valoracion de la Propuesta  //La cantidad Total nunca va a ser 0. Al ejecutarse la accion de votar antes.
+            decimal Resultado = Math.Round(Valoracion, 2); //Solo permite 2 decimales (para que no rompa en la db)
+            PropuestaActual.Valoracion = Resultado;
+            ctx.SaveChanges();
 
-    //    if (calificacion != null)
-    //    {
-    //        return 1;
-    //    }
-    //    else
-    //    {
-    //        return 0;
-    //    }
-    //}
+            return Valoracion;
+        }
 
-    //public void PorcentajeDeAceptacion(int id)
-    //{
-    //    int total = 0;
-    //    int cantidadLikes = 0;
 
-    //    Propuestas p = ctx.Propuestas.Find(id);
 
-    //    var valoraciones = (from v in ctx.PropuestasValoraciones
-    //                        where v.IdPropuesta == id
-    //                        select v).ToList();
+        //public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
+        //{
+        //    var calificacion = (from val in ctx.PropuestasValoraciones
+        //                        where val.IdPropuesta == IdPropuesta &&
+        //                        val.IdUsuario == IdUsuario
+        //                        select val).FirstOrDefault();
 
-    //    foreach (var val in valoraciones)
-    //    {
-    //        cantidadLikes++;
-    //        total = total + Convert.ToInt32(val.Valoracion);
-    //    }
+        //    if (calificacion != null)
+        //    {
+        //        return 1;
+        //    }
+        //    else
+        //    {
+        //        return 0;
+        //    }
+        //}
 
-    //    decimal Valoracion = (total * 100) / cantidadLikes;
-    //    p.Valoracion = Valoracion;
-    //    ctx.SaveChanges();
-    //}
+        //public void PorcentajeDeAceptacion(int id)
+        //{
+        //    int total = 0;
+        //    int cantidadLikes = 0;
+
+        //    Propuestas p = ctx.Propuestas.Find(id);
+
+        //    var valoraciones = (from v in ctx.PropuestasValoraciones
+        //                        where v.IdPropuesta == id
+        //                        select v).ToList();
+
+        //    foreach (var val in valoraciones)
+        //    {
+        //        cantidadLikes++;
+        //        total = total + Convert.ToInt32(val.Valoracion);
+        //    }
+
+        //    decimal Valoracion = (total * 100) / cantidadLikes;
+        //    p.Valoracion = Valoracion;
+        //    ctx.SaveChanges();
+        //}
 
         public List<Propuestas> Buscar(string busqueda)
         {

@@ -48,7 +48,7 @@
                 @if (Model.IdUsuarioCreador != user.IdUsuario)
                 {
 
-                    <form action="/Propuestas/Calificar" method="post">
+                    <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post">
                         <div class="form-group">
                             <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
                             <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
@@ -58,7 +58,7 @@
                     </form>
 
 
-                    <form action="/Propuestas/Calificar" method="post">
+                    <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post">
                         <div class="form-group">
                             <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
                             <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
