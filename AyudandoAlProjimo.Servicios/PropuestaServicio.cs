@@ -124,81 +124,60 @@ namespace AyudandoAlProjimo.Servicios
             PropuestasValoraciones v = new PropuestasValoraciones();
             v.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
             v.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
-            //int calificado = NoCalificarMasDeUnaVez(v.IdPropuesta, v.IdUsuario);
+            int calificado = NoCalificarMasDeUnaVez(v.IdPropuesta, v.IdUsuario);
 
-            //if (calificado == 0)
-            //{
+            if (calificado == 0)
+            {
 
-            if (Convert.ToInt32(form["Valoracion"]) == 1)
-            {
-                v.Valoracion = true;
-            }
-            else
-            {
-                v.Valoracion = false;
+                if (Convert.ToInt32(form["Valoracion"]) == 1)
+                {
+                    v.Valoracion = true;
+                }
+                else
+                {
+                    v.Valoracion = false;
+                }
+
             }
 
             ctx.PropuestasValoraciones.Add(v);
             ctx.SaveChanges();
-            //PorcentajeDeAceptacion(v.IdPropuesta);
+            
         }
 
         public decimal CalcularValoracionTotal(int Id)
         {
             var PropuestaActual = ObtenerPropuestaPorId(Id);
-            //Cuenta la cantidad total int  
-            var cantMeGusta = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && x.Valoracion == true).Count();
-            var cantTotal = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
+            
+            var likes = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && x.Valoracion == true).Count();
+            var totalVotos = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
 
-            decimal Valoracion = (decimal)cantMeGusta / cantTotal * 100; //Formula de Valoracion de la Propuesta  //La cantidad Total nunca va a ser 0. Al ejecutarse la accion de votar antes.
-            decimal Resultado = Math.Round(Valoracion, 2); //Solo permite 2 decimales (para que no rompa en la db)
+            decimal Valoracion = (decimal)likes / totalVotos * 100;
+            decimal Resultado = Math.Round(Valoracion, 2); 
             PropuestaActual.Valoracion = Resultado;
             ctx.SaveChanges();
 
             return Valoracion;
         }
 
+        public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
+        {
+            var calificacion = (from val in ctx.PropuestasValoraciones
+                                where val.IdPropuesta == IdPropuesta &&
+                                val.IdUsuario == IdUsuario
+                                select val).FirstOrDefault();
 
+            if (calificacion != null)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
 
-        //public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
-        //{
-        //    var calificacion = (from val in ctx.PropuestasValoraciones
-        //                        where val.IdPropuesta == IdPropuesta &&
-        //                        val.IdUsuario == IdUsuario
-        //                        select val).FirstOrDefault();
-
-        //    if (calificacion != null)
-        //    {
-        //        return 1;
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
-
-        //public void PorcentajeDeAceptacion(int id)
-        //{
-        //    int total = 0;
-        //    int cantidadLikes = 0;
-
-        //    Propuestas p = ctx.Propuestas.Find(id);
-
-        //    var valoraciones = (from v in ctx.PropuestasValoraciones
-        //                        where v.IdPropuesta == id
-        //                        select v).ToList();
-
-        //    foreach (var val in valoraciones)
-        //    {
-        //        cantidadLikes++;
-        //        total = total + Convert.ToInt32(val.Valoracion);
-        //    }
-
-        //    decimal Valoracion = (total * 100) / cantidadLikes;
-        //    p.Valoracion = Valoracion;
-        //    ctx.SaveChanges();
-        //}
-
+       
         public List<Propuestas> Buscar(string busqueda)
         {
             List<Propuestas> lista = (from propuestas in ctx.Propuestas
