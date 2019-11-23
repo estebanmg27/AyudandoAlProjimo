@@ -141,47 +141,48 @@ namespace AyudandoAlProjimo.Servicios
             ctx.PropuestasValoraciones.Add(v);
             ctx.SaveChanges();
             //PorcentajeDeAceptacion(v.IdPropuesta);
-
         }
 
-        //public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
-        //{
-        //    var calificacion = (from val in ctx.PropuestasValoraciones
-        //                        where val.IdPropuesta == IdPropuesta &&
-        //                        val.IdUsuario == IdUsuario
-        //                        select val).FirstOrDefault();
+ 
 
-        //    if (calificacion != null)
-        //    {
-        //        return 1;
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
+    //public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
+    //{
+    //    var calificacion = (from val in ctx.PropuestasValoraciones
+    //                        where val.IdPropuesta == IdPropuesta &&
+    //                        val.IdUsuario == IdUsuario
+    //                        select val).FirstOrDefault();
 
-        //public void PorcentajeDeAceptacion(int id)
-        //{
-        //    int total = 0;
-        //    int cantidadLikes = 0;
+    //    if (calificacion != null)
+    //    {
+    //        return 1;
+    //    }
+    //    else
+    //    {
+    //        return 0;
+    //    }
+    //}
 
-        //    Propuestas p = ctx.Propuestas.Find(id);
+    //public void PorcentajeDeAceptacion(int id)
+    //{
+    //    int total = 0;
+    //    int cantidadLikes = 0;
 
-        //    var valoraciones = (from v in ctx.PropuestasValoraciones
-        //                        where v.IdPropuesta == id
-        //                        select v).ToList();
+    //    Propuestas p = ctx.Propuestas.Find(id);
 
-        //    foreach (var val in valoraciones)
-        //    {
-        //        cantidadLikes++;
-        //        total = total + Convert.ToInt32(val.Valoracion);
-        //    }
+    //    var valoraciones = (from v in ctx.PropuestasValoraciones
+    //                        where v.IdPropuesta == id
+    //                        select v).ToList();
 
-        //    decimal Valoracion = (total * 100) / cantidadLikes;
-        //    p.Valoracion = Valoracion;
-        //    ctx.SaveChanges();
-        //}
+    //    foreach (var val in valoraciones)
+    //    {
+    //        cantidadLikes++;
+    //        total = total + Convert.ToInt32(val.Valoracion);
+    //    }
+
+    //    decimal Valoracion = (total * 100) / cantidadLikes;
+    //    p.Valoracion = Valoracion;
+    //    ctx.SaveChanges();
+    //}
 
         public List<Propuestas> Buscar(string busqueda)
         {

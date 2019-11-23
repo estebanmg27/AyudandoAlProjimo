@@ -211,10 +211,10 @@ namespace AyudandoAlProjimo.Controllers
             return Redirect("/Home/Index");
         }
 
+
         [HttpPost]
         public ActionResult Calificar(FormCollection form)
         {
-           
             int idPropuesta = Convert.ToInt32(form["IdPropuesta"]);
             propuestas.Valorar(form);
             return Redirect("/Propuestas/VerDetallePropuesta/" + idPropuesta);
