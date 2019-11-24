@@ -39,6 +39,9 @@ namespace AyudandoAlProjimo.Data.Extensiones
         public bool Activo { get; set; }
         public System.DateTime FechaCracion { get; set; }
         public int TipoUsuario { get; set; }
+
+        public string Foto { get; set; }
+
     }
 
     public class EdadMinima : ValidationAttribute

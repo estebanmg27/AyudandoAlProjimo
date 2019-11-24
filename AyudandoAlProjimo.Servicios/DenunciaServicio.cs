@@ -20,7 +20,7 @@ namespace AyudandoAlProjimo.Servicios
 
             List<Propuestas> propuestas = (from prop in ctx.Propuestas
                                          where prop.IdPropuesta == x &&
-                                         prop.Estado == 0
+                                         prop.Estado == 0 // en revisión
                                          select prop).ToList();
 
             foreach (var lista in propuestas)

@@ -183,11 +183,12 @@ namespace AyudandoAlProjimo.Servicios
             List<Propuestas> lista = (from propuestas in ctx.Propuestas
                                       join usuarios in ctx.Usuarios
                                       on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
+                                      where propuestas.IdUsuarioCreador != SesionServicio.UsuarioSesion.IdUsuario
                                       where propuestas.Nombre.Contains(busqueda) ||
                                       usuarios.UserName.Contains(busqueda) ||
                                       usuarios.Nombre.Contains(busqueda) ||
                                       usuarios.Apellido.Contains(busqueda)
-                                      orderby propuestas.FechaFin ascending
+                                      orderby propuestas.FechaFin descending
                                       orderby propuestas.Valoracion descending
                                       select propuestas).ToList();
 
@@ -199,7 +200,7 @@ namespace AyudandoAlProjimo.Servicios
             List<Propuestas> PropuestasMasValoradas = (from propuestas in ctx.Propuestas
                                                        join usuarios in ctx.Usuarios
                                                        on propuestas.IdUsuarioCreador equals usuarios.IdUsuario
-                                                       where propuestas.Estado == 1
+                                                       where propuestas.Estado == 0
                                                        select propuestas).Take(5).ToList();
 
             return PropuestasMasValoradas;

@@ -24,7 +24,7 @@ namespace AyudandoAlProjimo.Servicios
             user.Activo = false;
             user.Token = Guid.NewGuid().ToString("N").Substring(2);
             user.FechaCracion = DateTime.Today;
-            user.Foto = "user.png";
+            user.Foto = u.Foto;
             user.TipoUsuario = 2;
             ctx.Usuarios.Add(user);
             ctx.SaveChanges();

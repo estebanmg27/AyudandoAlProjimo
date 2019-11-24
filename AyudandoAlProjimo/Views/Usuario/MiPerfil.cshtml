@@ -26,26 +26,18 @@
 
                             @Html.LabelFor(o => o.Nombre)
                             <br />
-                            @Html.EditorFor(o => o.Nombre)
+                            @Html.EditorFor(usuario => usuario.Nombre, new { htmlAttributes = new { id = "inputNombre", name = "nombre", @class = "form-control", type = "text", required = "required" } })
                             @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
                             <br />
 
                             @Html.LabelFor(o => o.Apellido)
                             <br />
-                            @Html.EditorFor(o => o.Apellido)
+                            @Html.EditorFor(usuario => usuario.Apellido, new { htmlAttributes = new { id = "inputApellido", name = "apellido", @class = "form-control", type = "text", required = "required" } })
                             @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
                             <br />
 
                             @Html.LabelFor(o => o.FechaNacimiento)
-                            <br />
-                            @Html.EditorFor(o => o.FechaNacimiento)
-                            @Html.ValidationMessageFor(o => o.FechaNacimiento, "", new { @class = "text-danger" })
-                            <br />
-
-                            @Html.LabelFor(o => o.Email)
-                            <br />
-                            @Html.EditorFor(o => o.Email)
-                            @Html.ValidationMessageFor(o => o.Email)
+                            @Html.EditorFor(o => o.FechaNacimiento, new { htmlAttributes = new { id = "inputFechaNacimiento", name = "fechaNacimiento", @class = "form-control", required = "required", type = "text", autocomplete = "off", value = $"{Model.FechaNacimiento:dd/MM/yyyy}" } })
                             <br />
 
                             <div class="form-group">
