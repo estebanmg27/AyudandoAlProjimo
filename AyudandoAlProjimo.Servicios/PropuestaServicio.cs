@@ -218,6 +218,19 @@ namespace AyudandoAlProjimo.Servicios
             return misPropuestas;
         }
 
+        public List<Propuestas> ObtenerMisPropuestasActivas()
+        {
+            int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
+            List<Propuestas> misPropuestasActivas =    (from propuestas in ctx.Propuestas
+                                                        join user in ctx.Usuarios
+                                                        on propuestas.IdUsuarioCreador equals user.IdUsuario
+                                                        where propuestas.IdUsuarioCreador == IdUsuario
+                                                        where propuestas.Estado == 0
+                                                        select propuestas).ToList();
+
+            return misPropuestasActivas;
+        }
+
         public List<Propuestas> ObtenerPropuestasActivas()
         {
             List<Propuestas> propuestasActivas = (from p in ctx.Propuestas

@@ -26,47 +26,58 @@ namespace AyudandoAlProjimo.Controllers
             Propuestas propuesta;
             string vista;
 
-            switch (donacion)
+
+            if (!ModelState.IsValid)
             {
-                case 1:
-                    propuesta = new PropuestasDonacionesMonetarias();
-                    vista = "CrearPropuestaMoneraria";
-                    break;
-                case 2:
-                    propuesta = new PropuestasDonacionesInsumos();
-                    vista = "CrearPropuestaDonacionInsumos";
-                    break;
-                default:
-                    propuesta = new PropuestasDonacionesHorasTrabajo();
-                    vista = "CrearPropuestaHorasTrabajo";
-                    break;
+                return View("CrearPropuesta");
             }
+            else
+            {
+                switch (donacion)
+                {
+                    case 1:
+                        propuesta = new PropuestasDonacionesMonetarias();
+                        vista = "CrearPropuestaMoneraria";
+                        break;
+                    case 2:
+                        propuesta = new PropuestasDonacionesInsumos();
+                        vista = "CrearPropuestaDonacionInsumos";
+                        break;
+                    default:
+                        propuesta = new PropuestasDonacionesHorasTrabajo();
+                        vista = "CrearPropuestaHorasTrabajo";
+                        break;
+                }
 
-            propuesta = RecuperarInformacion(form, propuesta);
-            ViewBag.Nombre1 = form["Nombre1"];
-            ViewBag.Telefono1 = form["Telefono1"];
-            ViewBag.Nombre2 = form["Nombre2"];
-            ViewBag.Telefono2 = form["Telefono2"];
+                propuesta = RecuperarInformacion(form, propuesta);
+                ViewBag.Nombre1 = form["Nombre1"];
+                ViewBag.Telefono1 = form["Telefono1"];
+                ViewBag.Nombre2 = form["Nombre2"];
+                ViewBag.Telefono2 = form["Telefono2"];
 
-            return View(vista, propuesta);
-
+                return View(vista, propuesta);
+            }
         }
 
         [HttpPost]
         public ActionResult CrearPropuesta(FormCollection form)
         {
-
-            //if (propuestas.ObtenerMisPropuestas().Count < 3)
-            //{
-                return CrearNuevaPropuesta(form);
-            //}
-            //else
-            //{
-            //    ViewBag.MotivoError = "No puede crear más de tres propuestas";
-            //    return View("../Shared/Error");
-            //}
-
-            
+            if (ModelState.IsValid)
+            {
+                if (propuestas.ObtenerMisPropuestasActivas().Count < 3)
+                {
+                    return CrearNuevaPropuesta(form);
+                }
+                else
+                {
+                    ViewBag.MotivoError = "No puede crear más de tres propuestas";
+                    return View("../Shared/Error");
+                }
+            }
+            else
+            {
+                return View("CrearPropuesta");
+            }
         }
 
         public Propuestas RecuperarInformacion(FormCollection form, Propuestas p)
@@ -95,11 +106,18 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult CrearPropuestaMoneraria(FormCollection form)
         {
-            PropuestasDonacionesMonetarias prop = (PropuestasDonacionesMonetarias)RecuperarInformacion(form, new PropuestasDonacionesMonetarias());
-            prop.Dinero = Decimal.Parse(form["Dinero"]);
-            prop.CBU = form["CBU"];
-            propuestas.NuevaPropuestaDonacionMonetaria(prop);
-            return Redirect("/Home/Index");
+            if (ModelState.IsValid)
+            {
+                PropuestasDonacionesMonetarias prop = (PropuestasDonacionesMonetarias)RecuperarInformacion(form, new PropuestasDonacionesMonetarias());
+                prop.Dinero = Decimal.Parse(form["Dinero"]);
+                prop.CBU = form["CBU"];
+                propuestas.NuevaPropuestaDonacionMonetaria(prop);
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return View("CrearPropuestaMoneraria");
+            }
         }
 
         [HttpPost]
