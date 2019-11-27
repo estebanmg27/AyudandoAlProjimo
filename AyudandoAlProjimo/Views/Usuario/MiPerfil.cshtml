@@ -41,9 +41,10 @@
                             <br />
 
                             <div class="form-group">
-                                <label>Foto: </label>
-                                <br />
-                                <input type="file" name="Foto" id="Foto" value="" />
+                                <span class="text-black-50">Subir Foto</span>
+                                @Html.TextBoxFor(usuario => usuario.Foto, new { type = "file", id = "upload" })
+                                @Html.ValidationMessageFor(usuario => usuario.Foto, string.Empty, new { @class = "text-danger" })
+                            
                             </div>
 
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
