@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DenunciasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PropuestasController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -171,6 +172,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Fecha.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -185,6 +187,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\propuesta-insumos.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -231,10 +234,16 @@
     <Content Include="Views\Propuestas\VerDetallePropuestaMonetaria.cshtml" />
     <Content Include="Views\Propuestas\VerDetallePropuestaInsumos.cshtml" />
     <Content Include="Views\Propuestas\VerDetallePropuestaHorasTrabajo.cshtml" />
-    <Content Include="Views\Propuestas\VerListaDePropuestas.cshtml" />
+    <Content Include="Views\Propuestas\CargarDenuncia.cshtml" />
+    <Content Include="Views\Propuestas\Propuestas.cshtml" />
+    <Content Include="Views\Denuncias\ListaDeDenuciasARevisar.cshtml" />
+    <Content Include="Views\Propuestas\MisPropuestas.cshtml" />
+    <Content Include="Views\Usuario\VerMiPerfil.cshtml" />
+    <Content Include="Views\Shared\pv_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagenes\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

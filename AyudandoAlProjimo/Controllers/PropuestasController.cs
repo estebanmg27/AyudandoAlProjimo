@@ -26,31 +26,58 @@ namespace AyudandoAlProjimo.Controllers
             Propuestas propuesta;
             string vista;
 
-            switch (donacion)
+
+            if (!ModelState.IsValid)
             {
-                case 1:
-                    propuesta = new PropuestasDonacionesMonetarias();
-                    vista = "CrearPropuestaMoneraria";
-                    break;
-                case 2:
-                    propuesta = new PropuestasDonacionesInsumos();
-                    vista = "CrearPropuestaDonacionInsumos";
-                    break;
-                default:
-                    propuesta = new PropuestasDonacionesHorasTrabajo();
-                    vista = "CrearPropuestaHorasTrabajo";
-                    break;
+                return View("CrearPropuesta");
             }
+            else
+            {
+                switch (donacion)
+                {
+                    case 1:
+                        propuesta = new PropuestasDonacionesMonetarias();
+                        vista = "CrearPropuestaMoneraria";
+                        break;
+                    case 2:
+                        propuesta = new PropuestasDonacionesInsumos();
+                        vista = "CrearPropuestaDonacionInsumos";
+                        break;
+                    default:
+                        propuesta = new PropuestasDonacionesHorasTrabajo();
+                        vista = "CrearPropuestaHorasTrabajo";
+                        break;
+                }
 
-            propuesta = RecuperarInformacion(form, propuesta);
-            return View(vista, propuesta);
+                propuesta = RecuperarInformacion(form, propuesta);
+                ViewBag.Nombre1 = form["Nombre1"];
+                ViewBag.Telefono1 = form["Telefono1"];
+                ViewBag.Nombre2 = form["Nombre2"];
+                ViewBag.Telefono2 = form["Telefono2"];
 
+                return View(vista, propuesta);
+            }
         }
 
         [HttpPost]
         public ActionResult CrearPropuesta(FormCollection form)
         {
-            return CrearNuevaPropuesta(form);
+            if (ModelState.IsValid)
+            {
+                if (propuestas.ObtenerMisPropuestasActivas().Count < 3)
+                {
+                    return CrearNuevaPropuesta(form);
+                }
+                else
+                {
+                    ViewBag.MotivoError = "No puede crear más de tres propuestas";
+                    return View("../Shared/Error");
+                }
+            }
+            else
+            {
+                return View("CrearPropuesta");
+            }
         }
 
         public Propuestas RecuperarInformacion(FormCollection form, Propuestas p)
@@ -79,11 +106,18 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult CrearPropuestaMoneraria(FormCollection form)
         {
-            PropuestasDonacionesMonetarias prop = (PropuestasDonacionesMonetarias)RecuperarInformacion(form, new PropuestasDonacionesMonetarias());
-            prop.Dinero = Decimal.Parse(form["Dinero"]);
-            prop.CBU = form["CBU"];
-            propuestas.NuevaPropuestaDonacionMonetaria(prop);
-            return Redirect("/Home/Index");
+            if (ModelState.IsValid)
+            {
+                PropuestasDonacionesMonetarias prop = (PropuestasDonacionesMonetarias)RecuperarInformacion(form, new PropuestasDonacionesMonetarias());
+                prop.Dinero = Decimal.Parse(form["Dinero"]);
+                prop.CBU = form["CBU"];
+                propuestas.NuevaPropuestaDonacionMonetaria(prop);
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return View("CrearPropuestaMoneraria");
+            }
         }
 
         [HttpPost]
@@ -98,7 +132,7 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult CrearPropuestaDonacionInsumos(FormCollection form)
         {
-            PropuestasDonacionesInsumos prop = (PropuestasDonacionesInsumos)RecuperarInformacion(form, new PropuestasDonacionesInsumos());
+            Propuestas prop = RecuperarInformacion(form, new Propuestas());
 
             List<PropuestasDonacionesInsumos> insumos = ListaDeInsumos(form);
 
@@ -116,7 +150,7 @@ namespace AyudandoAlProjimo.Controllers
             {
                 PropuestasDonacionesInsumos insumo = new PropuestasDonacionesInsumos();
                 insumo.Nombre = form["Nombre"];
-                insumo.Cantidad = Int32.Parse(form["Cantidad"]);
+                insumo.Cantidad = int.Parse(form["Cantidad[" + i + "]"]);
                 insumos.Add(insumo);
             }
 
@@ -125,6 +159,7 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult VerDetallePropuesta(int id)
         {
+
             Propuestas p = propuestas.ObtenerPropuestaPorId(id);
             return View(p);
         }
@@ -142,7 +177,7 @@ namespace AyudandoAlProjimo.Controllers
             }
             else
             {
-                return View("RealizarDonacionHorasDeTrabajo", p);
+                return View("RealizarDonacionDeHorasDeTrabajo", p);
             }
         }
 
@@ -163,8 +198,8 @@ namespace AyudandoAlProjimo.Controllers
             {
                 di = new DonacionesInsumos();
                 di.IdUsuario = Int32.Parse(form["IdUsuario"]);
-                di.Cantidad = Int32.Parse(form["Cantidad[" +i+ "]"]);
-                di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" +i+ "]"]);
+                di.Cantidad = Int32.Parse(form["Cantidad[" + i + "]"]);
+                di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" + i + "]"]);
                 insumos.Add(di);
             }
 
@@ -179,9 +214,56 @@ namespace AyudandoAlProjimo.Controllers
             return Redirect("/Home/Index");
         }
 
-        public ActionResult VerListaDePropuestas()
+        [HttpGet]
+        public ActionResult CargarDenuncia(int id)
         {
-            return View(propuestas.ObtenerPropuestas());
+            ViewBag.IdPropuesta = id;
+            ViewBag.Motivos = propuestas.ObtenerMotivos();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CargarDenuncia(FormCollection form)
+        {
+            propuestas.AgregarDenuncia(form);
+            return Redirect("/Home/Index");
+        }
+
+
+        [HttpPost]
+        public ActionResult Calificar(FormCollection form, int id)
+        {
+            int idPropuesta = Convert.ToInt32(form["IdPropuesta"]);
+            propuestas.Valorar(form);
+            propuestas.CalcularValoracionTotal(id);
+            return Redirect("/Propuestas/VerDetallePropuesta/" + idPropuesta);
+        }
+
+        [HttpPost]
+        public ActionResult RealizarBusqueda(FormCollection form)
+        {
+            if (form["texto"] == null || form["texto"] == "")
+            {
+                return RedirectToAction("Propuestas");
+            }
+            else
+            {
+                string busqueda = form["texto"];
+                List<Propuestas> ListaDePropuestas = propuestas.Buscar(busqueda);
+                return View("Propuestas", ListaDePropuestas);
+            }
+        }
+
+        public ActionResult Propuestas()
+        {
+            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestas();
+            return View(PropuestasLista);
+        }
+
+        public ActionResult MisPropuestas()
+        {
+            List<Propuestas> propuestasPropias = propuestas.ObtenerMisPropuestas();
+            return View(propuestasPropias);
         }
     }
 }

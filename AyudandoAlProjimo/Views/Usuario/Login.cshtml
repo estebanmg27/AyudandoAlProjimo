@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/InicioLayout.cshtml";
 }
 
-@model AyudandoAlProjimo.Data.Usuarios
+@model AyudandoAlProjimo.Data.Extensiones.ViewModelLogin
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,34 +10,43 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center">
-            <form action="/Usuario/AutorizarLogin" method="post">
-                <h5 class="mt-5">Login usuario</h5>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card" style="margin-top: 50px">
+                    <div class="card-body">
+                        <form action="/Usuario/AutorizarLogin" method="post">
+                            <h5 class="card-title">Login</h5>
 
-                @Html.Label("Email", "Correo electrónico:")
-                <div class="form-group">
-                    @Html.EditorFor(o => o.Email)
-                    @Html.ValidationMessageFor(o => o.Email)
+                            @Html.Label("Email", "Correo electrónico:")
+
+                            <div class="form-group">
+                                 @Html.EditorFor(o => o.Email, new { htmlAttributes = new { @class = "form-control" , @type="email"} })
+                                <p class="text-danger">@Html.ValidationMessageFor(o => o.Email)</p>
+                            </div>
+
+                            @Html.Label("Password", "Contraseña:")
+                             <div class="form-group">
+                            @Html.EditorFor(o => o.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                                <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
+                            </div>
+
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" value="remember-me">Recordarme
+                                </label>
+                            </div>
+                            <br />
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+
+                        </form>
+                    </div>
                 </div>
 
-                @Html.Label("Password", "Contraseña:")
-                <div class="form-group">
-                    <input type="password" name="Password">
-                    @Html.ValidationMessageFor(o => o.Password)
-                </div>
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me">Recordarme
-                    </label>
-                </div>
-                <br />
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-
-            </form>
+            </div>
+            <div class="col"></div>
         </div>
-        </div>
+    </div>
 </body>
 </html>
-

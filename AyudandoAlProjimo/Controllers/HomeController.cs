@@ -12,9 +12,12 @@ namespace AyudandoAlProjimo.Controllers
     {
 
         UsuarioServicio usuarios = new UsuarioServicio();
+        PropuestaServicio propuestas = new PropuestaServicio();
+
         public ActionResult Index()
         {
-            return View();
+            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestasActivas();
+            return View(PropuestasLista);
         }
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoAlProjimo.Data", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoAlProjimo.Servicios", "AyudandoAlProjimo.Servicios\AyudandoAlProjimo.Servicios.csproj", "{ED285677-9A3F-4D61-AFC9-1384DA260710}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{150DE5FC-F163-43AC-B958-C25901F231EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ED285677-9A3F-4D61-AFC9-1384DA260710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED285677-9A3F-4D61-AFC9-1384DA260710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED285677-9A3F-4D61-AFC9-1384DA260710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{150DE5FC-F163-43AC-B958-C25901F231EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{150DE5FC-F163-43AC-B958-C25901F231EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{150DE5FC-F163-43AC-B958-C25901F231EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{150DE5FC-F163-43AC-B958-C25901F231EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

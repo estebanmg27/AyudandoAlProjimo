@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AyudandoAlProjimo.Servicios;
 using AyudandoAlProjimo.Data;
 using System.Web;
+using AyudandoAlProjimo.Data.Extensiones;
 
 namespace AyudandoAlProjimo.Controllers
 {
@@ -12,9 +13,12 @@ namespace AyudandoAlProjimo.Controllers
     {
 
         UsuarioServicio usuarios = new UsuarioServicio();
+        PropuestaServicio propuestas = new PropuestaServicio();
+        SesionServicio sesion = new SesionServicio();
         public ActionResult Inicio()
         {
-            return View();
+            var MasValoradas = propuestas.ObtenerCincoPropuestasMasValoradas();
+            return View(MasValoradas);
         }
 
         public ActionResult Login()
@@ -28,11 +32,17 @@ namespace AyudandoAlProjimo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registro(Usuarios u)
+        public ActionResult Registro(ViewModelRegistro u)
         {
             if (!ModelState.IsValid)
             {
                 return View(u);
+            }
+            else if (usuarios.MailExistente(u).Count == 1)
+            {
+                ViewBag.MotivoError= "Ya hay un usuario registrado con ese email";
+                return View("../Shared/Error");
+
             }
             else
             {
@@ -50,9 +60,19 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult AutorizarLogin(Usuarios u)
         {
             var detalleUsuario = usuarios.Autorizar(u);
+            if (!ModelState.IsValid)
+            {
+                return View(u);
+            }
             if (detalleUsuario == null)
             {
                 return Redirect("/Usuario/Login");
+            }
+            var usuario = usuarios.ObtenerUsuario(u);
+            if (usuario.Activo == false)
+            {
+                ViewBag.MotivoError = "Activa tu cuenta en la casilla de mail";
+                return View("../Shared/Error");
             }
             else
             {
@@ -61,6 +81,7 @@ namespace AyudandoAlProjimo.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
 
         public ActionResult Logout()
         {
@@ -78,6 +99,20 @@ namespace AyudandoAlProjimo.Controllers
 
             Usuarios u = SesionServicio.UsuarioSesion;
             return View(u);
+        }
+
+        public ActionResult VerMiPerfil()
+        {
+            Usuarios u = SesionServicio.UsuarioSesion;
+
+            if (SesionServicio.UsuarioSesion != null)
+            {
+                return View(u);
+            }
+            else
+            {
+                return View("Inicio");
+            }
         }
 
         [HttpPost]

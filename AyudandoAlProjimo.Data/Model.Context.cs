@@ -29,6 +29,7 @@ namespace AyudandoAlProjimo.Data
         public virtual DbSet<DonacionesHorasTrabajo> DonacionesHorasTrabajo { get; set; }
         public virtual DbSet<DonacionesInsumos> DonacionesInsumos { get; set; }
         public virtual DbSet<DonacionesMonetarias> DonacionesMonetarias { get; set; }
+        public virtual DbSet<MotivoDenuncia> MotivoDenuncia { get; set; }
         public virtual DbSet<Propuestas> Propuestas { get; set; }
         public virtual DbSet<PropuestasDonacionesHorasTrabajo> PropuestasDonacionesHorasTrabajo { get; set; }
         public virtual DbSet<PropuestasDonacionesInsumos> PropuestasDonacionesInsumos { get; set; }
