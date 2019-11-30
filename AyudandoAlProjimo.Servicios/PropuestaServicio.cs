@@ -1,6 +1,8 @@
 ﻿using AyudandoAlProjimo.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +14,14 @@ namespace AyudandoAlProjimo.Servicios
     {
         Entities ctx = new Entities();
 
-        public int GenerarPropuestaGeneral(Propuestas p)
+        private int GenerarPropuestaGeneral(Propuestas p)
         {
             int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
             Propuestas propuesta = new Propuestas
 
             {
                 Usuarios = ctx.Usuarios.Find(IdUsuario),
+                Estado = 1,
                 Nombre = p.Nombre,
                 Descripcion = p.Descripcion,
                 TelefonoContacto = p.TelefonoContacto,
@@ -44,17 +47,17 @@ namespace AyudandoAlProjimo.Servicios
             ctx.SaveChanges();
         }
 
-        public void NuevaPropuestaDonacionDeInsumos(Propuestas p, List<PropuestasDonacionesInsumos> insumos)
+        public void NuevaPropuestaDonacionDeInsumos(Propuestas p, List<PropuestasDonacionesInsumos> ListaDeInsumos)
         {
-            int PropuestaId = GenerarPropuestaGeneral(p);
+                int PropuestaId = GenerarPropuestaGeneral(p);
 
-            foreach (PropuestasDonacionesInsumos i in insumos)
-            {
-                i.IdPropuesta = PropuestaId;
-                ctx.PropuestasDonacionesInsumos.Add(i);
-            }
+                foreach (PropuestasDonacionesInsumos i in ListaDeInsumos)
+                {
+                    i.IdPropuesta = PropuestaId;
+                    ctx.PropuestasDonacionesInsumos.Add(i);
+                }
 
-            ctx.SaveChanges();
+                ctx.SaveChanges();        
         }
 
         public void NuevaPropuestaDonacionHorasTrabajo(PropuestasDonacionesHorasTrabajo p)

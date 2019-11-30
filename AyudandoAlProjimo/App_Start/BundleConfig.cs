@@ -30,6 +30,9 @@ namespace AyudandoAlProjimo
                 .Include(
                     "~/Scripts/jquery-3.3.1.min.js",
                     "~/Scripts/bootstrap.bundle.min.js",
+                    "~/Scripts/jquery.validate.js",
+                    "~/Scripts/jquery.validate.unobtrusive.js",
+                    "~/Scripts/Fecha.js",
                     "~/Scripts/propuesta-insumos.js"
                     ));
 

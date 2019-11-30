@@ -132,25 +132,33 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult CrearPropuestaDonacionInsumos(FormCollection form)
         {
-            Propuestas prop = RecuperarInformacion(form, new Propuestas());
+            if (ModelState.IsValid)
+            {
+                Propuestas prop = RecuperarInformacion(form, new Propuestas());
 
-            List<PropuestasDonacionesInsumos> insumos = ListaDeInsumos(form);
+                List<PropuestasDonacionesInsumos> insumos = ListaDeInsumos(form);
 
-            propuestas.NuevaPropuestaDonacionDeInsumos(prop, insumos);
-            return Redirect("/Home/Index");
+                propuestas.NuevaPropuestaDonacionDeInsumos(prop, insumos);
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return View("CrearPropuestaDonacionInsumos");
+            }
         }
 
-        public List<PropuestasDonacionesInsumos> ListaDeInsumos(FormCollection form)
+        private List<PropuestasDonacionesInsumos> ListaDeInsumos(FormCollection form)
         {
             List<PropuestasDonacionesInsumos> insumos = new List<PropuestasDonacionesInsumos>();
 
             int CantidadInsumos = Int32.Parse(form["CantidadInsumos"]);
+            PropuestasDonacionesInsumos insumo;
 
             for (int i = 0; i < CantidadInsumos; i++)
             {
-                PropuestasDonacionesInsumos insumo = new PropuestasDonacionesInsumos();
-                insumo.Nombre = form["Nombre"];
-                insumo.Cantidad = int.Parse(form["Cantidad[" + i + "]"]);
+                insumo = new PropuestasDonacionesInsumos();
+                insumo.Nombre = form["Nombres[" + i + "]"];
+                insumo.Cantidad = Int32.Parse(form["Cantidad[" + i + "]"]);
                 insumos.Add(insumo);
             }
 

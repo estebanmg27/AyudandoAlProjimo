@@ -4,7 +4,7 @@
     ViewBag.Title = "CrearPropuesta";
 }
 
-<body>
+
     <div class="container">
         <div class="row">
             <div class="col"></div>
@@ -14,28 +14,28 @@
                         <form action="/Propuestas/CrearPropuesta" method="post">
                             <h5 class="card-title">Crear propuesta</h5>
 
-                            @Html.Label("Nombre", "Nombre de la propuesta:")
                             <div class="form-group">
+                                @Html.Label("Nombre", "Nombre de la propuesta:")
                                 @Html.EditorFor(o => o.Nombre, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
                                 @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.Label("Descripcion", "Descripción de la propuesta:")
                             <div class="form-group">
+                                @Html.Label("Descripcion", "Descripción de la propuesta:")
                                 @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control", @rows = 3, @id = "descripcionPropuesta" })
                                 @Html.ValidationMessageFor(o => o.Descripcion, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.Label("FechaFin", "Fecha de finalización:")
                             <div class="form-group">
+                                @Html.Label("FechaFin", "Fecha de finalización:")
                                 @Html.EditorFor(o => o.FechaFin, new { htmlAttributes = new { @id = "fechaFin", @class = "form-control", @type = "date", autocomplete = "off" } })
                                 @Html.ValidationMessageFor(o => o.FechaFin, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.Label("TelefonoContacto", "Teléfono de contacto:")
                             <div class="form-group">
-                                @Html.EditorFor(o => o.TelefonoContacto, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-                                @Html.ValidationMessageFor(o => o.TelefonoContacto, "", new { @class = "text-danger" })
+                                @Html.Label("TelefonoContacto", "Teléfono de contacto:")
+                                @Html.EditorFor(o => o.TelefonoContacto, null, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                                @Html.ValidationMessageFor(o => o.TelefonoContacto, null, new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group">
@@ -47,8 +47,8 @@
                                 </select>
                             </div>
 
-                            <label>Foto: </label>
                             <div class="form-group">
+                                <label>Foto: </label>
                                 @Html.EditorFor(o => o.Foto, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
                                 @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
                             </div>
@@ -83,8 +83,3 @@
         </div>
     </div>
 
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/Fecha.js"></script>
-</body>
