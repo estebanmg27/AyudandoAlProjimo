@@ -21,7 +21,6 @@ namespace AyudandoAlProjimo.Servicios
 
             {
                 Usuarios = ctx.Usuarios.Find(IdUsuario),
-                Estado = 1,
                 Nombre = p.Nombre,
                 Descripcion = p.Descripcion,
                 TelefonoContacto = p.TelefonoContacto,

@@ -1,8 +1,9 @@
 ﻿@model List<AyudandoAlProjimo.Data.PropuestasDonacionesInsumos>
 
-<br />
-Insumos que se necesitan:
-<br />
+<span class="font-weight-bold">
+    Insumos que se necesitan:
+</span>
+
 
 
 @foreach (var i in Model)
@@ -29,11 +30,18 @@ Insumos que se necesitan:
         mensaje = "Faltan aun la cantidad de " + InsumosRestantes + " insumos para completar la donación";
     }
 
-    <div>@i.Cantidad insumos para la propuesta @i.Nombre</div>
-    <div>@mensaje</div>
+    <<span class="font-weight-bold">
+        @i.Cantidad insumos para la propuesta @i.Nombre
+    </span>
+    <span class="font-weight-bold">
+        @mensaje
+    </span>
 
-    <p>Porcentaje de aceptación: @i.Propuestas.Valoracion %</p>
+    <span class="font-weight-bold">
+        Porcentaje de aceptación @i.Propuestas.Valoracion %
+    </span>
 
 }
+
 
 

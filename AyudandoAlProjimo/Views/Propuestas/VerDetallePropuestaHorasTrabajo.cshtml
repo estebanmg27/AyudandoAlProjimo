@@ -3,7 +3,7 @@
 @{
     ViewBag.TotalDeHorasCubiertas = Model.DonacionesHorasTrabajo.Where(o => o.IdPropuestaDonacionHorasTrabajo == Model.IdPropuestaDonacionHorasTrabajo).Sum(o => o.Cantidad);
 
-    if ((Model.CantidadHoras - ViewBag.TotalDeHoras) < 0)
+    if ((Model.CantidadHoras - ViewBag.TotalDeHorasCubiertas) < 0)
     {
         ViewBag.HorasRestantes = 0;
     }
@@ -11,14 +11,14 @@
     {
         ViewBag.HorasRestantes = Model.CantidadHoras - ViewBag.CantidadDeHorasCubiertas;
     }
-
-
 }
 
-    Profesion: @Model.Profesion
-    <br />
+<h5>Profesion: @Model.Profesion</h5>
 
-    <p>Cantidad de horas a cubrir: @Model.CantidadHoras</p>
-    <p>Cantidad de horas cubiertas: @ViewBag.TotaldeHorasCubiertas</p>
-    <p>Cantidad de horas por cubrir: @ViewBag.HorasRestantes</p>
-    <p>El porcentaje de aceptación:  @Model.Propuestas.Valoracion %</p>
+<span class="font-weight-bold">Total de horas a cubir @Model.CantidadHoras</span>
+<span class="font-weight-bold">Se han cubierto @ViewBag.TotalDeHorasCubiertas horas</span>
+<span class="font-weight-bold">Restan por curbirse @ViewBag.HorasRestantes horas</span>
+<span class="font-weight-bold">
+    Porcentaje de aceptación @Model.Propuestas.Valoracion%
+ </span>
+
