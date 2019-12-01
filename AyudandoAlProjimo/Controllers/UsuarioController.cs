@@ -123,8 +123,8 @@ namespace AyudandoAlProjimo.Controllers
                 return View(user);
             }
 
-             usuarios.ModificarPerfil(user);
-             return RedirectToAction("Index", "Home");    
+            usuarios.ModificarPerfil(user);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

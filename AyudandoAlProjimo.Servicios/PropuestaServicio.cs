@@ -54,6 +54,8 @@ namespace AyudandoAlProjimo.Servicios
                 foreach (PropuestasDonacionesInsumos i in ListaDeInsumos)
                 {
                     i.IdPropuesta = PropuestaId;
+                    i.TelefonoContacto = p.TelefonoContacto;
+                    i.Descripcion = p.Descripcion;
                     ctx.PropuestasDonacionesInsumos.Add(i);
                 }
 
