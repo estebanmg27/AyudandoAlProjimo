@@ -18,7 +18,8 @@ namespace AyudandoAlProjimo
                 .Include(
                         "~/Estilos/formularios.css",
                         "~/Estilos/perfil.css",
-                        "~/Estilos/donaciones.css"
+                        "~/Estilos/donaciones.css",
+                        "~/Estilos/contenedor.css"
                         ));
 
 
