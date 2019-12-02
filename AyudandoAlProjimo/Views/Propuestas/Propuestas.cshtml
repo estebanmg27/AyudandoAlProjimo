@@ -5,35 +5,36 @@
     ViewBag.Title = "Propuestas";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        @if (@Model.Any())
-        {
-
-            foreach (var p in Model)
+    <div class="container mt-5">
+        <h2 class="title">Resultados de la busqueda</h2>
+        <div class="row">
+            @if (@Model.Any())
             {
-                if (Session["session"] != null)
-                {
 
-                    <div class="col-md-4">
-                        <div class="card p-4">                 
-                            <img src="~/Imagenes/@p.Foto" class="img-thumbnail" alt="" style="width:300px;height:200px;" />
-                            <div><span class="mr-3">Creada por:</span> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
-                            <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
-                            <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
-                            <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>                             
-                            <a class="btn btn-dark" href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a>                         
-                        </div>                         
-                   </div>
+                foreach (var p in Model)
+                {
+                    if (Session["session"] != null)
+                    {
+
+                        <div class="col-md-4">
+                            <div class="card p-4">
+                                <img src="~/Imagenes/@p.Foto" class="img-thumbnail" alt="" style="width:300px;height:200px;" />
+                                <div><span class="mr-3">Creada por:</span> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
+                                <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
+                                <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
+                                <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>
+                                <a class="btn btn-dark" href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a>
+                            </div>
+                        </div>
+                    }
                 }
             }
-        }
-        else
-        {
-            <div class="container">
-                <h2 class="text-center">No se encontraron resultados</h2>
-            </div>
-        }                    
+            else
+            {
+                <div class="container">
+                    <h2 class="text-center">No se encontraron resultados</h2>
+                </div>
+            }
+        </div>
     </div>
- </div>
 

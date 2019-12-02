@@ -16,7 +16,9 @@ namespace AyudandoAlProjimo
 
             bundles.Add(new StyleBundle("~/Estilos/css")
                 .Include(
-                        "~/Estilos/formularios.css"
+                        "~/Estilos/formularios.css",
+                        "~/Estilos/perfil.css"
+
                         ));
 
 

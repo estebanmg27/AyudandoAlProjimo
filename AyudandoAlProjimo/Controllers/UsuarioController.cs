@@ -126,5 +126,10 @@ namespace AyudandoAlProjimo.Controllers
             usuarios.ModificarPerfil(user);
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult IniciarSesion()
+        {
+            return View();
+        }
     }
 }
