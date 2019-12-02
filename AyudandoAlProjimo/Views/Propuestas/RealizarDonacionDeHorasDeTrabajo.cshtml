@@ -6,25 +6,35 @@
 
 }
 
-<div class="container">
-    <h3>Realizar tu donación de horas de trabajo a: @Model.Nombre</h3>
+<div class="abs-center">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-12">
+            <div class="card" style="margin-top: 50px">
+                <div class="card-body">
+                    <h3 class="card-title">Realizar donación a la propuesta</h3>
+                    <h3 class="card-tittle"><strong>@Model.Nombre</strong></h3>
 
-    <form action="/Propuestas/RealizarDonacionDeHorasDeTrabajo" method="post">
+                    <form action="/Propuestas/RealizarDonacionDeHorasDeTrabajo" method="post">
 
-        <div class="form-group">
-            <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
-            <input type="hidden" name="IdUsuario" value="@Model.IdUsuarioCreador" />
+                        <div class="form-group">
+                            <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
+                            <input type="hidden" name="IdUsuario" value="@Model.IdUsuarioCreador" />
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Cantidad", "Cantidad de horas de trabajo que va a donar:")
+                            <br />
+                            @Html.TextBox("Cantidad", 0, new { @type = "number", @class = "form-control" })
+                        </div>
+
+                        <input class="btn btn-primary" type="submit" value="Realizar donacion" />
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            @Html.Label("Cantidad", "Cantidad de horas de trabajo que va a donar:")
-            <br />
-            @Html.TextBox("Cantidad", 0, new { @type = "number", @class = "form-control" })
-        </div>
-        <br />
-
-        <input class="btn btn-primary" type="submit" value="Realizar donacion" />
-    </form>
+        <div class="col"></div>
+    </div>
 </div>
 
 
