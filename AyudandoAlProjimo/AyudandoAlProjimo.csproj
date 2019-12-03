@@ -151,6 +151,7 @@
     <Content Include="Estilos\donaciones.css" />
     <Content Include="Estilos\formularios.css" />
     <Content Include="Estilos\perfil.css" />
+    <Content Include="Estilos\aboutus.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

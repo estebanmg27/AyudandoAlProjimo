@@ -19,5 +19,10 @@ namespace AyudandoAlProjimo.Controllers
             List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestasActivas();
             return View(PropuestasLista);
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
