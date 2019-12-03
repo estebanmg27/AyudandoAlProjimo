@@ -112,7 +112,7 @@ namespace AyudandoAlProjimo.Servicios
             d.Comentarios = form["Comentarios"];
             d.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
             d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
-            d.Estado = 0;
+            d.Estado = 0; //pendiente de revisión
             d.FechaCreacion = DateTime.Today;
             ctx.Denuncias.Add(d);
             ctx.SaveChanges();
