@@ -1,5 +1,6 @@
 ﻿using AyudandoAlProjimo.Data;
 using AyudandoAlProjimo.Servicios;
+using AyudandoAlProjimo.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace AyudandoAlProjimo.Controllers
     public class PropuestasController : Controller
     {
         PropuestaServicio propuestas = new PropuestaServicio();
+        UsuarioServicio usuarios = new UsuarioServicio();
+        SesionServicio sesion = new SesionServicio();
 
         // GET: Propuestas
         public ActionResult CrearPropuesta()
@@ -175,23 +178,37 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult RealizarDonacion(int id)
         {
             Propuestas p = propuestas.ObtenerPropuestaPorId(id);
-            if (p.TipoDonacion == 1)
+            Usuarios user = SesionServicio.UsuarioSesion;
+            ViewBag.IdDonante = user.IdUsuario;
+
+            if (user != null && user.IdUsuario != p.IdUsuarioCreador)
             {
-                return View("RealizarDonacionMonetaria", p);
+                switch (p.TipoDonacion)
+                {
+                    case 1:
+                        return View("DonacionMonetaria", p);
+
+                    case 2:
+                        return View("DonacionInsumos", p);
+
+                    case 3:
+                        return View("DonacionHorasTrabajo", p);
+                }
             }
-            else if (p.TipoDonacion == 2)
-            {
-                return View("RealizarDonacionDeInsumos", p);
-            }
-            else
-            {
-                return View("RealizarDonacionDeHorasDeTrabajo", p);
-            }
+
+            return Redirect("/Home/Index");
         }
 
         [HttpPost]
         public ActionResult RealizarDonacionMonetaria(DonacionesMonetarias dm)
         {
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
+            {
+                string nombresignificativo = dm.ArchivoTransferencia + DateTime.Now.ToString();
+                string pathRelativoImagen = ImagenesUtility.Guardar(Request.Files[0], nombresignificativo);
+                dm.ArchivoTransferencia = pathRelativoImagen;
+            }
+
             propuestas.AgregarDonacionMonetaria(dm);
             return Redirect("/Home/Index");
         }
@@ -199,27 +216,34 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult RealizarDonacionDeInsumos(FormCollection form)
         {
-            DonacionesInsumos di;
-            List<DonacionesInsumos> insumos = new List<DonacionesInsumos>();
-
-            for (int i = 0; i < Int32.Parse(form["Cantidad"]); i++)
+            if (ModelState.IsValid)
             {
-                di = new DonacionesInsumos();
-                di.IdUsuario = Int32.Parse(form["IdUsuario"]);
-                di.Cantidad = Int32.Parse(form["Cantidad[" + i + "]"]);
-                di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" + i + "]"]);
-                insumos.Add(di);
-            }
+                DonacionesInsumos di;
+                List<DonacionesInsumos> insumos = new List<DonacionesInsumos>();
 
-            propuestas.AgregarDonacionDeInsumos(insumos);
-            return Redirect("/Home/Index");
+                for (int i = 0; i < Int32.Parse(form["Cantidad"]); i++)
+                {
+                    di = new DonacionesInsumos();
+                    di.IdUsuario = Int32.Parse(form["IdUsuario"]);
+                    di.Cantidad = Int32.Parse(form["Cantidad[" + i + "]"]);
+                    di.IdPropuestaDonacionInsumo = Int32.Parse(form["IdPropuestaDonacionInsumo[" + i + "]"]);
+                    insumos.Add(di);
+                }
+
+                propuestas.AgregarDonacionDeInsumos(insumos);
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return View(form);
+            }
         }
 
         [HttpPost]
         public ActionResult RealizarDonacionDeHorasDeTrabajo(DonacionesHorasTrabajo dht)
         {
-            propuestas.AgregarDonacionHorasDeTrabajo(dht);
-            return Redirect("/Home/Index");
+                propuestas.AgregarDonacionHorasDeTrabajo(dht);
+                return Redirect("/Home/Index");
         }
 
         [HttpGet]

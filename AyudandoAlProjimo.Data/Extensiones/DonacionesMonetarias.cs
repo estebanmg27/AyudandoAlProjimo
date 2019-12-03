@@ -4,14 +4,21 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
-namespace AyudandoAlProjimo.Data.Extensiones
+namespace AyudandoAlProjimo.Data
 {
-    public class DonacionesMonetarias
+    [MetadataType(typeof(DonacionesMonetariasMetadata))]
+    public partial class DonacionesMonetarias
     {
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        public decimal Dinero { get; set; }
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string CBU { get; set; }
+        public string NombreSignificativoImagen
+        {
+            get
+            {
+               
+                return string.Format("{0}", this.ArchivoTransferencia);
+            }
+        }
+
     }
 }

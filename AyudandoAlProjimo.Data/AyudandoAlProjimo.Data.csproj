@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -88,8 +89,11 @@
     </Compile>
     <Compile Include="Extensiones\ApiDonaciones.cs" />
     <Compile Include="Extensiones\DonacionesHorasTrabajo.cs" />
+    <Compile Include="Extensiones\DonacionesHorasTrabajoMetadata.cs" />
     <Compile Include="Extensiones\DonacionesInsumos.cs" />
+    <Compile Include="Extensiones\DonacionesInsumosMetadata.cs" />
     <Compile Include="Extensiones\DonacionesMonetarias.cs" />
+    <Compile Include="Extensiones\DonacionesMonetariasMetadata.cs" />
     <Compile Include="Extensiones\Propuestas.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajo.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajoMetadata.cs" />

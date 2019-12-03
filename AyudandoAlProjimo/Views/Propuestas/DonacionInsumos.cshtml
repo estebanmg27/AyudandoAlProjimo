@@ -18,12 +18,11 @@
 
                         <div class="form-group">
                             <input type="hidden" name="Cantidad" value="@Model.PropuestasDonacionesInsumos.Count()" />
-                            <input type="hidden" name="IdUsuario" value="@Model.IdUsuarioCreador" />
+                            <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
                         </div>
 
                         <div class="form-group">
-                            @Html.Label("Cantidad de insumos que va a donar:")
-                            <br />
+                            @Html.Label("Cantidad de insumos que va a donar:")            
                         </div>
 
 

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace AyudandoAlProjimo.Data
 {
-    [MetadataType(typeof(DonacionesHorasTrabajoMetadata))]
-    public partial class DonacionesHorasTrabajo
+    public class DonacionesHorasTrabajoMetadata
     {
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [Range(1, int.MaxValue, ErrorMessage = "Solo se permiten valores positivos")]
         public int CantidadHoras { get; set; }
 
     }

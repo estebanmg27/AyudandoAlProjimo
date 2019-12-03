@@ -1,11 +1,9 @@
 ﻿using AyudandoAlProjimo.Data;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AyudandoAlProjimo.Servicios
@@ -48,17 +46,17 @@ namespace AyudandoAlProjimo.Servicios
 
         public void NuevaPropuestaDonacionDeInsumos(Propuestas p, List<PropuestasDonacionesInsumos> ListaDeInsumos)
         {
-                int PropuestaId = GenerarPropuestaGeneral(p);
+            int PropuestaId = GenerarPropuestaGeneral(p);
 
-                foreach (PropuestasDonacionesInsumos i in ListaDeInsumos)
-                {
-                    i.IdPropuesta = PropuestaId;
-                    i.TelefonoContacto = p.TelefonoContacto;
-                    i.Descripcion = p.Descripcion;
-                    ctx.PropuestasDonacionesInsumos.Add(i);
-                }
+            foreach (PropuestasDonacionesInsumos i in ListaDeInsumos)
+            {
+                i.IdPropuesta = PropuestaId;
+                i.TelefonoContacto = p.TelefonoContacto;
+                i.Descripcion = p.Descripcion;
+                ctx.PropuestasDonacionesInsumos.Add(i);
+            }
 
-                ctx.SaveChanges();        
+            ctx.SaveChanges();
         }
 
         public void NuevaPropuestaDonacionHorasTrabajo(PropuestasDonacionesHorasTrabajo p)
@@ -75,11 +73,13 @@ namespace AyudandoAlProjimo.Servicios
         }
 
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
-        {
+        {   
             dm.FechaCreacion = DateTime.Today;
+            dm.ArchivoTransferencia = "";
             ctx.DonacionesMonetarias.Add(dm);
             ctx.SaveChanges();
         }
+     
 
         public void AgregarDonacionDeInsumos(List<DonacionesInsumos> di)
         {
@@ -146,18 +146,18 @@ namespace AyudandoAlProjimo.Servicios
 
             ctx.PropuestasValoraciones.Add(v);
             ctx.SaveChanges();
-            
+
         }
 
         public decimal CalcularValoracionTotal(int Id)
         {
             var PropuestaActual = ObtenerPropuestaPorId(Id);
-            
+
             var likes = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && x.Valoracion == true).Count();
             var totalVotos = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
 
             decimal Valoracion = (decimal)likes / totalVotos * 100;
-            decimal Resultado = Math.Round(Valoracion, 2); 
+            decimal Resultado = Math.Round(Valoracion, 2);
             PropuestaActual.Valoracion = Resultado;
             ctx.SaveChanges();
 
@@ -181,7 +181,7 @@ namespace AyudandoAlProjimo.Servicios
             }
         }
 
-       
+
         public List<Propuestas> Buscar(string busqueda)
         {
             List<Propuestas> lista = (from propuestas in ctx.Propuestas
@@ -225,12 +225,12 @@ namespace AyudandoAlProjimo.Servicios
         public List<Propuestas> ObtenerMisPropuestasActivas()
         {
             int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
-            List<Propuestas> misPropuestasActivas =    (from propuestas in ctx.Propuestas
-                                                        join user in ctx.Usuarios
-                                                        on propuestas.IdUsuarioCreador equals user.IdUsuario
-                                                        where propuestas.IdUsuarioCreador == IdUsuario
-                                                        where propuestas.Estado == 0
-                                                        select propuestas).ToList();
+            List<Propuestas> misPropuestasActivas = (from propuestas in ctx.Propuestas
+                                                     join user in ctx.Usuarios
+                                                     on propuestas.IdUsuarioCreador equals user.IdUsuario
+                                                     where propuestas.IdUsuarioCreador == IdUsuario
+                                                     where propuestas.Estado == 0
+                                                     select propuestas).ToList();
 
             return misPropuestasActivas;
         }
@@ -285,6 +285,12 @@ namespace AyudandoAlProjimo.Servicios
             }
             else return 0;
         }
-    }
 
+        public List<DonacionesMonetarias> ObtenerDonacionMonetariaId(int idPropuesta)
+        {
+            return ctx.PropuestasDonacionesMonetarias.Include("DonacionesMonetarias").FirstOrDefault(pdm => pdm.IdPropuesta == idPropuesta)
+                ?.DonacionesMonetarias.ToList();
+        }  
+    }
 }
+

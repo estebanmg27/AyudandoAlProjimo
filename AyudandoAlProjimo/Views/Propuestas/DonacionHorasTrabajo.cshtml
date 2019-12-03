@@ -19,13 +19,14 @@
 
                         <div class="form-group">
                             <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
-                            <input type="hidden" name="IdUsuario" value="@Model.IdUsuarioCreador" />
+                            <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
                         </div>
 
                         <div class="form-group">
                             @Html.Label("Cantidad", "Cantidad de horas de trabajo que va a donar:")
-                            <br />
-                            @Html.TextBox("Cantidad", 0, new { @type = "number", @class = "form-control" })
+                            @*@Html.TextBox("Cantidad", 0, new { @class = "form-control", @type = "number" })*@
+                            @Html.EditorFor(o => o.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { type = "number", @class = "form-control" } })
+                            @Html.ValidationMessageFor(o => o.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, "", new { @class = "text-danger" })
                         </div>
 
                         <input class="btn btn-primary" type="submit" value="Realizar donacion" />

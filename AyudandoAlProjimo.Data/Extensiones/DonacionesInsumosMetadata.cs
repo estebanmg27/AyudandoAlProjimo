@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace AyudandoAlProjimo.Data
 {
-    [MetadataType(typeof(DonacionesInsumosMetadata))]
-    public partial class DonacionesInsumos
-    {   
+    public class DonacionesInsumosMetadata
+    { 
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        public int Cantidad { get; set; }
     }
 }

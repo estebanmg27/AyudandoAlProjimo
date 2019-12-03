@@ -48,6 +48,8 @@ C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\roslyn\vbc.rsp
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\roslyn\VBCSCompiler.exe
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\Antlr3.Runtime.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\EntityFramework.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\EntityFramework.SqlServer.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\Newtonsoft.Json.dll
@@ -62,6 +64,8 @@ C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\System.Web.WebPages.Deploy
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\System.Web.WebPages.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\System.Web.WebPages.Razor.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\WebGrease.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\EntityFramework.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\EntityFramework.SqlServer.xml
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\System.Web.Helpers.xml
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\System.Web.Mvc.xml
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\System.Web.Optimization.xml

@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "RealizarDonacionMonetaria";
     Layout = "~/Views/Shared/BaseLayout.cshtml";
-
 }
 
 <div class="abs-center">
@@ -19,19 +18,20 @@
 
                         <div class="form-group">
                             <input type="hidden" name="IdPropuestaDonacionMonetaria" value="@Model.PropuestasDonacionesMonetarias.First().IdPropuestaDonacionMonetaria" />
-                            <input type="hidden" name="IdUsuario" value="@Model.IdUsuarioCreador" />
+                            <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
                         </div>
 
                         <div class="form-group">
                             @Html.Label("Dinero", "Cantidad de dinero que va a donar:")
-                            @Html.TextBox("Dinero", 0, new { @type = "number", @class = "form-control" })
-                            @*@Html.ValidationMessageFor(o => o.Dinero, "", new { @class = "text-danger" })*@
+                            @Html.EditorFor(o => o.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero, new { htmlAttributes = new { type = "number", @class = "form-control" } })
+                            @Html.ValidationMessageFor(o => o.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Comprobante de transferencia:</label>
-                            <input class="form-group" type="file" name="ArchivoTransferencia" id="ArchivoTransferencia" value="" />
+                            <input type="file" name="file" value="" class="form-control" />
                         </div>
+
 
                         <input class="btn btn-primary" type="submit" value="Realizar donacion" />
                     </form>
