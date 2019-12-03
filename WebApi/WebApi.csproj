@@ -140,7 +140,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ApiDonacionesController.cs" />
+    <Compile Include="Controllers\HistorialDonacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -201,6 +201,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">
+      <Project>{dff1d2ba-b464-40b7-a941-4b42e21f7c17}</Project>
+      <Name>AyudandoAlProjimo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AyudandoAlProjimo.Servicios\AyudandoAlProjimo.Servicios.csproj">
+      <Project>{ed285677-9a3f-4d61-afc9-1384da260710}</Project>
+      <Name>AyudandoAlProjimo.Servicios</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

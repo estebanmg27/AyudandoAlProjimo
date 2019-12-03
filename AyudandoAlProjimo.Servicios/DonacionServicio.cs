@@ -75,5 +75,10 @@ namespace AyudandoAlProjimo.Servicios
 
             return DonacionesHoras;
         }
+
+        public List<ApiDonaciones> MisDonacionesId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
