@@ -11,6 +11,7 @@ namespace AyudandoAlProjimo.Controllers
 {
     public class UsuarioController : Controller
     {
+        Entities ctx = new Entities();
 
         UsuarioServicio usuarios = new UsuarioServicio();
         PropuestaServicio propuestas = new PropuestaServicio();
@@ -94,25 +95,17 @@ namespace AyudandoAlProjimo.Controllers
             return View();
         }
 
-        public ActionResult MiPerfil()
+        public ActionResult MiPerfil(int id)
         {
-
-            Usuarios u = SesionServicio.UsuarioSesion;
+            Usuarios u = usuarios.BuscarUsuarioPorId(id);
             return View(u);
         }
 
-        public ActionResult VerMiPerfil()
+        public ActionResult VerMiPerfil(int id)
         {
-            Usuarios u = SesionServicio.UsuarioSesion;
 
-            if (SesionServicio.UsuarioSesion != null)
-            {
-                return View(u);
-            }
-            else
-            {
-                return View("Inicio");
-            }
+            Usuarios u = usuarios.BuscarUsuarioPorId(id);
+            return View("VerMiPerfil", u);  
         }
 
         [HttpPost]
@@ -124,6 +117,25 @@ namespace AyudandoAlProjimo.Controllers
             }
 
             usuarios.ModificarPerfil(user);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ModificarPerfil()
+        {
+
+            Usuarios u = SesionServicio.UsuarioSesion;
+            return View(u);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPerfil(Usuarios user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            usuarios.EditarPerfil(user);
             return RedirectToAction("Index", "Home");
         }
 

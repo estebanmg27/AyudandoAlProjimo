@@ -247,6 +247,7 @@
     <Content Include="Views\Propuestas\DonacionMonetaria.cshtml" />
     <Content Include="Views\Propuestas\DonacionInsumos.cshtml" />
     <Content Include="Views\Propuestas\DonacionHorasTrabajo.cshtml" />
+    <Content Include="Views\Usuario\ModificarPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -290,7 +290,23 @@ namespace AyudandoAlProjimo.Servicios
         {
             return ctx.PropuestasDonacionesMonetarias.Include("DonacionesMonetarias").FirstOrDefault(pdm => pdm.IdPropuesta == idPropuesta)
                 ?.DonacionesMonetarias.ToList();
-        }  
+        }
+
+        public int PuedeCrearPropuestas(int id)
+        {
+            var u = (from user in ctx.Usuarios
+                     where user.IdUsuario == id
+                     select user).First();
+
+            if (u.Nombre == null || u.Nombre == "" || u.Apellido == null || u.Apellido == "" || u.FechaNacimiento == null || u.Foto == null || u.Foto == "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
 
