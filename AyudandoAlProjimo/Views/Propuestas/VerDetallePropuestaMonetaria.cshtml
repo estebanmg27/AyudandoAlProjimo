@@ -1,6 +1,7 @@
 ﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesMonetarias
 
 @{
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 
     ViewBag.DineroJuntado = Model.DonacionesMonetarias.Where(o => o.IdPropuestaDonacionMonetaria == Model.IdPropuestaDonacionMonetaria).Sum(o => o.Dinero);
 
@@ -19,9 +20,27 @@
 </span>
 
 <span class="font-weight-bold">
-    De un total de $@Model.Dinero que se necesitan ($@ViewBag.RestaPorJuntar restantes)
+    De un total de $@Model.Dinero que se necesitan
+</span>
+
+<span class="font-weight-bold">
+    Restan por juntar $@ViewBag.RestaPorJuntar
 </span>
 
 <span class="font-weight-bold">
     Porcentaje de aceptación: @Model.Propuestas.Valoracion %
 </span>
+
+
+@if (Model.Propuestas.IdUsuarioCreador != user.IdUsuario && Model.Propuestas.FechaFin > DateTime.Today && ViewBag.RestaPorJuntar > 0)
+{
+    <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+    <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
+
+}
+else
+{ 
+    <div><a class="btn btn-block btn btn-success mt-3" href="#">Realizar donación</a></div>
+    <div><a class="btn btn-block btn-danger mt-3" href="#">Denunciar propuesta</a></div>
+}
+

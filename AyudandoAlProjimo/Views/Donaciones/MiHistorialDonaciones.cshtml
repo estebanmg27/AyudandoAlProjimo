@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "MiHistorialDonaciones";
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+}
+
+
+<h3><i class="fa fa-angle-right mt-0"></i> Donaciones recibidas</h3>
+<div class="row mt">
+    <div class="container">
+        <div class="content-panel">
+            <hr>
+            <table class="table table-striped table-advance table-hover">
+                <thead>
+                    <tr class="text-center">
+
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Propuesta</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Total Recaudado</th>
+                        <th scope="col">Mi Donación</th>
+                        <th scope="col">Detalle</th>
+                    </tr>
+                </thead>
+                <tbody id="mostrarContenido">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(
+        function () {
+            var cadena;
+            var url='https://localhost:44337/api/ApiDonaciones/@ViewBag.Usuario'
+            $.getJSON(url, function (data) {
+                data.forEach(function (item) {
+                var p = new Date(item.FechaDonacion);
+                    cadena += <tr class="text-center">
+                        cadena += <td>${p.getDate()}/${p.getMonth() + 1}/${p.getFullYear()}</td>
+                        cadena += <td>${item.Nombre}</td>
+
+                        if (item.Tipo == 1) {
+                            cadena += '<td>Monetaria</td>'
+                        }
+                        if (item.Tipo == 2) {
+                            cadena += '<td>Insumos</td>'
+                        }
+                        if (item.Tipo == 3) {
+                            cadena += '<td>Horas Trabajo</td>'
+                        }
+                        if (item.Estado==1) {
+                            cadena += '<td>Abierto</td>'
+                        }
+                        if (item.Estado==0) {
+                            cadena += '<td>Cerrado</td>'
+                        }
+                        if (item.Estado==2) {
+                            cadena += '<td>Baja por denuncia</td>'
+                        }
+                        cadena += <td>${item.TotalRecaudado}</td>
+                        cadena += <td>${item.MiDonacion}</td>
+                        cadena += <td> <a href="/Sites/PropuestaDetalle/${item.IdPropuesta}">Ir a Propuesta</a> </td>
+                        cadena += </tr>
+                });
+
+                $("#mostrarContenido").html(cadena);
+            });
+        }
+    );
+</script>

@@ -1,4 +1,6 @@
 ﻿using AyudandoAlProjimo.Data;
+using AyudandoAlProjimo.Data.Enums;
+using AyudandoAlProjimo.Data.Extensiones;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,16 +72,22 @@ namespace AyudandoAlProjimo.Servicios
         public Propuestas ObtenerPropuestaPorId(int id)
         {
             return ctx.Propuestas.Find(id);
+
+        }
+
+        public  int TotalPropuestasActivas()
+        {
+            return ctx.Propuestas.Count(x => x.Estado == 0 && x.IdUsuarioCreador == SesionServicio.UsuarioSesion.IdUsuario);
         }
 
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
-        {   
+        {
             dm.FechaCreacion = DateTime.Today;
             dm.ArchivoTransferencia = "";
             ctx.DonacionesMonetarias.Add(dm);
             ctx.SaveChanges();
         }
-     
+
 
         public void AgregarDonacionDeInsumos(List<DonacionesInsumos> di)
         {
@@ -307,6 +315,32 @@ namespace AyudandoAlProjimo.Servicios
                 return 0;
             }
         }
+
+        public void ModificarPropuesta(Propuestas p)
+        {
+            using (var ctx = new Entities())
+            {
+                var propuesta = ObtenerPropuestaPorId(p.IdPropuesta);
+
+                propuesta.Nombre = p.Nombre;
+                propuesta.Descripcion = p.Descripcion;
+                propuesta.FechaFin = p.FechaFin;
+                propuesta.PropuestasReferencias = p.PropuestasReferencias;
+                propuesta.TelefonoContacto = p.TelefonoContacto;
+
+                switch (propuesta.TipoDonacion)
+                {
+                    case (int)TipoDonacion.Monetaria:
+                        propuesta.PropuestasDonacionesMonetarias.ElementAt(0).Dinero = p.PropuestasDonacionesMonetarias.ElementAt(0).Dinero;
+                        propuesta.PropuestasDonacionesMonetarias.ElementAt(0).CBU = p.PropuestasDonacionesMonetarias.ElementAt(0).CBU;
+                        break;
+                }
+
+                ctx.SaveChanges();
+            }
+        }
+
     }
+
 }
 

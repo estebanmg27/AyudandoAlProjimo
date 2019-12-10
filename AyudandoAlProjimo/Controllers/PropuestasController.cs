@@ -1,4 +1,5 @@
 ﻿using AyudandoAlProjimo.Data;
+using AyudandoAlProjimo.Data.Extensiones;
 using AyudandoAlProjimo.Servicios;
 using AyudandoAlProjimo.Utilities;
 using System;
@@ -18,7 +19,14 @@ namespace AyudandoAlProjimo.Controllers
         // GET: Propuestas
         public ActionResult CrearPropuesta()
         {
-            return View();
+            if (propuestas.TotalPropuestasActivas() == 3)
+            {
+                return RedirectToAction("MisPropuestas", "Propuestas");
+            }
+            else
+            {
+                return View();
+            }
         }
 
 
@@ -67,15 +75,7 @@ namespace AyudandoAlProjimo.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (propuestas.ObtenerMisPropuestasActivas().Count < 3)
-                {
-                    return CrearNuevaPropuesta(form);
-                }
-                else
-                {
-                    ViewBag.MotivoError = "No puede crear más de tres propuestas";
-                    return View("../Shared/Error");
-                }
+                return CrearNuevaPropuesta(form);
             }
             else
             {
@@ -170,7 +170,6 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult VerDetallePropuesta(int id)
         {
-
             Propuestas p = propuestas.ObtenerPropuestaPorId(id);
             return View(p);
         }
@@ -181,8 +180,8 @@ namespace AyudandoAlProjimo.Controllers
             Usuarios user = SesionServicio.UsuarioSesion;
             ViewBag.IdDonante = user.IdUsuario;
 
-            if (user != null && user.IdUsuario != p.IdUsuarioCreador)
-            {
+            //if (user != null && user.IdUsuario != p.IdUsuarioCreador)
+            //{
                 switch (p.TipoDonacion)
                 {
                     case 1:
@@ -194,7 +193,7 @@ namespace AyudandoAlProjimo.Controllers
                     case 3:
                         return View("DonacionHorasTrabajo", p);
                 }
-            }
+            //}
 
             return Redirect("/Home/Index");
         }
@@ -242,8 +241,8 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult RealizarDonacionDeHorasDeTrabajo(DonacionesHorasTrabajo dht)
         {
-                propuestas.AgregarDonacionHorasDeTrabajo(dht);
-                return Redirect("/Home/Index");
+            propuestas.AgregarDonacionHorasDeTrabajo(dht);
+            return Redirect("/Home/Index");
         }
 
         [HttpGet]
@@ -295,7 +294,35 @@ namespace AyudandoAlProjimo.Controllers
         public ActionResult MisPropuestas()
         {
             List<Propuestas> propuestasPropias = propuestas.ObtenerMisPropuestas();
+
+            var contador = 0;
+
+            foreach (var propuesta in propuestasPropias)
+            {
+                if (propuesta.Estado == 0)
+                {
+                    contador++;
+                }
+            }
+
+            ViewBag.propuestasCreadas = contador;
             return View(propuestasPropias);
         }
+
+        public ActionResult ModificarPropuesta(int id)
+        {
+            Propuestas p = propuestas.ObtenerPropuestaPorId(id);
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPropuesta(Propuestas p)
+        {
+            propuestas.ModificarPropuesta(p);
+            return RedirectToAction("MisPropuestas", "Propuestas");
+        }
+
     }
 }
+
+

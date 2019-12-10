@@ -1,24 +1,33 @@
 ﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesHorasTrabajo
 
 @{
-    ViewBag.TotalDeHorasCubiertas = Model.DonacionesHorasTrabajo.Where(o => o.IdPropuestaDonacionHorasTrabajo == Model.IdPropuestaDonacionHorasTrabajo).Sum(o => o.Cantidad);
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 
-    if ((Model.CantidadHoras - ViewBag.TotalDeHorasCubiertas) < 0)
-    {
-        ViewBag.HorasRestantes = 0;
-    }
-    else
-    {
-        ViewBag.HorasRestantes = Model.CantidadHoras - ViewBag.CantidadDeHorasCubiertas;
-    }
+    ViewBag.TotalDeHorasCubiertas = Model.DonacionesHorasTrabajo.Where(o => o.IdPropuestaDonacionHorasTrabajo == Model.IdPropuestaDonacionHorasTrabajo).Sum(o => o.Cantidad);
+    ViewBag.HorasRestantes = (0 > (Model.CantidadHoras - ViewBag.TotalDeHorasCubiertas)) ? 0 : Model.CantidadHoras - ViewBag.TotalDeHorasCubiertas;
 }
 
 <h5>Profesion: @Model.Profesion</h5>
 
 <span class="font-weight-bold">Total de horas a cubir @Model.CantidadHoras</span>
-<span class="font-weight-bold">Se han cubierto @ViewBag.TotalDeHorasCubiertas horas</span>
 <span class="font-weight-bold">Restan por curbirse @ViewBag.HorasRestantes horas</span>
+<span class="font-weight-bold">Horas cubiertas @ViewBag.TotalDeHorasCubiertas horas</span>
+
 <span class="font-weight-bold">
     Porcentaje de aceptación @Model.Propuestas.Valoracion%
- </span>
+</span>
+
+@if (Model.Propuestas.IdUsuarioCreador != user.IdUsuario && Model.Propuestas.FechaFin > DateTime.Today && ViewBag.HorasRestantes > 0)
+{
+    <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+    <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
+
+}
+else
+{
+    <div><a class="btn btn-block btn btn-success mt-3" href="#">Realizar donación</a></div>
+    <div><a class="btn btn-block btn-danger mt-3" href="#">Denunciar propuesta</a></div>
+}
+
+
 

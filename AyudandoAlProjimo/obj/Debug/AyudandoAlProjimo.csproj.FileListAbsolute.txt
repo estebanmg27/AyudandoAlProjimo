@@ -91,3 +91,12 @@ C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoA
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.csproj.CopyComplete
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Net.Http.Formatting.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.WebHost.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Net.Http.Formatting.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.WebHost.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.Http.resources.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.Http.WebHost.resources.dll

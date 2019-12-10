@@ -19,8 +19,11 @@ namespace AyudandoAlProjimo
                         "~/Estilos/formularios.css",
                         "~/Estilos/perfil.css",
                         "~/Estilos/donaciones.css",
-                        "~/Estilos/contenedor.css"
-                        ));
+                        "~/Estilos/contenedor.css",
+                        "~/Estilos/boton.css",
+                        "~/Estilos/span.css",
+                        "~/Estilos/footer.css"
+                       ));
 
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará

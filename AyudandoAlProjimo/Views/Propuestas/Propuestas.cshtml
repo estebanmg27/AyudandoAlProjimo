@@ -5,14 +5,16 @@
     ViewBag.Title = "Propuestas";
 }
 
-    <div class="container mt-5">
-        <div class="row">
-            @if (@Model.Any())
-            {
+<div class="container mt-5">
+    <div class="row">      
+        @if (@Model.Any())
+        {
 
-                foreach (var p in Model)
+            foreach (var p in Model)
+            {
+                if (Session["session"] != null)
                 {
-                    if (Session["session"] != null)
+                    if (p.Denuncias.Count() < 5)
                     {
 
                         <div class="col-md-4">
@@ -28,12 +30,13 @@
                     }
                 }
             }
-            else
-            {
-                <div class="container">
-                    <h2 class="text-center">No se encontraron resultados</h2>
-                </div>
-            }
-        </div>
+        }
+        else
+        {
+            <div class="container">
+                <h2 class="text-center">No se encontraron resultados</h2>
+            </div>
+        }
     </div>
+</div>
 

@@ -39,12 +39,7 @@ namespace AyudandoAlProjimo.Controllers
             {
                 return View(u);
             }
-            else if (usuarios.MailExistente(u).Count == 1)
-            {
-                ViewBag.MotivoError= "Ya hay un usuario registrado con ese email";
-                return View("../Shared/Error");
 
-            }
             else
             {
                 usuarios.AgregarUsuario(u);
@@ -63,7 +58,7 @@ namespace AyudandoAlProjimo.Controllers
             var detalleUsuario = usuarios.Autorizar(u);
             if (!ModelState.IsValid)
             {
-                return View(u);
+                return View("Login", u);
             }
             if (detalleUsuario == null)
             {
@@ -77,7 +72,6 @@ namespace AyudandoAlProjimo.Controllers
             }
             else
             {
-                //Session["IdUsuario"] = detalleUsuario.IdUsuario;
                 SesionServicio.UsuarioSesion = detalleUsuario;
                 return RedirectToAction("Index", "Home");
             }

@@ -26,19 +26,15 @@
                 }
                 else if (Model.TipoDonacion == 2)
                 {
-                    @Html.Partial("VerDetallePropuestaInsumos", Model.PropuestasDonacionesInsumos.ToList())
+                    @Html.Partial("VerDetallePropuestaInsumos", Model.PropuestasDonacionesInsumos.First())
                 }
                 else
                 {
                     @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
                 }
 
-                <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
-
-                <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
-
                 <div class="container">
-                    @if (Model.IdUsuarioCreador != user.IdUsuario)
+                    @if (Model.IdUsuarioCreador != user.IdUsuario && Model.FechaFin > DateTime.Today)
                     {
                         <div class="d-flex justify-content-between">
                             <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post">
@@ -60,7 +56,6 @@
 
                             </form>
                         </div>
-
                     }
 
                 </div>

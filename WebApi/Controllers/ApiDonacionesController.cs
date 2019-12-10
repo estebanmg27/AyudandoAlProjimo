@@ -1,89 +1,39 @@
-﻿using System;
+﻿using AyudandoAlProjimo.Data;
+using AyudandoAlProjimo.Servicios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace WebApi.Controllers
 {
-    public class ApiDonacionesController : Controller
+    public class ApiDonacionesController : ApiController
     {
         // GET: ApiDonaciones
-        public ActionResult Index()
+
+        DonacionServicio donaciones = new DonacionServicio();
+        public IEnumerable<string> Get()
         {
-            return View();
+            return new string[] { "value1", "value2" };
+        }
+        public List<ApiDonaciones> Get(int id)
+        {
+            return donaciones.HistorialDonaciones(id);
         }
 
-        // GET: ApiDonaciones/Details/5
-        public ActionResult Details(int id)
+
+        public void Post([FromBody]string value)
         {
-            return View();
         }
 
-        // GET: ApiDonaciones/Create
-        public ActionResult Create()
+        public void Put(int id, [FromBody]string value)
         {
-            return View();
         }
 
-        // POST: ApiDonaciones/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public void Delete(int id)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ApiDonaciones/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ApiDonaciones/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ApiDonaciones/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ApiDonaciones/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

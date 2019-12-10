@@ -4,22 +4,26 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "VerListaDePropuestas";
 }
-    <div class="container mt-3">
-        <div class="col-md-4">
-            <form class="form-inline" action="/Propuestas/RealizarBusqueda" method="post">
-                <input class="form-control mr-sm-2" type="text" name="texto" placeholder="Buscar">
-                <button class="btn btn-success" type="submit">Buscar</button>
-            </form>
-        </div>
+<div class="container mt-3">
+    <div class="col-md-4">
+        <form class="form-inline" action="/Propuestas/RealizarBusqueda" method="post">
+            <input class="form-control mr-sm-2" type="text" name="texto" placeholder="Buscar">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+    </div>
 
-        <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-            <label class="custom-control-label" for="customSwitch1">Sólo visualizar activas</label>
-        </div>
+    @*<div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+        <label class="custom-control-label" for="customSwitch1">Sólo visualizar activas</label>
+    </div>*@
 
-        <div class="container mt-5">
-            <div class="row">
-                @foreach (var p in Model)
+   
+
+    <div class="container mt-5">
+        <div class="row">
+            @foreach (var p in Model)
+            {
+                if (p.Denuncias.Count() < 5)
                 {
                     <div class="col-md-4">
                         <div class="card p-4">
@@ -32,9 +36,10 @@
                         </div>
                     </div>
                 }
-            </div>
+            }
         </div>
     </div>
+</div>
 
 
 

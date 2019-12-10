@@ -1,14 +1,15 @@
-﻿@model List<AyudandoAlProjimo.Data.PropuestasDonacionesInsumos>
+﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesInsumos
+@using AyudandoAlProjimo.Data
 
 @{
-
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 }
 
 <span class="font-weight-bold">
     Insumos que se necesitan:
 </span>
 
-@foreach (var i in Model)
+@foreach (PropuestasDonacionesInsumos i in Model.Propuestas.PropuestasDonacionesInsumos)
 {
     int InsumosDonados = i.DonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).Sum(x => x.Cantidad);
     int InsumosRestantes;
@@ -38,12 +39,25 @@
     <span class="font-weight-bold">
         @mensaje
     </span>
-
-    <span class="font-weight-bold">
-        Porcentaje de aceptación @i.Propuestas.Valoracion %
-    </span>
-
 }
+
+
+<span class="font-weight-bold">
+    Porcentaje de aceptación @Model.Propuestas.Valoracion %
+</span>
+
+@if (Model.Propuestas.IdUsuarioCreador != user.IdUsuario && Model.Propuestas.FechaFin > DateTime.Today)
+{
+    <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+    <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
+}
+else
+{
+    <div><a class="btn btn-block btn btn-success mt-3" href="#">Realizar donación</a></div>
+    <div><a class="btn btn-block btn-danger mt-3" href="#">Denunciar propuesta</a></div>
+}
+
+
 
 
 
