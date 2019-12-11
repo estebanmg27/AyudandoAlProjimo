@@ -133,6 +133,7 @@
     <Compile Include="Extensiones\DonacionesInsumosMetadata.cs" />
     <Compile Include="Extensiones\DonacionesMonetarias.cs" />
     <Compile Include="Extensiones\DonacionesMonetariasMetadata.cs" />
+    <Compile Include="Extensiones\ModificarPropuesta.cs" />
     <Compile Include="Extensiones\Propuestas.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajo.cs" />
     <Compile Include="Extensiones\PropuestasDonacionesHorasTrabajoMetadata.cs" />

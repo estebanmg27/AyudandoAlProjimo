@@ -94,3 +94,9 @@ C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\obj\Debug\WebApi.csproj.CoreCo
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\obj\Debug\WebApi.csproj.CopyComplete
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\obj\Debug\WebApi.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\obj\Debug\WebApi.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\AyudandoAlProjimo.Data.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\AyudandoAlProjimo.Servicios.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\AyudandoAlProjimo.Data.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\AyudandoAlProjimo.Data.dll.config
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\AyudandoAlProjimo.Servicios.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\WebApi\bin\AyudandoAlProjimo.Servicios.dll.config

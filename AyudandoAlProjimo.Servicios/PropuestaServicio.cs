@@ -316,29 +316,58 @@ namespace AyudandoAlProjimo.Servicios
             }
         }
 
-        public void ModificarPropuesta(Propuestas p)
+        public void ModificarPropuesta(int id, Propuestas propuesta)
         {
-            using (var ctx = new Entities())
+            Propuestas pv = ObtenerPropuestaPorId(id);
+            pv.Nombre = propuesta.Nombre;
+            pv.Descripcion = propuesta.Descripcion;
+            pv.FechaFin = propuesta.FechaFin;
+            pv.TelefonoContacto = propuesta.TelefonoContacto;
+            pv.TipoDonacion = propuesta.TipoDonacion;
+
+            pv.Foto = !string.IsNullOrEmpty(propuesta.Foto) ? propuesta.Foto : string.Empty;
+            switch (pv.TipoDonacion)
             {
-                var propuesta = ObtenerPropuestaPorId(p.IdPropuesta);
-
-                propuesta.Nombre = p.Nombre;
-                propuesta.Descripcion = p.Descripcion;
-                propuesta.FechaFin = p.FechaFin;
-                propuesta.PropuestasReferencias = p.PropuestasReferencias;
-                propuesta.TelefonoContacto = p.TelefonoContacto;
-
-                switch (propuesta.TipoDonacion)
-                {
-                    case (int)TipoDonacion.Monetaria:
-                        propuesta.PropuestasDonacionesMonetarias.ElementAt(0).Dinero = p.PropuestasDonacionesMonetarias.ElementAt(0).Dinero;
-                        propuesta.PropuestasDonacionesMonetarias.ElementAt(0).CBU = p.PropuestasDonacionesMonetarias.ElementAt(0).CBU;
-                        break;
-                }
-
-                ctx.SaveChanges();
+                case 1:
+                    pv.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero = (propuesta as PropuestasDonacionesMonetarias).Dinero;
+                    pv.PropuestasDonacionesMonetarias.FirstOrDefault().CBU = (propuesta as PropuestasDonacionesMonetarias).CBU;
+                    break;
+                case 2:
+                   
+                    break;
+                case 3: 
+                    pv.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras = (propuesta as PropuestasDonacionesHorasTrabajo).CantidadHoras;
+                    pv.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion = (propuesta as PropuestasDonacionesHorasTrabajo).Profesion;
+                    break;
             }
+
+            ctx.SaveChanges();
         }
+
+        public void Modificar(Propuestas propuesta, List<PropuestasDonacionesInsumos> listaInsumos)
+        {
+            foreach (var i in listaInsumos)
+            {
+                PropuestasDonacionesInsumos insumo = propuesta.PropuestasDonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).FirstOrDefault();
+
+                if (insumo != null)
+                {
+                    insumo.Nombre = i.Nombre;
+                    insumo.Cantidad = i.Cantidad;
+                }
+                else
+                {
+                    PropuestasDonacionesInsumos NuevoInsumo = new PropuestasDonacionesInsumos();
+                    NuevoInsumo.Nombre = i.Nombre;
+                    NuevoInsumo.Cantidad = i.Cantidad;
+                    propuesta.PropuestasDonacionesInsumos.Add(NuevoInsumo);
+                    ctx.SaveChanges();
+                }
+            }
+
+            ctx.SaveChanges();
+        }
+
 
     }
 

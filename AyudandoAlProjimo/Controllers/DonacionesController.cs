@@ -13,7 +13,7 @@ namespace AyudandoAlProjimo.Controllers
         // GET: Donaciones
         public ActionResult MiHistorialDonaciones()
         {
-            ViewBag.Usuario = SesionServicio.UsuarioSesion.IdUsuario;
+            ViewBag.UsuarioId = SesionServicio.UsuarioSesion.IdUsuario;
             return View();
         }
     }

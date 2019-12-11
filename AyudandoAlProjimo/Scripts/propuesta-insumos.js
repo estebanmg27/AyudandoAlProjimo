@@ -6,3 +6,9 @@
     $('#input-cantidad-insumos').val($('.insumo').length);
     $('#boton-quitar-insumo').removeAttr('disabled');
 };
+
+const quitarInsumo = () => {
+    $('.insumo').last().remove();
+    if ($('.insumo').length === 1) $('#boton-quitar-insumo').attr('disabled', 'disabled');
+    $('#input-cantidad-insumos').val($('.insumo').length);
+};

@@ -309,19 +309,103 @@ namespace AyudandoAlProjimo.Controllers
             return View(propuestasPropias);
         }
 
+        [HttpGet]
         public ActionResult ModificarPropuesta(int id)
         {
-            Propuestas p = propuestas.ObtenerPropuestaPorId(id);
-            return View(p);
+            if (SesionServicio.UsuarioSesion == null)
+            {
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return View(propuestas.ObtenerPropuestaPorId(id));
+            }
         }
 
         [HttpPost]
-        public ActionResult ModificarPropuesta(Propuestas p)
+        public ActionResult Modificar(FormCollection form)
         {
-            propuestas.ModificarPropuesta(p);
-            return RedirectToAction("MisPropuestas", "Propuestas");
-        }
+            int IdPropuesta = int.Parse(form["idPropuesta"]);
+            int TipoDonacion = int.Parse(form["TipoDonacion"]);
 
+            Propuestas pv =propuestas.ObtenerPropuestaPorId(IdPropuesta);
+
+
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
+            {
+                string nombreSignificativo = form["Nombre"] + DateTime.Now.ToString();
+                string pathRelativoImagen = ImagenesUtility.Guardar(Request.Files[0], nombreSignificativo);
+                pv.Foto = pathRelativoImagen;
+            }
+
+            switch (TipoDonacion)
+            {
+                case 1: 
+                    PropuestasDonacionesMonetarias pmv = pv.PropuestasDonacionesMonetarias.FirstOrDefault();
+
+                    pmv.Nombre = form["Nombre"];
+                    pmv.Descripcion = form["Descripcion"];
+                    pmv.FechaFin = System.DateTime.Parse(form["FechaFin"]);
+                    pmv.TelefonoContacto = form["TelefonoContacto"];
+                    pmv.TipoDonacion = int.Parse(form["TipoDonacion"]);
+                    pmv.Foto = pv.Foto;
+                    foreach (var pr in pmv.Propuestas.PropuestasReferencias)
+                    {
+                        int currentIndex = pmv.Propuestas.PropuestasReferencias.ToList().IndexOf(pr);
+                        pr.Nombre = form["Referencia" + currentIndex + "Nombre"];
+                        pr.Telefono = form["Referencia" + currentIndex + "Telefono"];
+                    }
+
+                    pmv.Dinero = decimal.Parse(form["Dinero"]);
+                    pmv.CBU = form["CBU"];
+
+                    propuestas.ModificarPropuesta(IdPropuesta, pmv);
+                    break;
+
+                case 2:
+                    pv.Nombre = form["Nombre"];
+                    pv.Descripcion = form["Descripcion"];
+                    pv.FechaFin = System.DateTime.Parse(form["FechaFin"]);
+                    pv.TelefonoContacto = form["TelefonoContacto"];
+                    pv.TipoDonacion = int.Parse(form["TipoDonacion"]);
+                    pv.Foto = pv.Foto;
+                    foreach (var pr in pv.PropuestasReferencias)
+                    {
+                        int currentIndex = pv.PropuestasReferencias.ToList().IndexOf(pr);
+                        pr.Nombre = form["Referencia" + currentIndex + "Nombre"];
+                        pr.Telefono = form["Referencia" + currentIndex + "Telefono"];
+                    }
+
+                    List<PropuestasDonacionesInsumos> ListaInsumos = ListaDeInsumos(form);
+
+                    propuestas.Modificar(pv, ListaInsumos);
+                    break;
+
+                case 3: 
+                    PropuestasDonacionesHorasTrabajo pht = pv.PropuestasDonacionesHorasTrabajo.FirstOrDefault();
+
+                    pht.Nombre = form["Nombre"];
+                    pht.Descripcion = form["Descripcion"];
+                    pht.FechaFin = System.DateTime.Parse(form["FechaFin"]);
+                    pht.TelefonoContacto = form["TelefonoContacto"];
+                    pht.TipoDonacion = int.Parse(form["TipoDonacion"]);
+                    pht.Foto = pv.Foto;
+                    foreach (var pr in pht.Propuestas.PropuestasReferencias)
+                    {
+                        int currentIndex = pht.Propuestas.PropuestasReferencias.ToList().IndexOf(pr);
+                        pr.Nombre = form["Referencia" + currentIndex + "Nombre"];
+                        pr.Telefono = form["Referencia" + currentIndex + "Telefono"];
+                    }
+
+                    pht.CantidadHoras = int.Parse(form["CantidadHoras"]);
+                    pht.Profesion = form["Profesion"];
+
+                    propuestas.ModificarPropuesta(IdPropuesta, pht);
+                    break;
+            }
+
+            return Redirect("/Home/Index");
+        }
     }
 }
 
