@@ -10,13 +10,14 @@
     <thead>
         <tr class="text-center">
 
-            <th scope="col">Fecha de Donacion</th>
+            <th scope="col">Fecha de donacion</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Tipo de Donacion</th>
+            <th scope="col">Tipo</th>
             <th scope="col">Estado</th>
-            <th scope="col">Total Recaudado</th>
-            <th scope="col">Mi Donacion</th>
-            <th scope="col">Detalle Propuesta</th>
+            <th scope="col">Total recaudado</th>
+            <th scope="col">Mi donacion</th>
+            <th scope="col">Detalle propuesta</th>
+
         </tr>
     </thead>
     <tbody id="mostrarContenido">
@@ -24,7 +25,6 @@
 </table>
 <script>
     window.onload = function () {
-        alert('Hola');
         BuscarHistorial(@ViewBag.UsuarioId);
     }
 </script>

@@ -367,8 +367,6 @@ namespace AyudandoAlProjimo.Servicios
 
             ctx.SaveChanges();
         }
-
-
     }
 
 }

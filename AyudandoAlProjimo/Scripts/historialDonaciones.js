@@ -8,25 +8,30 @@ var BuscarHistorial = function (idUsuario) {
                 cadena += `<tr  class="text-center">`
                 cadena += `<td>${p.getDate()}-${p.getMonth() + 1}-${p.getFullYear()}</td>`
                 cadena += `<td>${item.Nombre}</td>`
-                if (item.TipoDonacion == 1) {
-                    cadena += `<td class="${item.TipoDonacion}">Monetaria</td>`
+
+                if (item.Tipo == 1) {
+                    cadena += '<td>Monetaria</td>'
                 }
-                else if (item.TipoDonacion == 2) {
-                    cadena += `<td class="${item.TipoDonacion}">Insumos</td>`
+                if (item.Tipo == 2) {
+                    cadena += '<td>Insumos</td>'
                 }
-                else if (item.TipoDonacion == 3) {
-                    cadena += `<td class="${item.TipoDonacion}">Horas de Trabajo</td>`
+                if (item.Tipo == 3) {
+                    cadena += '<td>Horas Trabajo</td>'
                 }
+
                 if (item.Estado == 0) {
-                    cadena += `<td>Abierto</td>`
+                    cadena += `<td>Abierta</td>`
                 }
                 if (item.Estado == 1) {
-                    cadena += `<td>Cerrado</td>`
+                    cadena += `<td>Cerrada</td>`
                 }
+
+
                 cadena += `<td>${item.TotalRecaudado}</td>`
                 cadena += `<td>${item.MiDonacion}</td>`
-                cadena += `<td> <a href="/Propuestas/DetallePropuesta/${item.IdPropuesta}">Ir a Propuesta</a> </td>`
+                cadena += `<td> <a href="/Propuestas/VerDetallePropuesta/${item.IdPropuesta}">Detalle</a> </td>`
                 cadena += `</tr>`
+       
             });
             $("#mostrarContenido").html(cadena);
         });
