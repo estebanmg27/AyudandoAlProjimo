@@ -127,6 +127,8 @@
     </Compile>
     <Compile Include="Enums\TipoDonacion.cs" />
     <Compile Include="Extensiones\ApiDonaciones.cs" />
+    <Compile Include="Extensiones\Denuncias.cs" />
+    <Compile Include="Extensiones\DenunciasMetadata.cs" />
     <Compile Include="Extensiones\DonacionesHorasTrabajo.cs" />
     <Compile Include="Extensiones\DonacionesHorasTrabajoMetadata.cs" />
     <Compile Include="Extensiones\DonacionesInsumos.cs" />
@@ -150,15 +152,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model.Designer.cs">
+      <DependentUpon>Model.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="MotivoDenuncia.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -209,7 +206,7 @@
     <Content Include="Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

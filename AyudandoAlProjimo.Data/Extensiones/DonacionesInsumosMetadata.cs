@@ -11,5 +11,7 @@ namespace AyudandoAlProjimo.Data
     { 
         [Required(ErrorMessage = "El campo es obligatorio")]
         public int Cantidad { get; set; }
+
+        public DateTime FechaCreacion { get; set; }
     }
 }

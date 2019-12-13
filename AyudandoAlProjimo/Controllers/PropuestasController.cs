@@ -23,6 +23,11 @@ namespace AyudandoAlProjimo.Controllers
             {
                 return RedirectToAction("MisPropuestas", "Propuestas");
             }
+            if (SesionServicio.UsuarioSesion.UserName == null)
+            {
+                TempData["SinPerfil"] = "Para crear una propuesta primero es necesario que completes tu perfil";
+                return Redirect("/Usuario/MiPerfil");
+            }
             else
             {
                 return View();
@@ -180,8 +185,8 @@ namespace AyudandoAlProjimo.Controllers
             Usuarios user = SesionServicio.UsuarioSesion;
             ViewBag.IdDonante = user.IdUsuario;
 
-            //if (user != null && user.IdUsuario != p.IdUsuarioCreador)
-            //{
+            if (user != null && user.IdUsuario != p.IdUsuarioCreador)
+            { 
                 switch (p.TipoDonacion)
                 {
                     case 1:
@@ -193,7 +198,7 @@ namespace AyudandoAlProjimo.Controllers
                     case 3:
                         return View("DonacionHorasTrabajo", p);
                 }
-            //}
+            }
 
             return Redirect("/Home/Index");
         }
@@ -239,9 +244,9 @@ namespace AyudandoAlProjimo.Controllers
         }
 
         [HttpPost]
-        public ActionResult RealizarDonacionDeHorasDeTrabajo(DonacionesHorasTrabajo dht)
+        public ActionResult RealizarDonacionDeHorasDeTrabajo(DonacionesHorasTrabajo dh)
         {
-            propuestas.AgregarDonacionHorasDeTrabajo(dht);
+            propuestas.AgregarDonacionHorasDeTrabajo(dh);
             return Redirect("/Home/Index");
         }
 
@@ -254,10 +259,23 @@ namespace AyudandoAlProjimo.Controllers
         }
 
         [HttpPost]
-        public ActionResult CargarDenuncia(FormCollection form)
+        public ActionResult CargarDenuncia(Denuncias d)
         {
-            propuestas.AgregarDenuncia(form);
-            return Redirect("/Home/Index");
+            if (!ModelState.IsValid)
+            {
+                return View(d);
+            }
+            if (propuestas.SoloDenunciarUnaVez(d) == null)
+            {
+                propuestas.AgregarDenuncia(d);
+                TempData["DenunciaRealizada"] = "Denuncia realizada";
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                TempData["DenunciaRepetida"] = "Ya denunciaste esta propuesta";
+                return Redirect("/Home/Index");
+            }
         }
 
 

@@ -46,17 +46,6 @@
     Porcentaje de aceptación @Model.Propuestas.Valoracion %
 </span>
 
-@if (Model.Propuestas.IdUsuarioCreador != user.IdUsuario && Model.Propuestas.FechaFin > DateTime.Today)
-{
-    <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
-    <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
-}
-else
-{
-    <div><a class="btn btn-block btn btn-success mt-3" href="#">Realizar donación</a></div>
-    <div><a class="btn btn-block btn-danger mt-3" href="#">Denunciar propuesta</a></div>
-}
-
 
 
 

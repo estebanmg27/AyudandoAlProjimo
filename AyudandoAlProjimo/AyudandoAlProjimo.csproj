@@ -266,6 +266,7 @@
     <Content Include="Views\Usuario\ModificarPerfil.cshtml" />
     <Content Include="Views\Donaciones\MiHistorialDonaciones.cshtml" />
     <Content Include="Views\Propuestas\ModificarPropuesta.cshtml" />
+    <Content Include="Views\Shared\_Mensajes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

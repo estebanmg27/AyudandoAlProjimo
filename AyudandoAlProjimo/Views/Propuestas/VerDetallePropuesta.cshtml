@@ -33,11 +33,15 @@
                     @Html.Partial("VerDetallePropuestaHorasTrabajo", Model.PropuestasDonacionesHorasTrabajo.First())
                 }
 
+
                 <div class="container">
-                    @if (Model.IdUsuarioCreador != user.IdUsuario && Model.FechaFin > DateTime.Today)
+                    @if (Model.Estado == 0 && Model.IdUsuarioCreador != user.IdUsuario && Model.FechaFin > DateTime.Today)
                     {
+                        <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+                        <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
+
                         <div class="d-flex justify-content-between">
-                            <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post">
+                            <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post" id="like">
 
                                 <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
                                 <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
@@ -47,7 +51,7 @@
                             </form>
 
 
-                            <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post">
+                            <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post" id="dislike">
 
                                 <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
                                 <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
@@ -55,6 +59,8 @@
                                 <button type="submit" class="btn btn-secondary mt-2">No me gusta</button>
 
                             </form>
+
+
                         </div>
                     }
 
@@ -71,4 +77,3 @@
     </div>
 
 </div>
-

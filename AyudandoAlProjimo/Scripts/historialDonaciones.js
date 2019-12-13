@@ -16,7 +16,7 @@ var BuscarHistorial = function (idUsuario) {
                     cadena += '<td>Insumos</td>'
                 }
                 if (item.Tipo == 3) {
-                    cadena += '<td>Horas Trabajo</td>'
+                    cadena += '<td>Horas de trabajo</td>'
                 }
 
                 if (item.Estado == 0) {

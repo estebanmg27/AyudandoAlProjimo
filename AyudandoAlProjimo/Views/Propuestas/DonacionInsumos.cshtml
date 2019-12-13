@@ -14,7 +14,7 @@
                     <h3 class="card-title">Realizar donación a la propuesta</h3>
                     <h3 class="card-tittle"><strong>@Model.Nombre</strong></h3>
 
-                    <form action="/Propuestas/RealizarDonacionDeInsumos" method="post">
+                    <form action="/Propuestas/RealizarDonacionDeInsumos" method="post" id="donar-form" onsubmit="return validardi(event);">
 
                         <div class="form-group">
                             <input type="hidden" name="Cantidad" value="@Model.PropuestasDonacionesInsumos.Count()" />
@@ -41,7 +41,7 @@
                             </div>
                         }
 
-                        <input class="btn btn-primary" type="submit" value="Realizar donacion" />
+                        <input class="btn btn-primary" type="submit" value="Realizar donacion" id="donar-submit"/>
                     </form>
                 </div>
             </div>

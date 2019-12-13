@@ -25,11 +25,13 @@
                                 <option value="@md.IdMotivoDenuncia">@md.Descripcion</option>
                             }
                         </select>
+                        @Html.ValidationMessageFor(d => d.IdMotivo, null, new { @class = "text-danger" })
 
 
                         <div class="form-group">
                             @Html.Label("Comentarios", "Agregar comentarios:")
                             @Html.TextAreaFor(d => d.Comentarios, new { @class = "form-control", @rows = 3 })
+                            @Html.ValidationMessageFor(d => d.Comentarios, null, new { @class = "text-danger" })
                         </div>
 
                         <input class="btn btn-primary" type="submit" value="Crear" />

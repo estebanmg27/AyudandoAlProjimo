@@ -13,8 +13,12 @@
 </head>
 <body>
 
-    @if (Model.Nombre == null && Model.Apellido == null)
+    @if (TempData["SinPerfil"] != null)
     {
+        <div class="alert alert-danger">
+            <strong>Importante!</strong> @TempData["SinPerfil"]
+        </div>
+    
         <div class="container mt-2">
             <div class="row">
                 <div class="col"></div>
@@ -73,8 +77,8 @@
                 <div class="col-5">
                     <div class="card">
                         <div class="card-body">
-                            
-                          
+
+
                             <a class="btn btn-lg btn-dark btn-block" href="/Usuario/VerMiPerfil/@Model.IdUsuario">Ver mi perfil</a>
                             <a class="btn btn-lg btn-dark btn-block" href="/Usuario/ModificarPerfil/@Model.IdUsuario">Modificar perfil</a>
 

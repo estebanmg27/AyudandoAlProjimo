@@ -11,6 +11,5 @@ namespace AyudandoAlProjimo.Data
     public partial class DonacionesHorasTrabajo
     {
         public int CantidadHoras { get; set; }
-
     }
 }

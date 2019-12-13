@@ -43,7 +43,7 @@ namespace AyudandoAlProjimo.Servicios
                                select new ApiDonaciones
                                {
                                    Estado = p.Estado,
-                                   //FechaDonacion = d_in.FechaCreacion,
+                                   FechaDonacion = d_in.FechaCreacion,
                                    IdUsuario = d_in.IdUsuario,
                                    MiDonacion = d_in.Cantidad,
                                    Nombre = p.Nombre,
@@ -61,7 +61,7 @@ namespace AyudandoAlProjimo.Servicios
                                  select new ApiDonaciones
                                  {
                                      Estado = p.Estado,
-                                     //FechaDonacion = d_hrs.FechaCreacion,
+                                     FechaDonacion = d_hrs.FechaCreacion,
                                      IdUsuario = d_hrs.IdUsuario,
                                      MiDonacion = d_hrs.Cantidad,
                                      Nombre = p.Nombre,
@@ -81,7 +81,7 @@ namespace AyudandoAlProjimo.Servicios
         public List<ApiDonaciones> CargarDonacionesTotalesALista(List<ApiDonaciones> list)
         {
             foreach (ApiDonaciones item in list)
-            {//1->Monetaria   2->Insumos   3->HorasDeTrabajo
+            {
                 if (item.Tipo == 1)
                 {
                     item.TotalRecaudado = CalcularTotalDonadoPropuestaMon(item.IdPropuesta);

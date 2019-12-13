@@ -89,9 +89,9 @@ namespace AyudandoAlProjimo.Controllers
             return View();
         }
 
-        public ActionResult MiPerfil(int id)
+        public ActionResult MiPerfil()
         {
-            Usuarios u = usuarios.BuscarUsuarioPorId(id);
+            Usuarios u = SesionServicio.UsuarioSesion;
             return View(u);
         }
 

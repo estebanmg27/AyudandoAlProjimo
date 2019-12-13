@@ -15,22 +15,34 @@
                     <h3 class="card-title">Realizar donación a la propuesta</h3>
                     <h3 class="card-tittle"><strong>@Model.Nombre</strong></h3>
 
-                    <form action="/Propuestas/RealizarDonacionDeHorasDeTrabajo" method="post">
+                    @*<form action="/Propuestas/RealizarDonacionDeHorasDeTrabajo/" method="post">
+
+        <div class="form-group">
+            <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
+            <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Cantidad", "Cantidad de horas de trabajo que va a donar:")
+            @Html.EditorFor(o => o.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { type = "number", @class = "form-control", @min = "1", @max = "999999" } })
+            @Html.ValidationMessageFor(o => o.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, "", new { @class = "text-danger" })
+        </div>*@
+
+                    <form action="/Propuestas/RealizarDonacionDeHorasDeTrabajo" method="post" id="donar-form" enctype = "multipart/form-data" onsubmit="return validardh(event);" >
+
+                        <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
+                        <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
 
                         <div class="form-group">
-                            <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
-                            <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
-                        </div>
-                        
-                        <div class="form-group">
-                            @Html.Label("Cantidad", "Cantidad de horas de trabajo que va a donar:")
-                            @*@Html.TextBox("Cantidad", 0, new { @class = "form-control", @type = "number" })*@
-                            @Html.EditorFor(o => o.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { type = "number", @class = "form-control" } })
-                            @Html.ValidationMessageFor(o => o.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, "", new { @class = "text-danger" })
+                            @Html.Label("Cantidad", "Horas a donar:")
+                            @Html.TextBox("Cantidad", 1, new { @class = "form-control", @type = "number", @min = "1", @max = "999999" })
                         </div>
 
-                        <input class="btn btn-primary" type="submit" value="Realizar donacion" />
+                        <input type="submit" class="btn btn-primary" value="Realizar donacion" id="donar-submit" />
                     </form>
+
+
+                      
                 </div>
             </div>
         </div>

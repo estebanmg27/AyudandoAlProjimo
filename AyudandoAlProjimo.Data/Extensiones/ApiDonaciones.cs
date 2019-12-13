@@ -14,9 +14,8 @@ namespace AyudandoAlProjimo.Data
         public string Nombre { get; set; }
         public int MyProperty { get; set; }
         public decimal MiDonacion { get; set; }
-        public int TipoDonacion { get; set; }
-        public int IdPropuesta { get; set; }
         public int Tipo { get; set; }
+        public int IdPropuesta { get; set; }
         public decimal TotalRecaudado { get; set; }
         public int IdPropuestaDIns { get; set; }
         public DateTime FechaDonacion { get; set; }

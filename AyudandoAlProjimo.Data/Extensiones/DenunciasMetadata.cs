@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace AyudandoAlProjimo.Data
 {
-    public class DonacionesHorasTrabajoMetadata
+    public class DenunciasMetadata
     {
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        //[Range(1, int.MaxValue, ErrorMessage = "Solo se permiten valores positivos")]
-        public int CantidadHoras { get; set; }
+        public int IdMotivo { get; set; }
+
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public string Comentarios { get; set; }
     }
 }

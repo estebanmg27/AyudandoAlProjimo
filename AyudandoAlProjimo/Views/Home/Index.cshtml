@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "VerListaDePropuestas";
 }
+
+@RenderPage("~/Views/Shared/_Mensajes.cshtml")
+
 <div class="container mt-3">
     <div class="col-md-4">
         <form class="form-inline" action="/Propuestas/RealizarBusqueda" method="post">
@@ -13,11 +16,11 @@
     </div>
 
     @*<div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-        <label class="custom-control-label" for="customSwitch1">Sólo visualizar activas</label>
-    </div>*@
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+            <label class="custom-control-label" for="customSwitch1">Sólo visualizar activas</label>
+        </div>*@
 
-   
+
 
     <div class="container mt-5">
         <div class="row">

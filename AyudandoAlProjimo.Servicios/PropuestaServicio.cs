@@ -95,6 +95,7 @@ namespace AyudandoAlProjimo.Servicios
             {
                 if (d.Cantidad > 0)
                 {
+                    d.FechaCreacion = DateTime.Today;
                     ctx.DonacionesInsumos.Add(d);
                 }
             }
@@ -104,6 +105,7 @@ namespace AyudandoAlProjimo.Servicios
         public void AgregarDonacionHorasDeTrabajo(DonacionesHorasTrabajo dht)
         {
             ctx.DonacionesHorasTrabajo.Add(dht);
+            dht.FechaCreacion = DateTime.Today;
             ctx.SaveChanges();
         }
 
@@ -112,18 +114,27 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.Propuestas.ToList();
         }
 
-        public void AgregarDenuncia(FormCollection form)
+        public void AgregarDenuncia(Denuncias d)
         {
-            Denuncias d = new Denuncias();
-            int Propuesta = Convert.ToInt32(form["IdPropuesta"]);
-            d.IdPropuesta = Propuesta;
-            d.Comentarios = form["Comentarios"];
-            d.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
-            d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
-            d.Estado = 0; //pendiente de revisión
-            d.FechaCreacion = DateTime.Today;
+            //Denuncias d = new Denuncias();
+            //int Propuesta = Convert.ToInt32(form["IdPropuesta"]);
+            //d.IdPropuesta = Propuesta;
+            //d.Comentarios = form["Comentarios"];
+            //d.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
+            //d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
+            //d.Estado = 0; //pendiente de revisión
+            //d.FechaCreacion = DateTime.Today;
+            d.FechaCreacion = DateTime.Now;
+            d.Estado = 0;
+            d.IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
             ctx.Denuncias.Add(d);
             ctx.SaveChanges();
+        }
+
+        public Denuncias SoloDenunciarUnaVez(Denuncias d)
+        {
+            return ctx.Denuncias.Where(x => x.IdPropuesta == d.IdPropuesta && x.IdUsuario == SesionServicio.UsuarioSesion.IdUsuario).FirstOrDefault();
+
         }
 
         public List<MotivoDenuncia> ObtenerMotivos()
@@ -217,6 +228,16 @@ namespace AyudandoAlProjimo.Servicios
 
             return PropuestasMasValoradas;
         }
+
+        public List<Propuestas> ObtenerPropuestasMenosLasPropias(Usuarios u)
+        {
+            List<Propuestas> Propuestas = (from p in ctx.Propuestas                                         
+                                           where p.IdUsuarioCreador != u.IdUsuario
+                                           select p).ToList();
+
+            return Propuestas;
+        }
+
 
         public List<Propuestas> ObtenerMisPropuestas()
         {
