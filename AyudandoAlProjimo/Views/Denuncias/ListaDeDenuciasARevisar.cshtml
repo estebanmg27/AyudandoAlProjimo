@@ -4,39 +4,43 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
 }
 
- <div class="contenedor">
-        
-            <h3>Denuncias pendientes de revisión</h3>
+<div class="contenedor">
 
-            <table class="table">
+    <h3>Denuncias pendientes de revisión</h3>
+
+    <table class="table">
+        <tr>
+            <td>Fecha de creación</td>
+            <td>Motivo</td>
+            <td>Link al detalle</td>
+            <td>Comentarios</td>
+            <td>Aceptar/No aceptar</td>
+        </tr>
+
+        @{
+            foreach (var d in Model)
+            {
+                {
                 <tr>
-                    <td>Fecha de creación</td>
-                    <td>Link al detalle de la propuesta</td>
-                    <td>Comentarios</td>
-                    <td>Aceptar/No aceptar</td>
+                    <td>@d.FechaCreacion.ToString("yyyy-MM-dd")</td>
+
+                    <td>@d.MotivoDenuncia.Descripcion</td>
+
+
+                    <td>@d.Comentarios</td>
+
+                    <td>
+                        <a class="btn btn-secondary" href="/Propuestas/VerDetallePropuesta/@d.IdPropuesta">Detalle</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href="/Denuncias/Aceptar/@d.IdPropuesta">Aceptar</a>
+                        <a class="btn btn-danger" href="/Denuncias/NoAceptar/@d.IdPropuesta"> No Aceptar</a>
+                    </td>
                 </tr>
+                }
+            }
+        }
+    </table>
 
-                @{             
-                    foreach (var d in Model)
-                    {
-                        {
-                        <tr>
-                            <td>@d.FechaCreacion.ToString("yyyy-MM-dd")</td>
-                    
-
-                            <td>
-                                <a class="btn btn-secondary" href="/Propuestas/VerDetallePropuesta/@d.IdPropuesta">Detalle</a>
-                            </td>
-                            <td>@d.Comentarios</td>
-                            <td>
-                                <a class="btn btn-success" href="/Denuncias/Aceptar/@d.IdPropuesta">Aceptar</a>
-                                <a class="btn btn-danger" href="/Denuncias/NoAceptar/@d.IdPropuesta"> No Aceptar</a>
-                            </td>
-                        </tr>
-                            }
-                        }
-                    }
-            </table>
-        
-    </div>
+</div>
 
