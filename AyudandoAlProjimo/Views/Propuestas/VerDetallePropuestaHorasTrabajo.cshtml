@@ -10,12 +10,24 @@
 <h5>Profesion: @Model.Profesion</h5>
 
 <span class="font-weight-bold">Total de horas a cubir @Model.CantidadHoras</span>
-<span class="font-weight-bold">Restan por curbirse @ViewBag.HorasRestantes horas</span>
 <span class="font-weight-bold">Horas cubiertas @ViewBag.TotalDeHorasCubiertas horas</span>
 
-<span class="font-weight-bold">
-    Porcentaje de aceptación @Model.Propuestas.Valoracion%
-</span>
+@*<span class="font-weight-bold">
+        Porcentaje de aceptación @Model.Propuestas.Valoracion%
+    </span>*@
+
+@if (Model.Estado == 0 && Model.IdUsuarioCreador != user.IdUsuario && ViewBag.TotalDeHorasCubiertas < Model.CantidadHoras)
+{
+    <div class="container"><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+}
+
+else
+{
+    <span class="font-weight-bold">
+        No puede realizar donaciones a esta publicación
+    </span>
+}
+
 
 
 

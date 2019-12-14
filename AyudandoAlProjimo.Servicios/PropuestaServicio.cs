@@ -83,7 +83,7 @@ namespace AyudandoAlProjimo.Servicios
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
         {
             dm.FechaCreacion = DateTime.Today;
-            dm.ArchivoTransferencia = "";
+      
             ctx.DonacionesMonetarias.Add(dm);
             ctx.SaveChanges();
         }
@@ -142,62 +142,63 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.MotivoDenuncia.ToList();
         }
 
-        public void Valorar(FormCollection form)
+        public void MeGusta(int Id)
         {
             PropuestasValoraciones v = new PropuestasValoraciones();
-            v.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
-            v.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
-            int calificado = NoCalificarMasDeUnaVez(v.IdPropuesta, v.IdUsuario);
+            int idUsuario = SesionServicio.UsuarioSesion.IdUsuario;
+            var p = ObtenerPropuestaPorId(Id);
 
-            if (calificado == 0)
+            var calificado = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && idUsuario == x.IdUsuario).FirstOrDefault();
+            if (calificado == null)
             {
-
-                if (Convert.ToInt32(form["Valoracion"]) == 1)
-                {
-                    v.Valoracion = true;
-                }
-                else
-                {
-                    v.Valoracion = false;
-                }
-
+                v.IdPropuesta = p.IdPropuesta;
+                v.IdUsuario = idUsuario;
+                v.Valoracion = true;
+                ctx.PropuestasValoraciones.Add(v);
+                ctx.SaveChanges();
             }
+            else
+            {
+                calificado.Valoracion = true;
+                ctx.SaveChanges();
+            }
+        }
 
-            ctx.PropuestasValoraciones.Add(v);
-            ctx.SaveChanges();
+        public void NoMeGusta(int Id)
+        {
+            PropuestasValoraciones v = new PropuestasValoraciones();
+            int idUsuario = SesionServicio.UsuarioSesion.IdUsuario;
+            var p = ObtenerPropuestaPorId(Id);
 
+            var calificado = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && idUsuario == x.IdUsuario).FirstOrDefault();
+            if (calificado == null)
+            {
+                v.IdPropuesta = p.IdPropuesta;
+                v.IdUsuario = idUsuario;
+                v.Valoracion = false;
+                ctx.PropuestasValoraciones.Add(v);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                calificado.Valoracion = false;
+                ctx.SaveChanges();
+            }
         }
 
         public decimal CalcularValoracionTotal(int Id)
         {
             var PropuestaActual = ObtenerPropuestaPorId(Id);
-
+ 
             var likes = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && x.Valoracion == true).Count();
-            var totalVotos = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
+            var total = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
 
-            decimal Valoracion = (decimal)likes / totalVotos * 100;
+            decimal Valoracion = (decimal)likes / total * 100; 
             decimal Resultado = Math.Round(Valoracion, 2);
             PropuestaActual.Valoracion = Resultado;
             ctx.SaveChanges();
 
             return Valoracion;
-        }
-
-        public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
-        {
-            var calificacion = (from val in ctx.PropuestasValoraciones
-                                where val.IdPropuesta == IdPropuesta &&
-                                val.IdUsuario == IdUsuario
-                                select val).FirstOrDefault();
-
-            if (calificacion != null)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
         }
 
 

@@ -14,7 +14,7 @@
                     <h3 class="card-title">Realizar donación a la propuesta</h3>
                     <h3 class="card-tittle"><strong>@Model.Nombre</strong></h3>
 
-                    <form action="/Propuestas/RealizarDonacionMonetaria" method="post" id="donar-formulario" onsubmit="return validardh(event);">
+                    <form action="/Propuestas/RealizarDonacionMonetaria" method="post">
 
                         <div class="form-group">
                             <input type="hidden" name="IdPropuestaDonacionMonetaria" value="@Model.PropuestasDonacionesMonetarias.First().IdPropuestaDonacionMonetaria" />
@@ -29,11 +29,10 @@
 
                         <div class="form-group">
                             <label>Comprobante de transferencia:</label>
-                            <input type="file" name="file" value="" class="form-control" />
+                            <input type="file" name="ArchivoTransferencia" id="ArchivoTransferencia" class="form-control" lang="es" required />
                         </div>
 
-
-                        <input class="btn btn-primary" type="submit" value="Realizar donacion" id="donar-submit" />
+                        <input class="btn btn-primary" type="submit" value="Realizar donacion"/>
                     </form>
                 </div>
             </div>

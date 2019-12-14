@@ -4,6 +4,9 @@
     ViewBag.Title = "VerDetallePropuesta";
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
+    ViewBag.ValoracionActual = Model.PropuestasValoraciones.Where(x => x.IdPropuesta == Model.IdPropuesta && ViewBag.UsuarioActualId == x.IdUsuario).FirstOrDefault();
+    ViewBag.MeGusta = ViewBag.ValoracionActual == null ? "btn-secondary" : ViewBag.ValoracionActual.Valoracion == true ? "btn-primary" : "btn-secondary";
+    ViewBag.NoMeGusta = ViewBag.ValoracionActual == null ? "btn-secondary" : ViewBag.ValoracionActual.Valoracion == false ? "btn-primary" : "btn-secondary";
 }
 
 <div class="container">
@@ -20,6 +23,24 @@
 
         <div class="col">
             <div class="card">
+
+                <span class="font-weight-bold">
+                    Porcentaje de aceptación
+                </span>
+
+                @if (Model.Valoracion != null)
+                {
+                    <span class="font-weight-bold" id="valoracion">
+                        @Model.Valoracion %
+                    </span>
+                }
+                else
+                {
+                    <span class="font-weight-bold" id="valoracion">
+                        0 %
+                    </span>
+                }
+
                 @if (Model.TipoDonacion == 1)
                 {
                     @Html.Partial("VerDetallePropuestaMonetaria", Model.PropuestasDonacionesMonetarias.First())
@@ -37,31 +58,19 @@
                 <div class="container">
                     @if (Model.Estado == 0 && Model.IdUsuarioCreador != user.IdUsuario && Model.FechaFin > DateTime.Today)
                     {
+                        if (Model.TipoDonacion == 2)
+                        {
                         <div><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+                        }
+
                         <div><a class="btn btn-block btn-danger mt-3" href="/Propuestas/CargarDenuncia/@Model.IdPropuesta">Denunciar propuesta</a></div>
 
+
                         <div class="d-flex justify-content-between">
-                            <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post" id="like">
-
-                                <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
-                                <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
-                                <input type="text" name="Valoracion" value="1" hidden />
-                                <button type="submit" class="btn btn-success mt-2">Me gusta</button>
-
-                            </form>
-
-
-                            <form action="/Propuestas/Calificar/@Model.IdPropuesta" method="post" id="dislike">
-
-                                <input type="text" name="IdUsuario" value="@user.IdUsuario" hidden />
-                                <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
-                                <input type="text" name="Valoracion" value="0" hidden />
-                                <button type="submit" class="btn btn-secondary mt-2">No me gusta</button>
-
-                            </form>
-
-
+                            <a href="/Propuestas/MeGusta/@Model.IdPropuesta" id="like" class="btn @ViewBag.MeGusta mt-3 font-weight-bold flex-fill like">Me gusta</a>
+                            <a href="/Propuestas/NoMeGusta/@Model.IdPropuesta" id="dislike" class="btn @ViewBag.NoMeGusta mt-3 font-weight-bold flex-fill dislike">No me gusta</a>
                         </div>
+
                     }
 
                 </div>

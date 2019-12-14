@@ -40,7 +40,10 @@ namespace AyudandoAlProjimo
                     "~/Scripts/jquery.validate.unobtrusive.js",
                     "~/Scripts/Fecha.js",
                     "~/Scripts/propuesta-insumos.js",
-                    "~/Scripts/historialDonaciones.js"
+                    "~/Scripts/historialDonaciones.js",
+                    "~/Scripts/detalle-propuesta.js",
+                    "~/Scripts/donar.js",
+                    "~/Scripts/donacion-insumos.js"
                     ));
 
         }

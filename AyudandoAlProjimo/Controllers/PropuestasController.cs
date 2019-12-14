@@ -278,14 +278,18 @@ namespace AyudandoAlProjimo.Controllers
             }
         }
 
+        [HttpPost]
+        public decimal MeGusta(int Id)
+        {
+            propuestas.MeGusta(Id);
+            return propuestas.CalcularValoracionTotal(Id);
+        }
 
         [HttpPost]
-        public ActionResult Calificar(FormCollection form, int id)
+        public decimal NoMeGusta(int Id)
         {
-            int idPropuesta = Convert.ToInt32(form["IdPropuesta"]);
-            propuestas.Valorar(form);
-            propuestas.CalcularValoracionTotal(id);
-            return Redirect("/Propuestas/VerDetallePropuesta/" + idPropuesta);
+            propuestas.NoMeGusta(Id);
+            return propuestas.CalcularValoracionTotal(Id);
         }
 
         [HttpPost]
