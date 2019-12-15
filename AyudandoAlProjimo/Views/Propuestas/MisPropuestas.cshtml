@@ -33,9 +33,9 @@ else
                 {
                     <div class="col-md-4">
                         <div class="card p-4">
-                            <img src=~/Imagenes/@p.Foto class="img-thumbnail" alt="@p.Nombre" style="width:300px;height:200px;" onerror="this.src='@ViewBag.Default'" />
-                            @*<img src="@Url.Content($"{p.Foto}")" width="300" height="200" onerror="this.src='@ViewBag.Default'">*@
-                            <div><spaatn class="mr-3">Creada por:</spaatn> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
+                            <img src=@p.Foto class="img-thumbnail" alt="@p.Nombre" style="width:300px;height:200px;" onerror="this.src='@ViewBag.Default'" />
+                            
+                            <div><span class="mr-3">Creada por:</span> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
                             <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
                             <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
                             <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>
