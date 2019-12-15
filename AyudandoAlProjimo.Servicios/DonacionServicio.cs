@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
 using AyudandoAlProjimo.Data;
-using AyudandoAlProjimo.Data.Extensiones;
+using AyudandoAlProjimo.Servicios;
 
 namespace AyudandoAlProjimo.Servicios
 {
@@ -13,67 +13,159 @@ namespace AyudandoAlProjimo.Servicios
         public List<ApiDonaciones> HistorialDonaciones(int id)
         {
             Entities ctx = new Entities();
-            List<ApiDonaciones> donaciones = new List<ApiDonaciones>();
+            List<ApiDonaciones> donacions = new List<ApiDonaciones>();
 
-            var DonacionesMonetarias = (from p in ctx.Propuestas
-                                        join prop_mon in ctx.PropuestasDonacionesMonetarias
-                                         on p.IdPropuesta equals prop_mon.IdPropuesta
-                                        join d_mon in ctx.DonacionesMonetarias
-                                         on prop_mon.IdPropuestaDonacionMonetaria equals d_mon.IdPropuestaDonacionMonetaria
-                                        where d_mon.IdUsuario == id
-                                        select new ApiDonaciones
-                                        {
-                                            Estado = p.Estado,
-                                            FechaDonacion = d_mon.FechaCreacion,
-                                            IdUsuario = d_mon.IdUsuario,
-                                            Donacion = d_mon.Dinero,
-                                            Nombre = p.Nombre,
-                                            Tipo = p.TipoDonacion,
-                                            IdPropuesta = p.IdPropuesta
-                                        }
+            #region Donaciones por Id Consulta
+            var Donaciones = (from p in ctx.Propuestas
+                              join p_mon in ctx.PropuestasDonacionesMonetarias
+                               on p.IdPropuesta equals p_mon.IdPropuesta
+                              join d_mon in ctx.DonacionesMonetarias
+                               on p_mon.IdPropuestaDonacionMonetaria equals d_mon.IdPropuestaDonacionMonetaria
+                              where d_mon.IdUsuario == id
+                              select new ApiDonaciones
+                              {
+                                  Estado = p.Estado,
+                                  FechaDonacion = d_mon.FechaCreacion,
+                                  IdUsuario = d_mon.IdUsuario,
+                                  MiDonacion = d_mon.Dinero,
+                                  Nombre = p.Nombre,
+                                  Tipo = p.TipoDonacion,
+                                  IdPropuesta = p.IdPropuesta
+                              }
                               ).ToList();
 
-            var DonacionesInsumos = (from p in ctx.Propuestas
-                                     join prop_in in ctx.PropuestasDonacionesInsumos
-                                     on p.IdPropuesta equals prop_in.IdPropuesta
-                                     join d_in in ctx.DonacionesInsumos
-                                     on prop_in.IdPropuestaDonacionInsumo equals d_in.IdPropuestaDonacionInsumo
-                                     where d_in.IdUsuario == id
-                                     select new ApiDonaciones
-                                     {
-                                         Estado = p.Estado,
-                                         IdUsuario = d_in.IdUsuario,
-                                         Donacion = d_in.Cantidad,
-                                         Nombre = p.Nombre,
-                                         IdPropuestaDIns = prop_in.IdPropuestaDonacionInsumo,
-                                         Tipo = p.TipoDonacion,
-                                         IdPropuesta = p.IdPropuesta
-                                     }
+            var DonacionesI = (from p in ctx.Propuestas
+                               join p_in in ctx.PropuestasDonacionesInsumos
+                                on p.IdPropuesta equals p_in.IdPropuesta
+                               join d_in in ctx.DonacionesInsumos
+                                on p_in.IdPropuestaDonacionInsumo equals d_in.IdPropuestaDonacionInsumo
+                               where d_in.IdUsuario == id
+                               select new ApiDonaciones
+                               {
+                                   Estado = p.Estado,
+                                   FechaDonacion = d_in.FechaCreacion,
+                                   IdUsuario = d_in.IdUsuario,
+                                   MiDonacion = d_in.Cantidad,
+                                   Nombre = p.Nombre,
+                                   IdPropuestaDIns = p_in.IdPropuestaDonacionInsumo,
+                                   Tipo = p.TipoDonacion,
+                                   IdPropuesta = p.IdPropuesta
+                               }
                              ).ToList();
-
-            var DonacionesHoras = (from p in ctx.Propuestas
-                                 join prop_hrs in ctx.PropuestasDonacionesHorasTrabajo
-                                 on p.IdPropuesta equals prop_hrs.IdPropuesta
+            var DonacionesHrs = (from p in ctx.Propuestas
+                                 join p_hrs in ctx.PropuestasDonacionesHorasTrabajo
+                                  on p.IdPropuesta equals p_hrs.IdPropuesta
                                  join d_hrs in ctx.DonacionesHorasTrabajo
-                                 on prop_hrs.IdPropuestaDonacionHorasTrabajo equals d_hrs.IdPropuestaDonacionHorasTrabajo
+                                  on p_hrs.IdPropuestaDonacionHorasTrabajo equals d_hrs.IdPropuestaDonacionHorasTrabajo
                                  where d_hrs.IdUsuario == id
                                  select new ApiDonaciones
                                  {
                                      Estado = p.Estado,
-                              
+                                     FechaDonacion = d_hrs.FechaCreacion,
                                      IdUsuario = d_hrs.IdUsuario,
-                                     Donacion = d_hrs.Cantidad,
+                                     MiDonacion = d_hrs.Cantidad,
                                      Nombre = p.Nombre,
                                      Tipo = p.TipoDonacion,
                                      IdPropuesta = p.IdPropuesta
                                  }
                              ).ToList();
+            #endregion
 
-            donaciones.AddRange(DonacionesMonetarias);
-            donaciones.AddRange(DonacionesInsumos);
-            donaciones.AddRange(DonacionesHoras);
+            donacions.AddRange(Donaciones);
+            donacions.AddRange(DonacionesI);
+            donacions.AddRange(DonacionesHrs);
 
-            return DonacionesHoras;
+            return CargarDonacionesTotalesALista(donacions);
+        }
+
+        public List<ApiDonaciones> CargarDonacionesTotalesALista(List<ApiDonaciones> list)
+        {
+            foreach (ApiDonaciones item in list)
+            {
+                if (item.Tipo == 1)
+                {
+                    item.TotalRecaudado = CalcularTotalDonadoPropuestaMon(item.IdPropuesta);
+                }
+                else if (item.Tipo == 2)
+                {
+                    item.TotalRecaudado = CalcularTotalDonadoPropuestaIns(item.IdPropuestaDIns);
+                }
+                else if (item.Tipo == 3)
+                {
+                    item.TotalRecaudado = CalcularTotalDonadoPropuestaHrs(item.IdPropuesta);
+                }
+            }
+
+            return list.OrderByDescending(model => model.FechaDonacion).ToList();
+        }
+
+        public decimal CalcularTotalDonadoPropuestaMon(int id)
+        {
+            Entities ctx = new Entities();
+
+            decimal contTotal = 0;
+            var dlist = (from p in ctx.Propuestas
+                         join p_in in ctx.PropuestasDonacionesMonetarias
+                          on p.IdPropuesta equals p_in.IdPropuesta
+                         join d_in in ctx.DonacionesMonetarias
+                          on p_in.IdPropuestaDonacionMonetaria equals d_in.IdPropuestaDonacionMonetaria
+                         where p.IdPropuesta == id
+                         select d_in.Dinero
+                          ).ToList();
+            if (dlist.Count > 0)
+            {
+                foreach (decimal item in dlist)
+                {
+                    contTotal += item;
+                }
+                return contTotal;
+            }
+            else return 0;
+        }
+        public int CalcularTotalDonadoPropuestaIns(int id)
+        {
+            Entities ctx = new Entities();
+            int contTotal = 0;
+            var dlist = (from p in ctx.Propuestas
+                         join p_in in ctx.PropuestasDonacionesInsumos
+                          on p.IdPropuesta equals p_in.IdPropuesta
+                         join d_in in ctx.DonacionesInsumos
+                          on p_in.IdPropuestaDonacionInsumo equals d_in.IdPropuestaDonacionInsumo
+                         where p_in.IdPropuestaDonacionInsumo == id
+                         select d_in.Cantidad
+                             ).ToList();
+
+
+            foreach (int item in dlist)
+            {
+                contTotal += item;
+            }
+            return contTotal;
+
+        }
+        public int CalcularTotalDonadoPropuestaHrs(int id)
+        {
+            Entities ctx = new Entities();
+
+            int contTotal = 0;
+            var dlist = (from p in ctx.Propuestas
+                         join p_in in ctx.PropuestasDonacionesHorasTrabajo
+                          on p.IdPropuesta equals p_in.IdPropuesta
+                         join d_in in ctx.DonacionesHorasTrabajo
+                          on p_in.IdPropuestaDonacionHorasTrabajo equals d_in.IdPropuestaDonacionHorasTrabajo
+                         where p.IdPropuesta == id
+                         select d_in.Cantidad
+                             ).ToList();
+
+            if (dlist.Count > 0)
+            {
+                foreach (int item in dlist)
+                {
+                    contTotal += item;
+                }
+                return contTotal;
+            }
+            else return 0;
         }
     }
 }

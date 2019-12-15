@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "MiPerfil";
+    ViewBag.FechaNacimiento = Model.FechaNacimiento.ToString("yyyy-MM-dd");
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 }
 
 @model AyudandoAlProjimo.Data.Usuarios
@@ -11,50 +13,87 @@
     <title>Mi perfil</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-5">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/Usuario/MiPerfil" method="post">
 
-                            <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
+    @if (user.UserName == null)
+    {
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/Usuario/MiPerfil" method="post">
 
-                            <h1 class="card-title">Editar mi perfil</h1>
-                            @*<div class="form-control">*@
+                                <h1 class="card-title">Editar mi perfil</h1>
+                                <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
 
-                            @Html.LabelFor(o => o.Nombre)
-                            <br />
-                            @Html.EditorFor(usuario => usuario.Nombre, new { htmlAttributes = new { id = "inputNombre", name = "nombre", @class = "form-control", type = "text", required = "required" } })
-                            @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
-                            <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(o => o.Nombre)
+                                    @Html.EditorFor(usuario => usuario.Nombre, new { htmlAttributes = new { @class = "form-control", type = "text", required = "required" } })
+                                    @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
+                                </div>
 
-                            @Html.LabelFor(o => o.Apellido)
-                            <br />
-                            @Html.EditorFor(usuario => usuario.Apellido, new { htmlAttributes = new { id = "inputApellido", name = "apellido", @class = "form-control", type = "text", required = "required" } })
-                            @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
-                            <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(o => o.Apellido)
+                                    @Html.EditorFor(usuario => usuario.Apellido, new { htmlAttributes = new { @class = "form-control", type = "text", required = "required" } })
+                                    @Html.ValidationMessageFor(o => o.Apellido, "", new { @class = "text-danger" })
+                                </div>
 
-                            @Html.LabelFor(o => o.FechaNacimiento)
-                            @Html.EditorFor(o => o.FechaNacimiento, new { htmlAttributes = new { id = "inputFechaNacimiento", name = "fechaNacimiento", @class = "form-control", required = "required", type = "text", autocomplete = "off", value = $"{Model.FechaNacimiento:dd/MM/yyyy}" } })
-                            <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(o => o.FechaNacimiento)
+                                    <input type="date" name="FechaNacimiento" value="@ViewBag.FechaNacimiento" class="form-control" />
+                                </div>
 
-                            <div class="form-group">
-                                <span class="text-black-50">Subir Foto</span>
-                                @Html.TextBoxFor(usuario => usuario.Foto, new { type = "file", id = "upload" })
-                                @Html.ValidationMessageFor(usuario => usuario.Foto, string.Empty, new { @class = "text-danger" })
-                            
-                            </div>
+                                <div class="form-group">
+                                    <span class="text-black-50">Subir Foto</span>
+                                    @Html.TextBoxFor(usuario => usuario.Foto, new { type = "file", id = "upload" })
+                                    @Html.ValidationMessageFor(usuario => usuario.Foto, string.Empty, new { @class = "text-danger" })
 
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
-                            @*</div>*@
-                        </form>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <div class="abs-center">
+                <h2 class="text-white text-center">Mi Perfil</h2>
+
+                <div class="col-md-6 align-items-center justify-content-center bg-white p-4 mt-4 rounded shadow">
+                    <img src="~/Imagenes/@Model.Foto" class="rounded-circle" alt="" style="width:150px;height:150px;" />
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Nombre de usuario</p>
+                            <strong class="strong-usuario-info">@Model.UserName</strong>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Nombre y apellido</p>
+                            <strong class="strong-usuario-info">@Model.Nombre @Model.Apellido</strong>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Fecha de nacimiento</p>
+                            <strong class="strong-usuario-info">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</strong>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Email</p>
+                            <strong class="strong-usuario-info">@Model.Email</strong>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <a href="/Donaciones/MiHistorialDonaciones" type="button" class="btn btn-success">Historial de Donaciones</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col"></div>
         </div>
-    </div>
+    }
 </body>
 </html>

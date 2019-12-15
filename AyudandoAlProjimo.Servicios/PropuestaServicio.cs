@@ -1,9 +1,11 @@
 ﻿using AyudandoAlProjimo.Data;
+using AyudandoAlProjimo.Data.Enums;
+using AyudandoAlProjimo.Data.Extensiones;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AyudandoAlProjimo.Servicios
@@ -12,7 +14,7 @@ namespace AyudandoAlProjimo.Servicios
     {
         Entities ctx = new Entities();
 
-        public int GenerarPropuestaGeneral(Propuestas p)
+        private int GenerarPropuestaGeneral(Propuestas p)
         {
             int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
             Propuestas propuesta = new Propuestas
@@ -44,13 +46,15 @@ namespace AyudandoAlProjimo.Servicios
             ctx.SaveChanges();
         }
 
-        public void NuevaPropuestaDonacionDeInsumos(Propuestas p, List<PropuestasDonacionesInsumos> insumos)
+        public void NuevaPropuestaDonacionDeInsumos(Propuestas p, List<PropuestasDonacionesInsumos> ListaDeInsumos)
         {
             int PropuestaId = GenerarPropuestaGeneral(p);
 
-            foreach (PropuestasDonacionesInsumos i in insumos)
+            foreach (PropuestasDonacionesInsumos i in ListaDeInsumos)
             {
                 i.IdPropuesta = PropuestaId;
+                i.TelefonoContacto = p.TelefonoContacto;
+                i.Descripcion = p.Descripcion;
                 ctx.PropuestasDonacionesInsumos.Add(i);
             }
 
@@ -68,14 +72,22 @@ namespace AyudandoAlProjimo.Servicios
         public Propuestas ObtenerPropuestaPorId(int id)
         {
             return ctx.Propuestas.Find(id);
+
+        }
+
+        public  int TotalPropuestasActivas(int id)
+        {
+            return ctx.Propuestas.Where(x => x.Estado == 0 && x.IdUsuarioCreador == id).Count();
         }
 
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
         {
             dm.FechaCreacion = DateTime.Today;
+      
             ctx.DonacionesMonetarias.Add(dm);
             ctx.SaveChanges();
         }
+
 
         public void AgregarDonacionDeInsumos(List<DonacionesInsumos> di)
         {
@@ -83,6 +95,7 @@ namespace AyudandoAlProjimo.Servicios
             {
                 if (d.Cantidad > 0)
                 {
+                    d.FechaCreacion = DateTime.Today;
                     ctx.DonacionesInsumos.Add(d);
                 }
             }
@@ -92,6 +105,7 @@ namespace AyudandoAlProjimo.Servicios
         public void AgregarDonacionHorasDeTrabajo(DonacionesHorasTrabajo dht)
         {
             ctx.DonacionesHorasTrabajo.Add(dht);
+            dht.FechaCreacion = DateTime.Today;
             ctx.SaveChanges();
         }
 
@@ -100,18 +114,27 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.Propuestas.ToList();
         }
 
-        public void AgregarDenuncia(FormCollection form)
+        public void AgregarDenuncia(Denuncias d)
         {
-            Denuncias d = new Denuncias();
-            int Propuesta = Convert.ToInt32(form["IdPropuesta"]);
-            d.IdPropuesta = Propuesta;
-            d.Comentarios = form["Comentarios"];
-            d.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
-            d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
+            //Denuncias d = new Denuncias();
+            //int Propuesta = Convert.ToInt32(form["IdPropuesta"]);
+            //d.IdPropuesta = Propuesta;
+            //d.Comentarios = form["Comentarios"];
+            //d.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
+            //d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
+            //d.Estado = 0; //pendiente de revisión
+            //d.FechaCreacion = DateTime.Today;
+            d.FechaCreacion = DateTime.Now;
             d.Estado = 0;
-            d.FechaCreacion = DateTime.Today;
+            d.IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
             ctx.Denuncias.Add(d);
             ctx.SaveChanges();
+        }
+
+        public Denuncias SoloDenunciarUnaVez(Denuncias d)
+        {
+            return ctx.Denuncias.Where(x => x.IdPropuesta == d.IdPropuesta && x.IdUsuario == SesionServicio.UsuarioSesion.IdUsuario).FirstOrDefault();
+
         }
 
         public List<MotivoDenuncia> ObtenerMotivos()
@@ -119,65 +142,66 @@ namespace AyudandoAlProjimo.Servicios
             return ctx.MotivoDenuncia.ToList();
         }
 
-        public void Valorar(FormCollection form)
+        public void MeGusta(int Id)
         {
             PropuestasValoraciones v = new PropuestasValoraciones();
-            v.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
-            v.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
-            int calificado = NoCalificarMasDeUnaVez(v.IdPropuesta, v.IdUsuario);
+            int idUsuario = SesionServicio.UsuarioSesion.IdUsuario;
+            var p = ObtenerPropuestaPorId(Id);
 
-            if (calificado == 0)
+            var calificado = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && idUsuario == x.IdUsuario).FirstOrDefault();
+            if (calificado == null)
             {
-
-                if (Convert.ToInt32(form["Valoracion"]) == 1)
-                {
-                    v.Valoracion = true;
-                }
-                else
-                {
-                    v.Valoracion = false;
-                }
-
+                v.IdPropuesta = p.IdPropuesta;
+                v.IdUsuario = idUsuario;
+                v.Valoracion = true;
+                ctx.PropuestasValoraciones.Add(v);
+                ctx.SaveChanges();
             }
+            else
+            {
+                calificado.Valoracion = true;
+                ctx.SaveChanges();
+            }
+        }
 
-            ctx.PropuestasValoraciones.Add(v);
-            ctx.SaveChanges();
-            
+        public void NoMeGusta(int Id)
+        {
+            PropuestasValoraciones v = new PropuestasValoraciones();
+            int idUsuario = SesionServicio.UsuarioSesion.IdUsuario;
+            var p = ObtenerPropuestaPorId(Id);
+
+            var calificado = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && idUsuario == x.IdUsuario).FirstOrDefault();
+            if (calificado == null)
+            {
+                v.IdPropuesta = p.IdPropuesta;
+                v.IdUsuario = idUsuario;
+                v.Valoracion = false;
+                ctx.PropuestasValoraciones.Add(v);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                calificado.Valoracion = false;
+                ctx.SaveChanges();
+            }
         }
 
         public decimal CalcularValoracionTotal(int Id)
         {
             var PropuestaActual = ObtenerPropuestaPorId(Id);
-            
+ 
             var likes = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id && x.Valoracion == true).Count();
-            var totalVotos = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
+            var total = ctx.PropuestasValoraciones.Where(x => x.IdPropuesta == Id).Count();
 
-            decimal Valoracion = (decimal)likes / totalVotos * 100;
-            decimal Resultado = Math.Round(Valoracion, 2); 
+            decimal Valoracion = (decimal)likes / total * 100; 
+            decimal Resultado = Math.Round(Valoracion, 2);
             PropuestaActual.Valoracion = Resultado;
             ctx.SaveChanges();
 
             return Valoracion;
         }
 
-        public int NoCalificarMasDeUnaVez(int IdUsuario, int IdPropuesta)
-        {
-            var calificacion = (from val in ctx.PropuestasValoraciones
-                                where val.IdPropuesta == IdPropuesta &&
-                                val.IdUsuario == IdUsuario
-                                select val).FirstOrDefault();
 
-            if (calificacion != null)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-       
         public List<Propuestas> Buscar(string busqueda)
         {
             List<Propuestas> lista = (from propuestas in ctx.Propuestas
@@ -206,6 +230,16 @@ namespace AyudandoAlProjimo.Servicios
             return PropuestasMasValoradas;
         }
 
+        public List<Propuestas> ObtenerPropuestasMenosLasPropias(Usuarios u)
+        {
+            List<Propuestas> Propuestas = (from p in ctx.Propuestas                                         
+                                           where p.IdUsuarioCreador != u.IdUsuario
+                                           select p).ToList();
+
+            return Propuestas;
+        }
+
+
         public List<Propuestas> ObtenerMisPropuestas()
         {
             int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
@@ -221,12 +255,12 @@ namespace AyudandoAlProjimo.Servicios
         public List<Propuestas> ObtenerMisPropuestasActivas()
         {
             int IdUsuario = SesionServicio.UsuarioSesion.IdUsuario;
-            List<Propuestas> misPropuestasActivas =    (from propuestas in ctx.Propuestas
-                                                        join user in ctx.Usuarios
-                                                        on propuestas.IdUsuarioCreador equals user.IdUsuario
-                                                        where propuestas.IdUsuarioCreador == IdUsuario
-                                                        where propuestas.Estado == 0
-                                                        select propuestas).ToList();
+            List<Propuestas> misPropuestasActivas = (from propuestas in ctx.Propuestas
+                                                     join user in ctx.Usuarios
+                                                     on propuestas.IdUsuarioCreador equals user.IdUsuario
+                                                     where propuestas.IdUsuarioCreador == IdUsuario
+                                                     where propuestas.Estado == 0
+                                                     select propuestas).ToList();
 
             return misPropuestasActivas;
         }
@@ -281,6 +315,82 @@ namespace AyudandoAlProjimo.Servicios
             }
             else return 0;
         }
+
+        public List<DonacionesMonetarias> ObtenerDonacionMonetariaId(int idPropuesta)
+        {
+            return ctx.PropuestasDonacionesMonetarias.Include("DonacionesMonetarias").FirstOrDefault(pdm => pdm.IdPropuesta == idPropuesta)
+                ?.DonacionesMonetarias.ToList();
+        }
+
+        public int PuedeCrearPropuestas(int id)
+        {
+            var u = (from user in ctx.Usuarios
+                     where user.IdUsuario == id
+                     select user).First();
+
+            if (u.Nombre == null || u.Nombre == "" || u.Apellido == null || u.Apellido == "" || u.FechaNacimiento == null || u.Foto == null || u.Foto == "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public void ModificarPropuesta(int id, Propuestas propuesta)
+        {
+            Propuestas pv = ObtenerPropuestaPorId(id);
+            pv.Nombre = propuesta.Nombre;
+            pv.Descripcion = propuesta.Descripcion;
+            pv.FechaFin = propuesta.FechaFin;
+            pv.TelefonoContacto = propuesta.TelefonoContacto;
+            pv.TipoDonacion = propuesta.TipoDonacion;
+
+            pv.Foto = !string.IsNullOrEmpty(propuesta.Foto) ? propuesta.Foto : string.Empty;
+            switch (pv.TipoDonacion)
+            {
+                case 1:
+                    pv.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero = (propuesta as PropuestasDonacionesMonetarias).Dinero;
+                    pv.PropuestasDonacionesMonetarias.FirstOrDefault().CBU = (propuesta as PropuestasDonacionesMonetarias).CBU;
+                    break;
+                case 2:
+                   
+                    break;
+                case 3: 
+                    pv.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras = (propuesta as PropuestasDonacionesHorasTrabajo).CantidadHoras;
+                    pv.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion = (propuesta as PropuestasDonacionesHorasTrabajo).Profesion;
+                    break;
+            }
+
+            ctx.SaveChanges();
+        }
+
+        public void Modificar(Propuestas propuesta, List<PropuestasDonacionesInsumos> listaInsumos)
+        {
+            foreach (var i in listaInsumos)
+            {
+                PropuestasDonacionesInsumos insumo = propuesta.PropuestasDonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).FirstOrDefault();
+
+
+                if (insumo != null)
+                {
+                    insumo.Nombre = i.Nombre;
+                    insumo.Cantidad = i.Cantidad;
+                }
+                else
+                {
+                    PropuestasDonacionesInsumos NuevoInsumo = new PropuestasDonacionesInsumos();
+                    NuevoInsumo.Nombre = i.Nombre;
+                    NuevoInsumo.Cantidad = i.Cantidad;
+                    propuesta.PropuestasDonacionesInsumos.Add(NuevoInsumo);
+                    ctx.SaveChanges();
+                }
+            }
+
+            ctx.SaveChanges();
+        }
     }
 
 }
+

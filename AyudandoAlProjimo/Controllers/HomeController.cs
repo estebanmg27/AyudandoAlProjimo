@@ -16,8 +16,14 @@ namespace AyudandoAlProjimo.Controllers
 
         public ActionResult Index()
         {
-            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestasActivas();
+            Usuarios u = SesionServicio.UsuarioSesion;
+            List<Propuestas> PropuestasLista = propuestas.ObtenerPropuestasMenosLasPropias(u);
             return View(PropuestasLista);
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

@@ -1,10 +1,14 @@
 ﻿@model AyudandoAlProjimo.Data.Propuestas
+
 @{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "CrearPropuesta";
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
+
 }
 
-<body>
+@if (user.UserName != null)
+{
     <div class="container">
         <div class="row">
             <div class="col"></div>
@@ -12,30 +16,30 @@
                 <div class="card" style="margin-top: 50px">
                     <div class="card-body">
                         <form action="/Propuestas/CrearPropuesta" method="post">
-                            <h5 class="card-title">Crear propuesta</h5>
 
-                            @Html.Label("Nombre", "Nombre de la propuesta:")
+                            <h5 class="card-title">Crear propuesta</h5>
                             <div class="form-group">
+                                @Html.Label("Nombre", "Nombre de la propuesta:")
                                 @Html.EditorFor(o => o.Nombre, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
                                 @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.Label("Descripcion", "Descripción de la propuesta:")
                             <div class="form-group">
-                                @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control", @rows = 3, @id = "descripcionPropuesta" })
+                                @Html.Label("Descripcion", "Descripción de la propuesta:")
+                                @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control", @rows = 3 })
                                 @Html.ValidationMessageFor(o => o.Descripcion, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.Label("FechaFin", "Fecha de finalización:")
                             <div class="form-group">
+                                @Html.Label("FechaFin", "Fecha de finalización:")
                                 @Html.EditorFor(o => o.FechaFin, new { htmlAttributes = new { @id = "fechaFin", @class = "form-control", @type = "date", autocomplete = "off" } })
                                 @Html.ValidationMessageFor(o => o.FechaFin, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.Label("TelefonoContacto", "Teléfono de contacto:")
                             <div class="form-group">
-                                @Html.EditorFor(o => o.TelefonoContacto, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-                                @Html.ValidationMessageFor(o => o.TelefonoContacto, "", new { @class = "text-danger" })
+                                @Html.Label("TelefonoContacto", "Teléfono de contacto:")
+                                @Html.EditorFor(o => o.TelefonoContacto, null, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                                @Html.ValidationMessageFor(o => o.TelefonoContacto, null, new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group">
@@ -47,8 +51,8 @@
                                 </select>
                             </div>
 
-                            <label>Foto: </label>
                             <div class="form-group">
+                                <label>Foto: </label>
                                 @Html.EditorFor(o => o.Foto, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
                                 @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
                             </div>
@@ -82,9 +86,23 @@
             <div class="col"></div>
         </div>
     </div>
+}
+else
+{
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col"></div>
 
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/Fecha.js"></script>
-</body>
+            <span class="alert alert-danger font-weight-bold">
+                Para poder crear una propuesta primero debe completar su perfil
+                vaya a la pestaña mi perfil para hacerlo
+            </span>
+
+            
+
+            <div class="col"></div>
+        </div>
+    </div>
+
+}
+

@@ -1,5 +1,3 @@
-C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.csprojAssemblyReference.cache
-C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.csproj.CoreCompileInputs.cache
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\AyudandoAlProjimo.dll.config
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\AyudandoAlProjimo.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\AyudandoAlProjimo.pdb
@@ -88,6 +86,17 @@ C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.R
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.WebPages.resources.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.csprojAssemblyReference.cache
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.csproj.CoreCompileInputs.cache
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.csproj.CopyComplete
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.dll
 C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\obj\Debug\AyudandoAlProjimo.pdb
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Net.Http.Formatting.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.WebHost.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Net.Http.Formatting.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\System.Web.Http.WebHost.xml
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.Http.resources.dll
+C:\Users\Esteban\Desktop\AyudandoAlProjimo\AyudandoAlProjimo\bin\es\System.Web.Http.WebHost.resources.dll

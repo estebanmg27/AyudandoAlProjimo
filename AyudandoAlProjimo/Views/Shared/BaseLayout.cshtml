@@ -16,26 +16,29 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/Home/Index">Home</a>
             </li>
-            <li class="nav-item">
-                @Html.ActionLink("Mi perfil", "MiPerfil", "Usuario", new object { }, new { @class = "nav-link" })
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("VerMiPerfil", "Usuario")">
-                    Ver mi perfil
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Perfil
                 </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/Usuario/MiPerfil/@usuario.IdUsuario">Mi perfil</a>
+                    <a class="dropdown-item" href="/Usuario/ModificarPerfil/@usuario.IdUsuario">Modificar perfil</a>
+                </div>
             </li>
+
+         
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("MisPropuestas", "Propuestas")">
                     Mis propuestas
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("CrearPropuesta", "Propuestas")">
+                <a class="nav-link" href="/Propuestas/CrearPropuesta">
                     Crear propuesta
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="@Url.Action("About", "Home")">
                     Acerca de
                 </a>
             </li>
@@ -61,11 +64,8 @@
     </nav>
     @RenderBody()
 
-    @Scripts.Render("~/Content/js")
+    @Scripts.Render("~/Scripts/js")
     @RenderSection("scripts", required: false)
 
-    @*<footer>
-        @Html.Partial("pv_Footer")
-    </footer>*@
 </body>
 </html>

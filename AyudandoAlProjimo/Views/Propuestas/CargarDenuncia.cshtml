@@ -1,36 +1,45 @@
 ﻿@model AyudandoAlProjimo.Data.Denuncias
 @{
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "CargarDenuncia";
     AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
-
 }
 
-<div class="container">
-    <h3>Realizar una denuncia</h3>
+<div class="abs-center">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-xl-12">
+            <div class="card" style="margin-top: 50px">
+                <div class="card-body">
+                    <h3>Realizar una denuncia</h3>
 
-    <form action="/Propuestas/CargarDenuncia" method="post">
-        @Html.HiddenFor(o => o.IdPropuesta, new { @Value = ViewBag.IdPropuesta })
-        @Html.HiddenFor(o => o.IdUsuario, new { @Value = @user.IdUsuario})
+                    <form action="/Propuestas/CargarDenuncia" method="post">
+                        @Html.HiddenFor(o => o.IdPropuesta, new { @Value = ViewBag.IdPropuesta })
+                        @Html.HiddenFor(o => o.IdUsuario, new { @Value = @user.IdUsuario })
+
+                        @Html.Label("¿Cuál es el motivo?")
+                        <select name="IdMotivo" class="form-control">
+
+                            @foreach (AyudandoAlProjimo.Data.MotivoDenuncia md in (List<AyudandoAlProjimo.Data.MotivoDenuncia>)ViewBag.Motivos)
+                            {
+                                <option value="@md.IdMotivoDenuncia">@md.Descripcion</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(d => d.IdMotivo, null, new { @class = "text-danger" })
 
 
+                        <div class="form-group">
+                            @Html.Label("Comentarios", "Agregar comentarios:")
+                            @Html.TextAreaFor(d => d.Comentarios, new { @class = "form-control", @rows = 3 })
+                            @Html.ValidationMessageFor(d => d.Comentarios, null, new { @class = "text-danger" })
+                        </div>
 
-        @Html.Label("¿Cuál es el motivo?")
-        <select name="IdMotivo" class="form-control">
+                        <input class="btn btn-primary" type="submit" value="Crear" />
+                    </form>
+                </div>
+            </div>
 
-            @foreach (AyudandoAlProjimo.Data.MotivoDenuncia md in (List<AyudandoAlProjimo.Data.MotivoDenuncia>)ViewBag.Motivos)
-            {
-                <option value="@md.IdMotivoDenuncia">@md.Descripcion</option>
-            }
-        </select>
-
-
-        <div class="form-group">
-            @Html.Label("Comentarios", "Agregar comentarios:")
-            @Html.EditorFor(d => d.Comentarios, null, new { @class = "form-control" })
         </div>
-
-        <input class="btn btn-primary" type="submit" value="Crear" />
-    </form>
-
+    </div>
 </div>
 

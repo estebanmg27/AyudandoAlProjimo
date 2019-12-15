@@ -20,6 +20,6 @@ namespace AyudandoAlProjimo.Servicios
             {
                 HttpContext.Current.Session["session"] = value;
             }
-        }
+        }     
     }
 }

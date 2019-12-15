@@ -11,6 +11,7 @@ namespace AyudandoAlProjimo.Controllers
 {
     public class UsuarioController : Controller
     {
+        Entities ctx = new Entities();
 
         UsuarioServicio usuarios = new UsuarioServicio();
         PropuestaServicio propuestas = new PropuestaServicio();
@@ -38,12 +39,7 @@ namespace AyudandoAlProjimo.Controllers
             {
                 return View(u);
             }
-            else if (usuarios.MailExistente(u).Count == 1)
-            {
-                ViewBag.MotivoError= "Ya hay un usuario registrado con ese email";
-                return View("../Shared/Error");
 
-            }
             else
             {
                 usuarios.AgregarUsuario(u);
@@ -59,29 +55,32 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult AutorizarLogin(Usuarios u)
         {
-            var detalleUsuario = usuarios.Autorizar(u);
             if (!ModelState.IsValid)
             {
                 return View(u);
             }
-            if (detalleUsuario == null)
-            {
-                return Redirect("/Usuario/Login");
-            }
-            var usuario = usuarios.ObtenerUsuario(u);
-            if (usuario.Activo == false)
-            {
-                ViewBag.MotivoError = "Activa tu cuenta en la casilla de mail";
-                return View("../Shared/Error");
-            }
             else
             {
-                //Session["IdUsuario"] = detalleUsuario.IdUsuario;
-                SesionServicio.UsuarioSesion = detalleUsuario;
-                return RedirectToAction("Index", "Home");
-            }
-        }
+                var detalleUsuario = usuarios.Autorizar(u);
 
+                if (detalleUsuario != null)
+                {
+                    if (!detalleUsuario.Activo)
+                    {
+                        ViewBag.MotivoError = "Activa tu cuenta en la casilla de mail";
+                        return View("../Shared/Error");
+                    }
+
+                    SesionServicio.UsuarioSesion = detalleUsuario;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewData["Error"] = "Usuario o contraseña incorrecto";
+                    return View("Login");
+                }
+            }        
+        }
 
         public ActionResult Logout()
         {
@@ -94,25 +93,11 @@ namespace AyudandoAlProjimo.Controllers
             return View();
         }
 
-        public ActionResult MiPerfil()
+        public ActionResult MiPerfil(int id)
         {
-
-            Usuarios u = SesionServicio.UsuarioSesion;
+            Usuarios u = usuarios.BuscarUsuarioPorId(id);
             return View(u);
-        }
-
-        public ActionResult VerMiPerfil()
-        {
-            Usuarios u = SesionServicio.UsuarioSesion;
-
-            if (SesionServicio.UsuarioSesion != null)
-            {
-                return View(u);
-            }
-            else
-            {
-                return View("Inicio");
-            }
+            
         }
 
         [HttpPost]
@@ -123,8 +108,37 @@ namespace AyudandoAlProjimo.Controllers
                 return View(user);
             }
 
-             usuarios.ModificarPerfil(user);
-             return RedirectToAction("Index", "Home");    
+            usuarios.ModificarPerfil(user);
+            Usuarios usuario = usuarios.BuscarUsuarioPorId(user.IdUsuario);
+            SesionServicio.UsuarioSesion = usuario;
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ModificarPerfil()
+        {
+
+            Usuarios u = SesionServicio.UsuarioSesion;
+            return View(u);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPerfil(Usuarios user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            usuarios.EditarPerfil(user);
+            Usuarios usuario = usuarios.BuscarUsuarioPorId(user.IdUsuario);
+            SesionServicio.UsuarioSesion = usuario;
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult IniciarSesion()
+        {
+            return View();
         }
     }
 }

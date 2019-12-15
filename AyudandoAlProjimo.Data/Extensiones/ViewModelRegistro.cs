@@ -8,9 +8,12 @@ using AyudandoAlProjimo.Data;
 
 namespace AyudandoAlProjimo.Data.Extensiones
 {
+    [MetadataType(typeof(UsuariosMetadata))]
     public class ViewModelRegistro
     {
+
         [Required(ErrorMessage = "El Email es obligatorio")]
+        [CustomValidation(typeof(UsuariosMetadata), "ValidarEmailUnico")]
         [MaxLength(50, ErrorMessage = "50 caracteres como Maximo")]
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
@@ -19,8 +22,7 @@ namespace AyudandoAlProjimo.Data.Extensiones
 
         [MaxLength(20, ErrorMessage = "20 caracteres como Maximo")]
         [Required(ErrorMessage = "La contraseña es obligatoria")]
-        [RegularExpression(@"^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$",
-        ErrorMessage = "La contraseña debe tener como mínimo una mayúscula, un número y 8 caracteres")]
+        [RegularExpression(@"^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "La contraseñaa debe poseer como mínimo una mayúscula y un número")]
         [Compare(("Password2"), ErrorMessage = "Las contraseñas deben ser iguales")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -30,7 +32,7 @@ namespace AyudandoAlProjimo.Data.Extensiones
 
         [Required(ErrorMessage = "La Fecha de Nacimiento es obligatoria")]
         [DataType(DataType.Date)]
-        [EdadMinima(18)]
+        [CustomValidation(typeof(UsuariosMetadata), "ValidarMayoriaEdad")]
         public System.DateTime FechaNacimiento { get; set; }
 
         [MaxLength(30, ErrorMessage = "30 caracteres como máximo")]
@@ -43,35 +45,35 @@ namespace AyudandoAlProjimo.Data.Extensiones
         public string Foto { get; set; }
 
     }
-
-    public class EdadMinima : ValidationAttribute
-    {
-        private int LimiteEdad;
-
-        public EdadMinima(int LimiteEdad)
-        {
-            this.LimiteEdad = LimiteEdad;
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-
-            DateTime bday = DateTime.Parse(value.ToString());
-            DateTime today = DateTime.Today;
-            int age = today.Year - bday.Year;
-
-            if (bday > today.AddYears(-age))
-            {
-                age--;
-            }
-
-            if (age < LimiteEdad)
-            {
-                var result = new ValidationResult("Solo se permite registrarse a personas mayores a 18 años");
-                return result;
-            }
-            return null;
-        }
-    }
 }
+
+//    public class EdadMinima : ValidationAttribute
+//    {
+//        private int LimiteEdad;
+
+//        public EdadMinima(int LimiteEdad)
+//        {
+//            this.LimiteEdad = LimiteEdad;
+//        }
+
+//        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+//        {
+//            DateTime bday = DateTime.Parse(value.ToString());
+//            DateTime today = DateTime.Today;
+//            int age = today.Year - bday.Year;
+
+//            if (bday > today.AddYears(-age))
+//            {
+//                age--;
+//            }
+
+//            if (age < LimiteEdad)
+//            {
+//                var result = new ValidationResult("Solo se permite registrarse a personas mayores a 18 años");
+//                return result;
+//            }
+//            return null;
+//        }
+//    }
+//}
 

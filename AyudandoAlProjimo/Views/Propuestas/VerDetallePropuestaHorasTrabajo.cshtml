@@ -1,24 +1,33 @@
 ﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesHorasTrabajo
 
 @{
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
+
     ViewBag.TotalDeHorasCubiertas = Model.DonacionesHorasTrabajo.Where(o => o.IdPropuestaDonacionHorasTrabajo == Model.IdPropuestaDonacionHorasTrabajo).Sum(o => o.Cantidad);
-
-    if ((Model.CantidadHoras - ViewBag.TotalDeHoras) < 0)
-    {
-        ViewBag.HorasRestantes = 0;
-    }
-    else
-    {
-        ViewBag.HorasRestantes = Model.CantidadHoras - ViewBag.CantidadDeHorasCubiertas;
-    }
-
-
+    ViewBag.HorasRestantes = (0 > (Model.CantidadHoras - ViewBag.HorasCubiertas)) ? 0 : Model.CantidadHoras - ViewBag.HorasCubiertas;
 }
 
-    Profesion: @Model.Profesion
-    <br />
+<h5>Profesion: @Model.Profesion</h5>
 
-    <p>Cantidad de horas a cubrir: @Model.CantidadHoras</p>
-    <p>Cantidad de horas cubiertas: @ViewBag.TotaldeHorasCubiertas</p>
-    <p>Cantidad de horas por cubrir: @ViewBag.HorasRestantes</p>
-    <p>El porcentaje de aceptación:  @Model.Propuestas.Valoracion %</p>
+<span class="font-weight-bold">Total de horas a cubir @Model.CantidadHoras</span>
+<span class="font-weight-bold">Horas cubiertas @ViewBag.TotalDeHorasCubiertas horas</span>
+
+@*<span class="font-weight-bold">
+        Porcentaje de aceptación @Model.Propuestas.Valoracion%
+    </span>*@
+
+@if (Model.Estado == 0 && Model.IdUsuarioCreador != user.IdUsuario && ViewBag.TotalDeHorasCubiertas < Model.CantidadHoras)
+{
+    <div class="container"><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+}
+
+else
+{
+    <span class="font-weight-bold">
+        No puede realizar donaciones a esta publicación
+    </span>
+}
+
+
+
+

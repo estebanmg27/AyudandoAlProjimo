@@ -1,11 +1,17 @@
-﻿@model List<AyudandoAlProjimo.Data.PropuestasDonacionesInsumos>
+﻿@model AyudandoAlProjimo.Data.PropuestasDonacionesInsumos
+@using AyudandoAlProjimo.Data
 
-<br />
-Insumos que se necesitan:
-<br />
+@{
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
+    int Donado = Model.DonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == Model.IdPropuestaDonacionInsumo).Sum(x => x.Cantidad);
+    int Restante = Model.Cantidad - Donado;
+}
 
+<span class="font-weight-bold">
+    Insumos que se necesitan:
+</span>
 
-@foreach (var i in Model)
+@foreach (PropuestasDonacionesInsumos i in Model.Propuestas.PropuestasDonacionesInsumos)
 {
     int InsumosDonados = i.DonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).Sum(x => x.Cantidad);
     int InsumosRestantes;
@@ -29,11 +35,31 @@ Insumos que se necesitan:
         mensaje = "Faltan aun la cantidad de " + InsumosRestantes + " insumos para completar la donación";
     }
 
-    <div>@i.Cantidad insumos para la propuesta @i.Nombre</div>
-    <div>@mensaje</div>
-
-    <p>Porcentaje de aceptación: @i.Propuestas.Valoracion %</p>
-
+    <span class="font-weight-bold">
+        @i.Cantidad @i.Nombre
+    </span>
+    <span class="font-weight-bold">
+        @mensaje
+    </span>
 }
+
+@if (Model.Estado == 0 && Model.Propuestas.IdUsuarioCreador != user.IdUsuario && Restante > 0)
+{
+    <div class="container"><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+}
+
+else
+{
+    <span class="font-weight-bold">
+        No puede realizar donaciones a esta publicación
+    </span>
+}
+
+
+
+
+
+
+
 
 

@@ -1,0 +1,41 @@
+﻿@model AyudandoAlProjimo.Data.Propuestas
+
+@{
+    ViewBag.Title = "RealizarDonacionDeHorasDeTrabajo";
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
+
+}
+
+<div class="abs-center">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-12">
+            <div class="card" style="margin-top: 50px">
+                <div class="card-body">
+                    <h3 class="card-title">Realizar donación a la propuesta</h3>
+                    <h3 class="card-tittle"><strong>@Model.Nombre</strong></h3>
+
+                    <form action="/Propuestas/RealizarDonacionDeHorasDeTrabajo" method="post">
+
+                        <input type="hidden" name="IdPropuestaDonacionHorasTrabajo" value="@Model.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo" />
+                        <input type="hidden" name="IdUsuario" value="@ViewBag.IdDonante" />
+
+                        <div class="form-group">
+                            @Html.Label("Cantidad", "Horas a donar:")
+                            @Html.TextBox("Cantidad", 1, new { @class = "form-control", @type = "number", @min = "1", @max = "999999" })
+                        </div>
+
+                        <input type="submit" class="btn btn-primary" value="Realizar donacion"/>
+                    </form>
+
+
+                      
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+

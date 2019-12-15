@@ -5,13 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AyudandoAlProjimo.Data.Extensiones
+namespace AyudandoAlProjimo.Data
 {
-    public class DonacionesInsumos
+    [MetadataType(typeof(DonacionesInsumosMetadata))]
+    public partial class DonacionesInsumos
     {
-        [Required(ErrorMessage = "El campo es obligatorio")]
-        public string Insumo { get; set; }
-        [Required(ErrorMessage = "El campo es obligatorio")]
-        public int Cantidad { get; set; }
     }
 }

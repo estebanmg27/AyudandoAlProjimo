@@ -104,6 +104,13 @@ namespace AyudandoAlProjimo.Servicios
             ctx.SaveChanges();
         }
 
+        public void EditarPerfil(Usuarios u)
+        {
+            var usuario = BuscarUsuarioPorId(u.IdUsuario);
+            usuario.Foto = u.Foto;
+            ctx.SaveChanges();
+        }
+
         public Usuarios BuscarUsuarioPorId(int id)
         {
             return ctx.Usuarios.Find(id);
