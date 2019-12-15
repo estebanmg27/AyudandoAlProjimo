@@ -55,28 +55,32 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult AutorizarLogin(Usuarios u)
         {
-            var detalleUsuario = usuarios.Autorizar(u);
             if (!ModelState.IsValid)
             {
-                return View("Login", u);
-            }
-            if (detalleUsuario == null)
-            {
-                return Redirect("/Usuario/Login");
-            }
-            var usuario = usuarios.ObtenerUsuario(u);
-            if (usuario.Activo == false)
-            {
-                ViewBag.MotivoError = "Activa tu cuenta en la casilla de mail";
-                return View("../Shared/Error");
+                return View(u);
             }
             else
             {
-                SesionServicio.UsuarioSesion = detalleUsuario;
-                return RedirectToAction("Index", "Home");
-            }
-        }
+                var detalleUsuario = usuarios.Autorizar(u);
 
+                if (detalleUsuario != null)
+                {
+                    if (!detalleUsuario.Activo)
+                    {
+                        ViewBag.MotivoError = "Activa tu cuenta en la casilla de mail";
+                        return View("../Shared/Error");
+                    }
+
+                    SesionServicio.UsuarioSesion = detalleUsuario;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewData["Error"] = "Usuario o contraseña incorrecto";
+                    return View("Login");
+                }
+            }        
+        }
 
         public ActionResult Logout()
         {

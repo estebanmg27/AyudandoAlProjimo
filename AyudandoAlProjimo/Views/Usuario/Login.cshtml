@@ -10,6 +10,14 @@
     <title>Login</title>
 </head>
 <body>
+
+    @if (ViewData["Error"] != null)
+    {
+        <br />
+        <div class="alert alert-danger centermsg" role="alert">
+            @ViewData["Error"]
+        </div>
+    }
     <div class="container">
         <div class="row">
             <div class="col"></div>
@@ -27,13 +35,13 @@
                             </div>
 
                             @Html.Label("Password", "Contraseña:")
-                        <div class="form-group">
-                            @Html.EditorFor(o => o.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
-                            <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
-                            @Html.ValidationMessage("incorrecto", new { @class = "label label-danger" })
-                            @Html.ValidationMessage("inactivo", new { @class = "label label-danger" })
+                            <div class="form-group">
+                                @Html.EditorFor(o => o.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                                <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
+                                @Html.ValidationMessage("incorrecto", new { @class = "label label-danger" })
+                                @Html.ValidationMessage("inactivo", new { @class = "label label-danger" })
 
-                        </div>
+                            </div>
 
                             <div class="checkbox mb-3">
                                 <label>
