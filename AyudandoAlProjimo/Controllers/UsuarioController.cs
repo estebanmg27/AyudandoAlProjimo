@@ -89,17 +89,11 @@ namespace AyudandoAlProjimo.Controllers
             return View();
         }
 
-        public ActionResult MiPerfil()
+        public ActionResult MiPerfil(int id)
         {
-            Usuarios u = SesionServicio.UsuarioSesion;
-            return View(u);
-        }
-
-        public ActionResult VerMiPerfil(int id)
-        {
-
             Usuarios u = usuarios.BuscarUsuarioPorId(id);
-            return View("VerMiPerfil", u);  
+            return View(u);
+            
         }
 
         [HttpPost]
@@ -111,6 +105,9 @@ namespace AyudandoAlProjimo.Controllers
             }
 
             usuarios.ModificarPerfil(user);
+            Usuarios usuario = usuarios.BuscarUsuarioPorId(user.IdUsuario);
+            SesionServicio.UsuarioSesion = usuario;
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -130,6 +127,8 @@ namespace AyudandoAlProjimo.Controllers
             }
 
             usuarios.EditarPerfil(user);
+            Usuarios usuario = usuarios.BuscarUsuarioPorId(user.IdUsuario);
+            SesionServicio.UsuarioSesion = usuario;
             return RedirectToAction("Index", "Home");
         }
 

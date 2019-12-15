@@ -45,7 +45,6 @@ namespace AyudandoAlProjimo
                     "~/Scripts/donar.js",
                     "~/Scripts/donacion-insumos.js"
                     ));
-
         }
     }
 }

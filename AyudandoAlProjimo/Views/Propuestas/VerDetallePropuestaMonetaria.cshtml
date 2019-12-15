@@ -15,27 +15,27 @@
     }
 }
 
-        <span class="font-weight-bold">
-            La cantidad de dinero juntado es de: @ViewBag.DineroJuntado
-        </span>
+<span class="font-weight-bold">
+    La cantidad de dinero juntado es de: @ViewBag.DineroJuntado
+</span>
 
-        <span class="font-weight-bold">
-            De un total de $@Model.Dinero que se necesitan
-        </span>
+<span class="font-weight-bold">
+    De un total de $@Model.Dinero que se necesitan
+</span>
 
-        <span class="font-weight-bold">
-            Restan por juntar $@ViewBag.RestaPorJuntar
-        </span>
+<span class="font-weight-bold">
+    Restan por juntar $@ViewBag.RestaPorJuntar
+</span>
 
-        @if (Model.Estado == 0 && Model.IdUsuarioCreador != user.IdUsuario && ViewBag.RestaPorJuntar > 0)
-        {
-            <div class="container"><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
-        }
+@if (Model.Estado == 0 && Model.Propuestas.IdUsuarioCreador != user.IdUsuario && ViewBag.RestaPorJuntar > 0)
+{
+    <div class="container"><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+}
 
-        else
-        {
-            <span class="font-weight-bold">
-                No puede realizar donaciones a esta publicación
-            </span>
-        }
- 
+else
+{
+    <span class="font-weight-bold">
+        No puede realizar donaciones a esta publicación
+    </span>
+}
+

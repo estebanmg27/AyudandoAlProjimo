@@ -6,82 +6,103 @@
     AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 
 }
-<div class="container">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <div class="card" style="margin-top: 50px">
-                <div class="card-body">
 
-                    <form action="/Propuestas/CrearPropuesta" method="post">
+@if (user.UserName != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card" style="margin-top: 50px">
+                    <div class="card-body">
+                        <form action="/Propuestas/CrearPropuesta" method="post">
 
-                        <h5 class="card-title">Crear propuesta</h5>
-                        <div class="form-group">
-                            @Html.Label("Nombre", "Nombre de la propuesta:")
-                            @Html.EditorFor(o => o.Nombre, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-                            @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Descripcion", "Descripción de la propuesta:")
-                            @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control", @rows = 3, @id = "descripcionPropuesta" })
-                            @Html.ValidationMessageFor(o => o.Descripcion, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("FechaFin", "Fecha de finalización:")
-                            @Html.EditorFor(o => o.FechaFin, new { htmlAttributes = new { @id = "fechaFin", @class = "form-control", @type = "date", autocomplete = "off" } })
-                            @Html.ValidationMessageFor(o => o.FechaFin, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("TelefonoContacto", "Teléfono de contacto:")
-                            @Html.EditorFor(o => o.TelefonoContacto, null, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-                            @Html.ValidationMessageFor(o => o.TelefonoContacto, null, new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("TipoDonacion", "Tipo de donación:")
-                            <select class="form-control" id="TipoDonacion" name="TipoDonacion">
-                                <option value="1">Donación monetaria</option>
-                                <option value="2">Donación de insumos</option>
-                                <option value="3">Donación de horas de trabajo</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Foto: </label>
-                            @Html.EditorFor(o => o.Foto, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
-                            @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                @Html.Label("nombre1", "Nombre ref. 1:")
-                                @Html.TextBox("nombre1", null, new { @class = "form-control" })
+                            <h5 class="card-title">Crear propuesta</h5>
+                            <div class="form-group">
+                                @Html.Label("Nombre", "Nombre de la propuesta:")
+                                @Html.EditorFor(o => o.Nombre, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                                @Html.ValidationMessageFor(o => o.Nombre, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group col-md-6">
-                                @Html.Label("telefono1", "Teléfono ref. 1:")
-                                @Html.TextBox("telefono1", null, new { @class = "form-control" })
-                            </div>
-                        </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                @Html.Label("nombre2", "Nombre ref. 2:")
-                                @Html.TextBox("nombre2", null, new { @class = "form-control" })
+                            <div class="form-group">
+                                @Html.Label("Descripcion", "Descripción de la propuesta:")
+                                @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control", @rows = 3 })
+                                @Html.ValidationMessageFor(o => o.Descripcion, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group col-md-6">
-                                @Html.Label("telefono2", "Teléfono ref. 2:")
-                                @Html.TextBox("telefono2", null, new { @class = "form-control" })
+
+                            <div class="form-group">
+                                @Html.Label("FechaFin", "Fecha de finalización:")
+                                @Html.EditorFor(o => o.FechaFin, new { htmlAttributes = new { @id = "fechaFin", @class = "form-control", @type = "date", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(o => o.FechaFin, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Crear</button>
-                    </form>                                       
+
+                            <div class="form-group">
+                                @Html.Label("TelefonoContacto", "Teléfono de contacto:")
+                                @Html.EditorFor(o => o.TelefonoContacto, null, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                                @Html.ValidationMessageFor(o => o.TelefonoContacto, null, new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("TipoDonacion", "Tipo de donación:")
+                                <select class="form-control" id="TipoDonacion" name="TipoDonacion">
+                                    <option value="1">Donación monetaria</option>
+                                    <option value="2">Donación de insumos</option>
+                                    <option value="3">Donación de horas de trabajo</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Foto: </label>
+                                @Html.EditorFor(o => o.Foto, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                                @Html.ValidationMessageFor(o => o.Foto, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    @Html.Label("nombre1", "Nombre ref. 1:")
+                                    @Html.TextBox("nombre1", null, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    @Html.Label("telefono1", "Teléfono ref. 1:")
+                                    @Html.TextBox("telefono1", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    @Html.Label("nombre2", "Nombre ref. 2:")
+                                    @Html.TextBox("nombre2", null, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    @Html.Label("telefono2", "Teléfono ref. 2:")
+                                    @Html.TextBox("telefono2", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Crear</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <div class="col"></div>
         </div>
-        <div class="col"></div>
     </div>
-</div>
+}
+else
+{
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col"></div>
+
+            <span class="alert alert-danger font-weight-bold">
+                Para poder crear una propuesta primero debe completar su perfil
+                vaya a la pestaña mi perfil para hacerlo
+            </span>
+
+            
+
+            <div class="col"></div>
+        </div>
+    </div>
+
+}
 

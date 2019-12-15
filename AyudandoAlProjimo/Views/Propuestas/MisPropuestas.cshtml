@@ -4,13 +4,14 @@
     ViewBag.Title = "MisPropuestas";
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     var hoy = DateTime.Today;
+    ViewBag.Default = "https://www.loottis.com/wp-content/uploads/2014/10/default-img.gif";
 
 }
 
 <div class="container mt-4">
     @if (ViewBag.propuestasCreadas >= 3)
     {
-        <span class="warning">No puedes poseer mas de tres propuestas activas</span>                    
+        <span class="warning">No puedes poseer mas de tres propuestas activas</span>
     }
 </div>
 
@@ -21,34 +22,38 @@
 }
 else
 {
+    <div class="container text-center">
+        <h3><span class="font-weight-bold">Usted tiene las siguientes propuestas activas</span></h3>
+    </div>
     <div class="container mt-5">
-
         <div class="row">
             @foreach (var p in Model)
             {
-                <div class="col-md-4">
-                    <div class="card p-4">
-                        <img src="~/Imagenes/@p.Foto" class="img-thumbnail" alt="" style="width:300px;height:200px;" />
-                        <div><span class="mr-3">Creada por:</span> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
-                        <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
-                        <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
-                        <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>
-                        <a class="btn btn-dark" href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a>
+                if (p.Estado == 0)
+                {
+                    <div class="col-md-4">
+                        <div class="card p-4">
+                            @*<img src="~/Imagenes/@p.Foto" class="img-thumbnail" alt="@p.Nombre" style="width:300px;height:200px;" onerror="this.src='@ViewBag.Default'" />*@
+                            <img src="@Url.Content($"p.Foto}")" width="300" height="200" onerror="this.src='@ViewBag.Default'">
+                            <div><spaatn class="mr-3">Creada por:</spaatn> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
+                            <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
+                            <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
+                            <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>
+                            <a class="btn btn-dark" href="/Propuestas/VerDetallePropuesta/@p.IdPropuesta">Detalle</a>
 
-                        @if (@p.FechaFin > @hoy)
-                        {
-                            <a class="boton" href="/Propuestas/ModificarPropuesta/@p.IdPropuesta">Modificar</a>
-                        }
-                        else
-                        {
-                            <button class="boton" disabled="disabled">Modificar</button>
-                        }
+                            @if (@p.FechaFin > @hoy)
+                            {
+                                <a class="boton" href="/Propuestas/ModificarPropuesta/@p.IdPropuesta">Modificar</a>
+                            }
+                            else
+                            {
+                                <button class="boton" disabled="disabled">Modificar</button>
+                            }
 
+                        </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </div>
 }
-
-

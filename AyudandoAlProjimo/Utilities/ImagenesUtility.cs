@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace AyudandoAlProjimo.Utilities
 {
@@ -16,18 +16,18 @@ namespace AyudandoAlProjimo.Utilities
 
             //ejemplo: /Media/Imagenes/
             //la carpeta (con path relativo) donde se guardan las imagenes se obtiene del web.config
-            string carpetaImagenes = System.Configuration.ConfigurationManager.AppSettings["CarpetaImagenes"];
+            string Imagenes = System.Configuration.ConfigurationManager.AppSettings["Imagenes"];
 
-            if (string.IsNullOrEmpty(carpetaImagenes))
+            if (string.IsNullOrEmpty(Imagenes))
             {
                 throw new Exception("En el archivo web.config debe agregar dentro de <appSettings> el elemento <add key=\"CarpetaImagenes\" value=\"/Imagenes/\" />");
             }
 
             //garantizamos que no importa si el valor en el web.config empieza/termina con /, nosotros le ponemos que empiece y termine con /
-            carpetaImagenes = string.Format("/{0}/", carpetaImagenes.TrimStart('/').TrimEnd('/'));
+            Imagenes = string.Format("/{0}/", Imagenes.TrimStart('/').TrimEnd('/'));
 
             //Server.MapPath antepone a un string la ruta fisica donde actualmente esta corriendo la aplicacion (ej. c:\inetpub\misitio\)
-            string pathDestino = System.Web.Hosting.HostingEnvironment.MapPath("~") + carpetaImagenes;
+            string pathDestino = System.Web.Hosting.HostingEnvironment.MapPath("~") + Imagenes;
 
             //si no exise la carpeta, la creamos
             if (!System.IO.Directory.Exists(pathDestino))
@@ -42,7 +42,7 @@ namespace AyudandoAlProjimo.Utilities
             archivoSubido.SaveAs(string.Concat(pathDestino, nombreArchivoFinal));
 
             //retornamos el path relativo desde la raiz del sitio
-            return string.Concat(carpetaImagenes, nombreArchivoFinal);
+            return string.Concat(Imagenes, nombreArchivoFinal);
         }
 
         private static string GenerarNombreUnico(string nombreSignificativo)

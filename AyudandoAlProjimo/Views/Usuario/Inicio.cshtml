@@ -1,6 +1,9 @@
 ﻿@model List<AyudandoAlProjimo.Data.Propuestas>
 
-@{ }
+@{
+    ViewBag.Default = "https://www.loottis.com/wp-content/uploads/2014/10/default-img.gif";
+
+}
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,21 +21,24 @@
             <div class="row">
                 @foreach (var p in Model)
                 {
-                    <div class="col-md-4">
-                        <div class="card p-4">
-                            <img src="~/Imagenes/@p.Foto" class="img-thumbnail" alt="" style="width:300px;height:200px;" />
-                            <div><span class="mr-3">Creada por:</span> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
-                            <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
-                            <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
-                            <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>
-                            <a class="btn btn-dark" href="/Usuario/IniciarSesion">Detalle</a>
+                    if (p.Estado == 0)
+                    {
+                        <div class="col-md-4">
+                            <div class="card p-4">
+                                <img src=~/Imagenes/@p.Foto class="img-thumbnail" alt="@p.Nombre" style="width:300px;height:200px;" onerror="this.src='@ViewBag.Default'" />
+                                <div><span class="mr-3">Creada por:</span> @p.Usuarios.Nombre @p.Usuarios.Apellido</div>
+                                <div><span class="mr-3">Usuario:</span>@p.Usuarios.UserName</div>
+                                <div><span class="mr-3">Fecha de finalización:</span>@p.FechaFin.ToString("dd/MM/yyyy")</div>
+                                <div><span class="mr-3">Aceptación:</span>@p.Valoracion%</div>
+                                <a class="btn btn-dark" href="/Usuario/IniciarSesion">Detalle</a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>
     </div>
-    
+
     @Scripts.Render("~/bundles/js")
 </body>
 </html>

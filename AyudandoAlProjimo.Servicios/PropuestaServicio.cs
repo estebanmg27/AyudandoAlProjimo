@@ -75,9 +75,9 @@ namespace AyudandoAlProjimo.Servicios
 
         }
 
-        public  int TotalPropuestasActivas()
+        public  int TotalPropuestasActivas(int id)
         {
-            return ctx.Propuestas.Count(x => x.Estado == 0 && x.IdUsuarioCreador == SesionServicio.UsuarioSesion.IdUsuario);
+            return ctx.Propuestas.Where(x => x.Estado == 0 && x.IdUsuarioCreador == id).Count();
         }
 
         public void AgregarDonacionMonetaria(DonacionesMonetarias dm)
@@ -371,6 +371,7 @@ namespace AyudandoAlProjimo.Servicios
             foreach (var i in listaInsumos)
             {
                 PropuestasDonacionesInsumos insumo = propuesta.PropuestasDonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == i.IdPropuestaDonacionInsumo).FirstOrDefault();
+
 
                 if (insumo != null)
                 {

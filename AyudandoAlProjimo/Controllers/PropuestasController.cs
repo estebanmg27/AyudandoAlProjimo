@@ -19,19 +19,17 @@ namespace AyudandoAlProjimo.Controllers
         // GET: Propuestas
         public ActionResult CrearPropuesta()
         {
-            if (propuestas.TotalPropuestasActivas() == 3)
-            {
-                return RedirectToAction("MisPropuestas", "Propuestas");
-            }
-            if (SesionServicio.UsuarioSesion.UserName == null)
-            {
-                TempData["SinPerfil"] = "Para crear una propuesta primero es necesario que completes tu perfil";
-                return Redirect("/Usuario/MiPerfil");
-            }
-            else
+            int idUser = SesionServicio.UsuarioSesion.IdUsuario;
+
+            if (propuestas.TotalPropuestasActivas(idUser) < 3)
             {
                 return View();
             }
+            else
+            {
+                return RedirectToAction("MisPropuestas", "Propuestas");
+            }
+
         }
 
 
@@ -186,7 +184,7 @@ namespace AyudandoAlProjimo.Controllers
             ViewBag.IdDonante = user.IdUsuario;
 
             if (user != null && user.IdUsuario != p.IdUsuarioCreador)
-            { 
+            {
                 switch (p.TipoDonacion)
                 {
                     case 1:
@@ -206,6 +204,7 @@ namespace AyudandoAlProjimo.Controllers
         [HttpPost]
         public ActionResult RealizarDonacionMonetaria(DonacionesMonetarias dm)
         {
+
             if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
             {
                 string nombresignificativo = dm.ArchivoTransferencia + DateTime.Now.ToString();
@@ -213,8 +212,10 @@ namespace AyudandoAlProjimo.Controllers
                 dm.ArchivoTransferencia = pathRelativoImagen;
             }
 
+
             propuestas.AgregarDonacionMonetaria(dm);
             return Redirect("/Home/Index");
+
         }
 
         [HttpPost]
@@ -350,8 +351,7 @@ namespace AyudandoAlProjimo.Controllers
             int IdPropuesta = int.Parse(form["idPropuesta"]);
             int TipoDonacion = int.Parse(form["TipoDonacion"]);
 
-            Propuestas pv =propuestas.ObtenerPropuestaPorId(IdPropuesta);
-
+            Propuestas pv = propuestas.ObtenerPropuestaPorId(IdPropuesta);
 
             if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
             {
@@ -362,7 +362,7 @@ namespace AyudandoAlProjimo.Controllers
 
             switch (TipoDonacion)
             {
-                case 1: 
+                case 1:
                     PropuestasDonacionesMonetarias pmv = pv.PropuestasDonacionesMonetarias.FirstOrDefault();
 
                     pmv.Nombre = form["Nombre"];
@@ -403,7 +403,7 @@ namespace AyudandoAlProjimo.Controllers
                     propuestas.Modificar(pv, ListaInsumos);
                     break;
 
-                case 3: 
+                case 3:
                     PropuestasDonacionesHorasTrabajo pht = pv.PropuestasDonacionesHorasTrabajo.FirstOrDefault();
 
                     pht.Nombre = form["Nombre"];

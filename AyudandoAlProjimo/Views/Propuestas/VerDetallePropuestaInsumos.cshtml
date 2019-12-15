@@ -3,6 +3,8 @@
 
 @{
     AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
+    int Donado = Model.DonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == Model.IdPropuestaDonacionInsumo).Sum(x => x.Cantidad);
+    int Restante = Model.Cantidad - Donado;
 }
 
 <span class="font-weight-bold">
@@ -40,6 +42,19 @@
         @mensaje
     </span>
 }
+
+@if (Model.Estado == 0 && Model.Propuestas.IdUsuarioCreador != user.IdUsuario && Restante > 0)
+{
+    <div class="container"><a class="btn btn-block btn btn-success mt-3" href="/Propuestas/RealizarDonacion/@Model.IdPropuesta">Realizar donación</a></div>
+}
+
+else
+{
+    <span class="font-weight-bold">
+        No puede realizar donaciones a esta publicación
+    </span>
+}
+
 
 
 

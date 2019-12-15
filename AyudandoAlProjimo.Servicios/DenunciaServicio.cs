@@ -67,7 +67,7 @@ namespace AyudandoAlProjimo.Servicios
                                      select d).ToList();
             foreach (var o in lista)
             {
-                o.Estado = 1;
+                o.Estado = 0;
             }
             ctx.SaveChanges();
         }

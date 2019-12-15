@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     ViewBag.Title = "MiPerfil";
     ViewBag.FechaNacimiento = Model.FechaNacimiento.ToString("yyyy-MM-dd");
+    AyudandoAlProjimo.Data.Usuarios user = (AyudandoAlProjimo.Data.Usuarios)Session["Session"];
 }
 
 @model AyudandoAlProjimo.Data.Usuarios
@@ -13,12 +14,8 @@
 </head>
 <body>
 
-    @if (TempData["SinPerfil"] != null)
+    @if (user.UserName == null)
     {
-        <div class="alert alert-danger">
-            <strong>Importante!</strong> @TempData["SinPerfil"]
-        </div>
-    
         <div class="container mt-2">
             <div class="row">
                 <div class="col"></div>
@@ -27,10 +24,8 @@
                         <div class="card-body">
                             <form action="/Usuario/MiPerfil" method="post">
 
-                                <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
-
                                 <h1 class="card-title">Editar mi perfil</h1>
-                                @*<div class="form-control">*@
+                                <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
 
                                 <div class="form-group">
                                     @Html.LabelFor(o => o.Nombre)
@@ -47,8 +42,6 @@
                                 <div class="form-group">
                                     @Html.LabelFor(o => o.FechaNacimiento)
                                     <input type="date" name="FechaNacimiento" value="@ViewBag.FechaNacimiento" class="form-control" />
-                                    @*@Html.TextBox(ViewBag.Fecha, new { htmlAttributes = new { id = "inputFechaNacimiento", name = "fechaNacimiento", @class = "form-control", required = "required", type = "text", autocomplete = "off", value = $"{Model.FechaNacimiento:dd/MM/yyyy}" } })
-                                        <br />*@
                                 </div>
 
                                 <div class="form-group">
@@ -59,7 +52,7 @@
                                 </div>
 
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
-                                @*</div>*@
+
                             </form>
                         </div>
 
@@ -71,25 +64,36 @@
     }
     else
     {
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-5">
-                    <div class="card">
-                        <div class="card-body">
+        <div class="container">
+            <div class="abs-center">
+                <h2 class="text-white text-center">Mi Perfil</h2>
 
-
-                            <a class="btn btn-lg btn-dark btn-block" href="/Usuario/VerMiPerfil/@Model.IdUsuario">Ver mi perfil</a>
-                            <a class="btn btn-lg btn-dark btn-block" href="/Usuario/ModificarPerfil/@Model.IdUsuario">Modificar perfil</a>
-
+                <div class="col-md-6 align-items-center justify-content-center bg-white p-4 mt-4 rounded shadow">
+                    <img src="~/Imagenes/@Model.Foto" class="rounded-circle" alt="" style="width:150px;height:150px;" />
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Nombre de usuario</p>
+                            <strong class="strong-usuario-info">@Model.UserName</strong>
                         </div>
-
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Nombre y apellido</p>
+                            <strong class="strong-usuario-info">@Model.Nombre @Model.Apellido</strong>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Fecha de nacimiento</p>
+                            <strong class="strong-usuario-info">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</strong>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <p class="usuario-label">Email</p>
+                            <strong class="strong-usuario-info">@Model.Email</strong>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <a href="/Donaciones/MiHistorialDonaciones" type="button" class="btn btn-success">Historial de Donaciones</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col"></div>
             </div>
         </div>
-
     }
 </body>
 </html>
