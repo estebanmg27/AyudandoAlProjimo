@@ -95,6 +95,13 @@ namespace AyudandoAlProjimo.Controllers
             p.FechaFin = System.DateTime.Parse(form["FechaFin"]);
             p.Foto = form["Foto"];
 
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
+            {    
+                string nombreSignificativo = form["Nombre"] + DateTime.Now.ToString();
+                string pathRelativoImagen = ImagenesUtility.Guardar(Request.Files[0], nombreSignificativo);
+                p.Foto = pathRelativoImagen;
+            }
+
             PropuestasReferencias ref1 = new PropuestasReferencias();
             ref1.Nombre = form["Nombre1"];
             ref1.Telefono = form["Telefono1"];
